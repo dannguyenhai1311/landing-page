@@ -15,28 +15,28 @@ const Header = () => {
             className="flex items-center justify-around navigation flex-center gap-x-10"
           >
             <ul className="flex text-xl font-light navbar gap-x-5">
-              <li>
+              <li className="hover:font-medium" >
                 <a href="#">홈</a>
               </li>
-              <li>
+              <li className="hover:font-medium" >
                 <a href="#">소개</a>
               </li>
-              <li>
+              <li className="hover:font-medium" >
                 <a href="#">소개공지사항</a>
               </li>
-              <li>
+              <li className="hover:font-medium" >
                 <a href="#">시설현황</a>
               </li>
-              <li>
+              <li className="hover:font-medium" >
                 <a href="#">콘텐츠</a>
               </li>
-              <li>
+              <li className="hover:font-medium" >
                 <a href="#">리빙랩</a>
               </li>
-              <li>
+              <li className="hover:font-medium" >
                 <a href="#">캠페인</a>
               </li>
-              <li>
+              <li className="hover:font-medium" >
                 <a href="#">자유게시판</a>
               </li>
             </ul>
