@@ -1,5 +1,5 @@
 import { useRef } from "react";
-
+import logoLogo from "./img/logo.png";
 const Header = () => {
   const buttonRef = useRef<HTMLDivElement>(null);
   const showNavbar = () => {
@@ -8,13 +8,13 @@ const Header = () => {
   return (
     <>
       <header className="container-layout max-h-[900px] -z-10 ">
-        <nav className="flex justify-between p-3 md:p-8 text-white flex-center gap-x-5 mx-[10px] md:mx-[9%] w-full">
-          <div className="text-3xl font-bold logo">깨끗한 바다 부산</div>
+        <nav className="flex justify-between p-3 md:p-8 text-white flex-center gap-x-5 mx-[10px] md:ml-[9%] md:mr-[9%-20px]  w-full">
+          <a href="#"><img src={logoLogo} className="w-[218px] h-[36px]" alt="" /></a>
           <div
             ref={buttonRef}
-            className="flex items-center justify-around navigation flex-center gap-x-10"
+            className="flex items-center justify-around navigation flex-center"
           >
-            <ul className="flex text-xl font-light navbar gap-x-5">
+            <ul className="flex text-xl font-light navbar gap-x-8">
               <li className="hover:font-medium" >
                 <a href="#">홈</a>
               </li>
@@ -74,7 +74,7 @@ const Header = () => {
             </svg>
           </button>
         </nav>
-        <div className="relative flex items-center justify-center left-auto right-auto flex-wrap top-[40%] flex-cols content-header">
+        <div className="relative flex items-center justify-center left-auto right-auto flex-wrap top-[38%] flex-cols content-header">
           <div className="absolute w-full md:w-[654px] h-[auto] flex flex-center justify-center items-start m-2">
             <div className="absolute text-3xl font-bold text-center text-white md:text-4xl">
               <span>함께 하자,</span>
