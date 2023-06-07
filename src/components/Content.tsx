@@ -55,7 +55,7 @@ const Content = () => {
                 <div>
                   <div
                     key={index}
-                    className="flex items-center justify-between mb-5"
+                    className="flex items-center justify-between mb-4"
                   >
                     <div className=" text-2xl  text-[#000000] font-bold">
                       콘텐츠
@@ -77,7 +77,7 @@ const Content = () => {
                       </svg>
                     </span>
                   </div>
-                  <ul className="list-decimal border-t-2 border-b-2 border-[#0066C1]">
+                  <ul className="list-disc border-t-2 border-b-2 border-[#0066C1]">
                     <li className="flex items-center justify-between flex-center max-w-[360px] h-[60px] hover:bg-[#F6F6F6]">
                       <a href="">콘텐츠 제목</a>
                       <span>
