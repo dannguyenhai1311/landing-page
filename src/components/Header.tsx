@@ -4,39 +4,41 @@ const Header = () => {
   const buttonRef = useRef<HTMLDivElement>(null);
   const showNavbar = () => {
     buttonRef.current?.classList.toggle("responsive-nav");
-  };
+  }
   return (
-    <>
-      <header className="container-layout max-h-[900px] -z-10 ">
-        <nav className="flex justify-between p-3 md:p-8 text-white flex-center gap-x-5 mx-[10px] md:ml-[9%] md:mr-[9%-20px]  w-full">
-          <a href="#"><img src={logoLogo} className="w-[218px] h-[36px]" alt="" /></a>
+    <div className="w-full h-full">
+      <header className="container-layout max-h-[900px] -z-10 w-full">
+        <nav className="flex justify-between p-2 pl-5 md:p-8 text-white flex-center gap-x-10  px-[10px] md:pl-[15%]  w-full">
+          <a href="#">
+            <img src={logoLogo} className="w-[218px] h-[36px]" alt="" />
+          </a>
           <div
             ref={buttonRef}
             className="flex items-center justify-around navigation flex-center"
           >
-            <ul className="flex text-xl font-light navbar gap-x-8">
-              <li className="hover:font-medium" >
+            <ul className="flex text-xl font-light navbar gap-x-5 ">
+              <li className="hover:font-medium ">
                 <a href="#">홈</a>
               </li>
-              <li className="hover:font-medium" >
+              <li className="hover:font-medium">
                 <a href="#">소개</a>
               </li>
-              <li className="hover:font-medium" >
+              <li className="hover:font-medium">
                 <a href="#">소개공지사항</a>
               </li>
-              <li className="hover:font-medium" >
+              <li className="hover:font-medium">
                 <a href="#">시설현황</a>
               </li>
-              <li className="hover:font-medium" >
+              <li className="hover:font-medium">
                 <a href="#">콘텐츠</a>
               </li>
-              <li className="hover:font-medium" >
+              <li className="hover:font-medium">
                 <a href="#">리빙랩</a>
               </li>
-              <li className="hover:font-medium" >
+              <li className="hover:font-medium">
                 <a href="#">캠페인</a>
               </li>
-              <li className="hover:font-medium" >
+              <li className="hover:font-medium">
                 <a href="#">자유게시판</a>
               </li>
             </ul>
@@ -74,7 +76,7 @@ const Header = () => {
             </svg>
           </button>
         </nav>
-        <div className="relative flex items-center justify-center left-auto right-auto flex-wrap top-[38%] flex-cols content-header">
+        <div className="relative flex items-center justify-center left-auto right-auto flex-wrap top-[39%] flex-cols content-header">
           <div className="absolute w-full md:w-[654px] h-[auto] flex flex-center justify-center items-start m-2">
             <div className="absolute text-3xl font-bold text-center text-white md:text-4xl">
               <span>함께 하자,</span>
@@ -88,7 +90,7 @@ const Header = () => {
           </div>
         </div>
       </header>
-    </>
+    </div>
   );
 };
 
