@@ -16,7 +16,7 @@ const Header = () => {
             ref={buttonRef}
             className="flex items-center justify-around navigation flex-center"
           >
-            <ul className="flex text-xl font-light navbar gap-x-5 ">
+            <ul className="flex text-xl font-light md:-mr-[40%] navbar gap-x-5">
               <li className="hover:font-medium ">
                 <a href="#">홈</a>
               </li>
