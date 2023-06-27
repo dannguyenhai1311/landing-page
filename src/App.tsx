@@ -8,10 +8,9 @@ import Facility from "./page/Facility";
 import Contents from "./page/Contents";
 import LivingLab from "./page/LivingLab";
 import Campaign from "./page/Campaign";
-import FreeBoard from "./page/FreeBoard";
 import Login from "./login/Login";
-import Register from "./register/Register";
 import RegisterPage from "./register/Register";
+import NotFound from "./page/NotFound";
 function App() {
   return (
     <div className=" max-w-[1920px] scroll-smooth">
@@ -23,6 +22,7 @@ function App() {
 
         <Route path="/" element={<BaseLayout></BaseLayout>}>
           <Route index path="/" element={<HomePage></HomePage>}></Route>
+          <Route index path="/*" element={<NotFound></NotFound>}></Route>
           <Route
             path="/introduction"
             element={<Introduction></Introduction>}
@@ -40,11 +40,6 @@ function App() {
             element={<LivingLab></LivingLab>}
           ></Route>
           <Route index path="/campaign" element={<Campaign></Campaign>}></Route>
-          <Route
-            index
-            path="/freeBoard"
-            element={<FreeBoard></FreeBoard>}
-          ></Route>
         </Route>
       </Routes>
     </div>

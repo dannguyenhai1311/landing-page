@@ -4,11 +4,13 @@ import * as yup from "yup";
 import { ChangeEvent, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch, useSelector } from "react-redux";
-import { AppThunk, RootState } from "@/app/store";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/store";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { baseURl } from "@/features/auth/api";
+import { useTranslation } from "react-i18next";
+import { REGEXP } from "@/utils/regexp";
 
 type FormData = {
   id: string;
@@ -17,29 +19,33 @@ type FormData = {
   phoneNumber: string;
   password: string;
   confirmPassword: string;
-  term: boolean;
+  term?: boolean;
 };
 const RegisterPage = () => {
+  const { t } = useTranslation();
   const validationSchema = yup.object().shape({
-    id: yup.string().required("ID is required"),
-    fullName: yup.string().required("Name is required"),
+    id: yup.string().required(t("register.required")),
+    fullName: yup
+      .string()
+      .required(t("register.required"))
+      .max(14, t("register.nameRex")),
     password: yup
       .string()
-      .required("Password is required")
-      .min(4, "Password must be at least 6 characters"),
+      .required(t("register.required"))
+      .matches(REGEXP.password, t("register.passwordRex")),
     confirmPassword: yup
       .string()
-      .oneOf([yup.ref("password")], "Passwords must match")
-      .required("Confirm Password is required"),
+      .oneOf([yup.ref("password")], t("register.confirmPassRex"))
+      .required(t("register.required")),
     email: yup
       .string()
-      .required("Email is required")
-      .email("Invalid email format"),
+      .required(t("register.required"))
+      .email(t("register.emailRex")),
     phoneNumber: yup
       .string()
-      .required("Phone Number is required")
-      .matches(/^\d+$/, "Invalid phone number"),
-    term: yup.boolean().oneOf([true], "You must agree to the terms"),
+      .required(t("register.required"))
+      .matches(REGEXP.phone, t("register.phoneRex")),
+    term: yup.boolean().oneOf([true], t("register.required")),
   });
   const navigate = useNavigate();
   const {
@@ -94,20 +100,20 @@ const RegisterPage = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex mt-6 gap-x-5">
           <div className="flex flex-col">
-            <label className="p-2">아이디</label>
+            <label className="p-2">{t("register.id")}</label>
             <input
               className="border border-[#ACACAC] w-[400px] h-[50px] px-3"
-              placeholder="아이디를 입력하세요."
+              placeholder={t("register.pleaseEnterYourID")}
               type="text"
               {...register("id")}
             />
             {errors.id && <p className="text-red-500">This is required</p>}
           </div>
           <div className="flex flex-col">
-            <label className="p-2">이름</label>
+            <label className="p-2">{t("register.name")}</label>
             <input
               className="border border-[#ACACAC] w-[400px] h-[50px] px-3"
-              placeholder="아이디를 입력하세요."
+              placeholder={t("register.pleaseEnterYourName")}
               type="text"
               {...register("fullName")}
             />
@@ -118,7 +124,7 @@ const RegisterPage = () => {
         </div>
         <div className="flex mt-5 gap-x-5">
           <div className="flex flex-col">
-            <label className="p-2">비밀번호</label>
+            <label className="p-2">{t("register.password")}</label>
             <div className=" relative border border-gray-400  w-[400px] h-[50px] flex flex-center items-center justify-between p-5">
               <input
                 className="absolute inset-0 p-5"
@@ -126,7 +132,7 @@ const RegisterPage = () => {
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={handlePasswordChange}
-                placeholder="비밀번호를 입력하세요."
+                placeholder={t("register.pleaseEnterAPassword")}
               />
 
               <FontAwesomeIcon
@@ -140,10 +146,10 @@ const RegisterPage = () => {
             )}
           </div>
           <div className="flex flex-col">
-            <label className="p-2">이름</label>
+            <label className="p-2">{t("register.email")}</label>
             <input
               className="border border-[#ACACAC] w-[400px] h-[50px] px-3"
-              placeholder="아이디를 입력하세요."
+              placeholder={t("register.pleaseEnterYourEmail")}
               type="email"
               {...register("email")}
             />
@@ -152,7 +158,7 @@ const RegisterPage = () => {
         </div>
         <div className="flex mt-5 gap-x-5">
           <div className="flex flex-col">
-            <label className="p-2">비밀번호</label>
+            <label className="p-2">{t("register.verifyPassword")}</label>
             <div className=" relative border border-gray-400  w-[400px] h-[50px] flex flex-center items-center justify-between p-5">
               <input
                 className="absolute inset-0 p-5"
@@ -160,7 +166,7 @@ const RegisterPage = () => {
                 type={showConfirmPassword ? "text" : "password"}
                 value={confirmPassword}
                 onChange={handleConfirmPasswordChange}
-                placeholder="비밀번호를 입력하세요."
+                placeholder={t("register.verifyPassword")}
               />
               <FontAwesomeIcon
                 className="absolute cursor-pointer right-5"
@@ -173,10 +179,10 @@ const RegisterPage = () => {
             )}
           </div>
           <div className="flex flex-col">
-            <label className="p-2">이름</label>
+            <label className="p-2">{t("register.phoneNumber")}</label>
             <input
               className="border border-[#ACACAC] w-[400px] h-[50px] px-3"
-              placeholder="아이디를 입력하세요."
+              placeholder={t("register.enterPhoneNumber")}
               type="text"
               {...register("phoneNumber")}
             />
@@ -191,7 +197,7 @@ const RegisterPage = () => {
             type="checkbox"
             {...register("term")}
           />
-          <label className="text-sm">아이디 기억하기</label>
+          <label className="text-sm">{t("register.agreeTerm")}</label>
           {errors.term && <p className="text-red-500">This is required</p>}
         </div>
         <button
@@ -199,7 +205,7 @@ const RegisterPage = () => {
           type="submit"
           disabled={isLoading}
         >
-          회원가입하기
+          {t("register.signUp")}
         </button>
       </form>
     </div>
