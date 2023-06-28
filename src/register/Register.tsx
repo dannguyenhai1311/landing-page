@@ -8,9 +8,9 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/app/store";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { baseURl } from "@/features/auth/api";
 import { useTranslation } from "react-i18next";
 import { REGEXP } from "@/utils/regexp";
+import { baseURl } from "@/features/auth/api";
 
 type FormData = {
   id: string;
@@ -208,13 +208,6 @@ const RegisterPage = () => {
           {t("register.signUp")}
         </button>
       </form>
-    </div>
-  );
-};
-const MyInput = () => {
-  return (
-    <div>
-      <label htmlFor=""></label>
     </div>
   );
 };

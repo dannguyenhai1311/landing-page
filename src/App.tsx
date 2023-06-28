@@ -11,35 +11,55 @@ import Campaign from "./page/Campaign";
 import Login from "./login/Login";
 import RegisterPage from "./register/Register";
 import NotFound from "./page/NotFound";
+import { RequiredAuth } from "./RequiredAuth";
 function App() {
+  const Token = localStorage.getItem("token");
+  console.log("token is:", Token);
   return (
     <div className=" max-w-[1920px] scroll-smooth">
       <Routes>
         <Route path="/" element={<FormLayout></FormLayout>}>
-        <Route index path="/login" element={<Login></Login>}></Route>
-        <Route index path="/register" element={<RegisterPage></RegisterPage>}></Route>
+          <Route path="/login" element={<Login></Login>}></Route>
+          <Route
+            path="/register"
+            element={<RegisterPage></RegisterPage>}
+          ></Route>
         </Route>
-
-        <Route path="/" element={<BaseLayout></BaseLayout>}>
-          <Route index path="/" element={<HomePage></HomePage>}></Route>
-          <Route index path="/*" element={<NotFound></NotFound>}></Route>
-          <Route
-            path="/introduction"
-            element={<Introduction></Introduction>}
-          ></Route>
-          <Route
-            index
-            path="/notification"
-            element={<Notification></Notification>}
-          ></Route>
-          <Route index path="/facility" element={<Facility></Facility>}></Route>
-          <Route index path="/contents" element={<Contents></Contents>}></Route>
-          <Route
-            index
-            path="/LivingLab"
-            element={<LivingLab></LivingLab>}
-          ></Route>
-          <Route index path="/campaign" element={<Campaign></Campaign>}></Route>
+        
+          <Route path="/" element={<BaseLayout></BaseLayout>}>
+            <Route index path="/" element={<HomePage></HomePage>}></Route>
+            <Route path="/" element={<RequiredAuth />}>
+            <Route path="/*" element={<NotFound></NotFound>}></Route>
+            <Route
+              path="/introduction"
+              element={<Introduction></Introduction>}
+            ></Route>
+            <Route
+              index
+              path="/notification"
+              element={<Notification></Notification>}
+            ></Route>
+            <Route
+              index
+              path="/facility"
+              element={<Facility></Facility>}
+            ></Route>
+            <Route
+              index
+              path="/contents"
+              element={<Contents></Contents>}
+            ></Route>
+            <Route
+              index
+              path="/LivingLab"
+              element={<LivingLab></LivingLab>}
+            ></Route>
+            <Route
+              index
+              path="/campaign"
+              element={<Campaign></Campaign>}
+            ></Route>
+          </Route>
         </Route>
       </Routes>
     </div>
