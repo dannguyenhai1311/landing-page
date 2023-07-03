@@ -70,7 +70,7 @@ const Navbar = () => {
       <nav
         className={` ${
           checkActive("/") ? "text-white" : "bg-white  shadow"
-        } flex  justify-between p-5 pl-5 md:p-8 flex-center gap-x-10  px-[10px] md:pl-[15%] font-semibold  w-full absolute`}
+        } flex  justify-between p-5 pl-5 md:p-8 flex-center gap-x-10  px-[10px] md:pl-[15%] font-semibold fixed top-0  w-full`}
       >
         <a href="/">
           <img src={logoLogo} className="w-[218px] h-[36px]" alt="" />
@@ -98,7 +98,7 @@ const Navbar = () => {
             ))}
           </ul>
           <button className="nav-btn " onClick={showNavbar}>
-            <svg
+             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"

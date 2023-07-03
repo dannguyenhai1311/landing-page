@@ -13,51 +13,49 @@ import RegisterPage from "./register/Register";
 import NotFound from "./page/NotFound";
 import { RequiredAuth } from "./RequiredAuth";
 function App() {
-  const Token = localStorage.getItem("token");
-  console.log("token is:", Token);
   return (
     <div className=" max-w-[1920px] scroll-smooth">
       <Routes>
-        <Route path="/" element={<FormLayout></FormLayout>}>
-          <Route path="/login" element={<Login></Login>}></Route>
+        <Route path="/" element={<FormLayout/>}>
+          <Route path="/login" element={<Login/>}></Route>
           <Route
             path="/register"
-            element={<RegisterPage></RegisterPage>}
+            element={<RegisterPage/>}
           ></Route>
         </Route>
         
-          <Route path="/" element={<BaseLayout></BaseLayout>}>
-            <Route index path="/" element={<HomePage></HomePage>}></Route>
-            <Route path="/" element={<RequiredAuth />}>
-            <Route path="/*" element={<NotFound></NotFound>}></Route>
+          <Route path="/" element={<BaseLayout/>}>
+            <Route index path="/" element={<HomePage/>}></Route>
+            <Route path="/" element={<RequiredAuth/>}>
+            <Route path="/*" element={<NotFound/>}></Route>
             <Route
               path="/introduction"
-              element={<Introduction></Introduction>}
+              element={<Introduction/>}
             ></Route>
             <Route
               index
               path="/notification"
-              element={<Notification></Notification>}
+              element={<Notification/>}
             ></Route>
             <Route
               index
               path="/facility"
-              element={<Facility></Facility>}
+              element={<Facility/>}
             ></Route>
             <Route
               index
               path="/contents"
-              element={<Contents></Contents>}
+              element={<Contents/>}
             ></Route>
             <Route
               index
               path="/LivingLab"
-              element={<LivingLab></LivingLab>}
+              element={<LivingLab/>}
             ></Route>
             <Route
               index
               path="/campaign"
-              element={<Campaign></Campaign>}
+              element={<Campaign/>}
             ></Route>
           </Route>
         </Route>

@@ -3,12 +3,12 @@ import Footer from "../components/Footer/Footer";
 import { Outlet } from "react-router-dom";
 const BaseLayout = () => {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar/>
+    <div className="grid min-h-screen grid-rows-1 ">
+      <Navbar />
       <div className="flex flex-col flex-1">
-      <Outlet/> 
+        <Outlet />
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

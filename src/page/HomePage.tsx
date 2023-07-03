@@ -5,12 +5,7 @@ import axios from "axios";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import {
-  faSquare,
-  faAngleRight,
-  faPlus,
-  faShapes,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import ContentsData from "@/content/ContentsData";
 import LivingLabData from "@/content/LivingLabData";
 import CampaignData from "@/content/CampaignData";
@@ -42,31 +37,7 @@ const HomePage = () => {
         setDataContent(response.data.data.list);
       });
   }, []);
-  const [apiData, setApiData] = useState([
-    {
-      author: "Author",
-      content: "Content",
-      created_at: "Created At",
-      id: "Id",
-      title: "Title",
-      updated_at: "Updated At",
-      user_id: "User Id",
-    },
-  ]);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getApiData(
-          `${contents}?search_value=${searchValue}&page_size=${pageSize}`
-        );
-        setApiData(data.data.list);
-      } catch (error) {
-        // Xử lý lỗi nếu cần thiết
-      }
-    };
-    fetchData();
-  }, []);
-  console.log("apiData", apiData);
+  
   console.log("dataContent", dataContent);
   const titleData = [
     {
@@ -103,7 +74,7 @@ const HomePage = () => {
           </div>
         </header>
       </div>
-      <section className="mx-[9%] h-full sm:max-h-[1280px] md:max-h-[2000px] lg:max-h-[922px] mt-[140px]">
+      <section className="mx-[9%] h-full sm:max-h-[1280px] md:max-h-[2000px] lg:max-h-[922px] mt-[136px]">
         <div className="content-1">
           <div className="flex items-center justify-between mb-6">
             <div className=" text-2xl  text-[#000000] font-bold">공지사항</div>
@@ -159,16 +130,16 @@ const HomePage = () => {
             );
           })}
           <div className="border-t-2 border-b-2 border-[#0066C1]">
-            <ContentsData></ContentsData>
+            <ContentsData />
           </div>
           <div className="border-t-2 border-b-2 border-[#0066C1]">
-            <LivingLabData></LivingLabData>
+            <LivingLabData />
           </div>
           <div className="border-t-2 border-b-2 border-[#0066C1]">
-            <CampaignData></CampaignData>
+            <CampaignData />
           </div>
           <div className="border-t-2 border-b-2 border-[#0066C1]">
-            <FreeBoard></FreeBoard>
+            <FreeBoard />
           </div>
         </div>
       </section>

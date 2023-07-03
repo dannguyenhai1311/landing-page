@@ -107,7 +107,7 @@ const RegisterPage = () => {
               type="text"
               {...register("id")}
             />
-            {errors.id && <p className="text-red-500">This is required</p>}
+            {errors.id && <p className="text-red-500">{t("register.required")}</p>}
           </div>
           <div className="flex flex-col">
             <label className="p-2">{t("register.name")}</label>

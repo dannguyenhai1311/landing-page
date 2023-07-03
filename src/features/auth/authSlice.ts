@@ -1,5 +1,3 @@
-// Đường dẫn: src/features/auth/authSlice.ts
-
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk } from "../../app/store";
 import axios from "axios";

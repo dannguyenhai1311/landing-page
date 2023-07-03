@@ -1,5 +1,4 @@
 import NavbarLogin from "@/header/HeaderLogin";
-import Login from "@/login/Login";
 import FooterLogin from "@/components/Footer/FooterLogin";
 import { Outlet } from "react-router-dom";
 const FormLayout = () => {
