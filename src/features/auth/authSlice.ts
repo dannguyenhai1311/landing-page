@@ -13,6 +13,10 @@ interface User {
   id: string;
   username: string;
   email: string;
+  token: string;
+  role: string;
+  phone_number: string;
+  full_name: string;
 }
 
 const initialState: AuthState = {
@@ -29,9 +33,9 @@ const authSlice = createSlice({
       state.isLoading = true;
       state.error = null;
     },
-    loginSuccess: (state, action: PayloadAction<User>) => {
+    loginSuccess: (state, action: PayloadAction<AuthState>) => {
       state.isLoading = false;
-      state.user = action.payload;
+      state.user = action.payload.user;
       state.error = null;
     },
     loginFailure: (state, action: PayloadAction<string>) => {
@@ -49,13 +53,10 @@ export const loginUser =
   async (dispatch) => {
     dispatch(loginStart());
     try {
-      const response = await axios.post(
-       baseURl("login"),
-        {
-          username,
-          password,
-        }
-      );
+      const response = await axios.post(baseURl("login"), {
+        username,
+        password,
+      });
       const userToken = response.data.data.user.token;
       localStorage.setItem("token", userToken);
       if (userToken) {

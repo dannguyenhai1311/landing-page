@@ -1,16 +1,26 @@
 import { RootState } from "@/app/store";
 import notication from "@/assets/images/notication.png";
+import { Pagination } from "@/components/Pagination/Pagination";
 import { getApiData } from "@/services/apiService";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import ReactPaginate from "react-paginate";
+import { t } from "i18next";
+
 const Notification = () => {
+  const PAGE_SIZE = 10;
+
+  type OptionType = {
+    value: string;
+    label: string;
+  };
   const isLoading = useSelector((state: RootState) => state.auth.isLoading);
   const notice = "/notice";
   const searchValue = "title";
-  const pageSize = 10;
+  const pageSize = 20;
   const [noticeList, setNoticeList] = useState([
     {
       author: "Author",
@@ -22,6 +32,23 @@ const Notification = () => {
       user_id: "User Id",
     },
   ]);
+
+  const SEARCH_BY_LIST: any[] = [
+    { value: "title", label: t("common.title") },
+    { value: "author", label: t("common.author") },
+  ];
+  const [selectedOption, setSelectedOption] = useState<OptionType>(
+    SEARCH_BY_LIST[0]
+  );
+
+  const [filter, setFilter] = useState({
+    searchBy: selectedOption.value,
+    searchValue: "",
+    page: 0,
+    pageSize: PAGE_SIZE,
+  });
+  const [currentData, setCurrentData] = useState<any[]>([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -29,12 +56,26 @@ const Notification = () => {
           `${notice}?search_value=${searchValue}&page_size=${pageSize}`
         );
         setNoticeList(data.data.list);
+        const startIndex = filter.page * PAGE_SIZE;
+        const endIndex = startIndex + PAGE_SIZE;
+        const value = data.data.list.slice(startIndex, endIndex);
+        setCurrentData(value);
       } catch (error) {
         // Xử lý lỗi nếu cần thiết
       }
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    console.log("noticeList", noticeList);
+    const startIndex = filter.page * PAGE_SIZE;
+    const endIndex = startIndex + PAGE_SIZE;
+    const value = noticeList.slice(startIndex, endIndex);
+    setCurrentData(value);
+    // noticeList.slice(startIndex, endIndex);
+  }, [filter]);
+
   console.log("apiData", noticeList);
   return (
     <div>
@@ -42,11 +83,14 @@ const Notification = () => {
         <div className="w-10 h-10 mx-auto border-4 border-t-4 rounded-full mt-[200px] border-primary border-t-transparent animate-spin"></div>
       )}
       {!isLoading && (
-        <div className="w-full mx-auto min-h-[1100px]">
-          <div className="md:mt-[100px] mt-[76px]">
-            <img src={notication} alt="" />
-          </div>
-          <div className="w-[1240px] mx-auto h-[100px] p-[24px] md:p-0">
+        <div className="w-full h-full mx-auto">
+          <img
+            src={notication}
+            className="md:mt-[100px] mt-[76px] w-full h-[200px] md:h-auto object-cover overflow-hidden"
+            alt=""
+          />
+
+          <div className="md:w-[1240px] min-w-[360px] mx-auto p-[24px] md:p-0">
             <div className="mb-[42px] mt-16 md:flex gap-x-2 flex-center justify-between">
               <h1 className="text-2xl mb-2 md:md-0 font-bold text-[#0069C3]  ">
                 공지사항
@@ -70,7 +114,7 @@ const Notification = () => {
                 </div>
               </div>
             </div>
-            <div className="flex items-center justify-center w-full mx-auto flex-center">
+            <div className="flex items-center justify-center w-full mx-auto flex-center snap-x">
               <table className="w-full h-full">
                 <thead>
                   <tr className="bg-[#d4e9fc]">
@@ -97,8 +141,8 @@ const Notification = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {noticeList?.length
-                    ? noticeList.map((item) => {
+                  {currentData?.length
+                    ? currentData.map((item) => {
                         return (
                           <tr
                             key={item.id}
@@ -127,7 +171,23 @@ const Notification = () => {
                     : null}
                 </tbody>
               </table>
+              {/* <ReactPaginate
+                breakLabel="..."
+                nextLabel="next >"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={5}
+                pageCount={pageCount}
+                previousLabel="< previous"
+                renderOnZeroPageCount={null}
+              /> */}
             </div>
+            <Pagination
+              className="flex"
+              currentPage={filter.page + 1}
+              totalCount={noticeList.length}
+              pageSize={PAGE_SIZE}
+              onPageChange={(page) => setFilter({ ...filter, page: page - 1 })}
+            />
           </div>
         </div>
       )}

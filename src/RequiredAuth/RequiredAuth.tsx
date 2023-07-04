@@ -1,14 +1,14 @@
-import { Navigate, Outlet, useLocation } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 
 // type Props = {
 //   allowRoles?: Array<string | undefined>
 // }
 
 export const RequiredAuth = () => {
-  const userToken = localStorage.getItem("token")
-  return userToken  ? (
+  const getToken = localStorage.getItem('token')
+  return getToken?  (
     <Outlet />
-  ) : userToken ? (
+  ) : getToken? (
     <Navigate to="/LivingLab" />
   ) : (
     <Navigate to="/login"  replace={true} />

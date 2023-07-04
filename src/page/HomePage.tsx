@@ -37,7 +37,7 @@ const HomePage = () => {
         setDataContent(response.data.data.list);
       });
   }, []);
-  
+
   console.log("dataContent", dataContent);
   const titleData = [
     {
@@ -58,10 +58,10 @@ const HomePage = () => {
   return (
     <>
       <div className="w-full h-full">
-        <header className="container-layout max-h-[900px] md:max-h-[1900px] bg-no-repeat -z-10 w-full">
-          <div className="relative flex items-center justify-center left-auto right-auto flex-wrap top-[39%] flex-cols content-header">
-            <div className="absolute w-full md:w-[654px] h-[auto] flex flex-center justify-center items-start m-2">
-              <div className="absolute p-5 m-5 text-3xl font-bold text-center text-white md:text-4xl">
+        <header className="relative container-layout max-h-[900px] md:max-h-[1900px] bg-no-repeat -z-10 w-full">
+          <div className="flex items-center justify-center left-auto right-auto flex-wrap top-[39%] flex-cols content-header">
+            <div className="w-full md:w-[654px] h-[auto] flex flex-center justify-center items-start m-2">
+              <div className="absolute m-5 text-3xl font-bold text-center text-white bottom-[40%] md:text-4xl">
                 <span>함께 하자,</span>
                 <br />
                 <span>깨끗한 바다 부산으로!</span>

@@ -7,10 +7,9 @@ import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { REGEXP } from "@/utils/regexp";
-import { baseURl } from "@/features/auth/api";
+import { registerUser } from "@/services/UserService";
 
 type FormData = {
   id: string;
@@ -77,7 +76,7 @@ const RegisterPage = () => {
   const isLoading = useSelector((state: RootState) => state.auth.isLoading);
   const onSubmit = async (values: FormData) => {
     try {
-      const response = await axios.post(baseURl("register"), {
+      const response = await registerUser({
         username: values.id,
         password: values.password,
         email: values.email,
@@ -107,7 +106,9 @@ const RegisterPage = () => {
               type="text"
               {...register("id")}
             />
-            {errors.id && <p className="text-red-500">{t("register.required")}</p>}
+            {errors.id && (
+              <p className="text-red-500">{t("register.required")}</p>
+            )}
           </div>
           <div className="flex flex-col">
             <label className="p-2">{t("register.name")}</label>
