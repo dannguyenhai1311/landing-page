@@ -29,8 +29,9 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    loginStart: (state) => {
-      state.isLoading = true;
+    loginStart: (state,action) => {
+      state.isLoading = action.payload;
+      console.log("action", action);
       state.error = null;
     },
     loginSuccess: (state, action: PayloadAction<AuthState>) => {
@@ -51,7 +52,7 @@ export const { loginStart, loginSuccess, loginFailure } = authSlice.actions;
 export const loginUser =
   (username: string, password: string): AppThunk<Promise<boolean>> =>
   async (dispatch) => {
-    dispatch(loginStart());
+    dispatch(loginStart(true));
     try {
       const response = await axios.post(baseURl("login"), {
         username,

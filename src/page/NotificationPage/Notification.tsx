@@ -1,26 +1,26 @@
 import { RootState } from "@/app/store";
-import notication from "@/assets/images/notication.png";
+import notification from "@/assets/images/notication.png";
 import { Pagination } from "@/components/Pagination/Pagination";
+import { loginStart } from "@/features/auth/authSlice";
 import { getApiData } from "@/services/apiService";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import ReactPaginate from "react-paginate";
-import { t } from "i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Notification = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const PAGE_SIZE = 10;
-
-  type OptionType = {
-    value: string;
-    label: string;
-  };
-  const isLoading = useSelector((state: RootState) => state.auth.isLoading);
-  const notice = "/notice";
-  const searchValue = "title";
   const pageSize = 20;
+  const isLoading = useSelector((state: RootState) => state.auth.isLoading);
+  const [search, setSearch] = useState("");
+  const searchValue = "title";
+  const notice = "/notice";
+  const [currentData, setCurrentData] = useState<any[]>([]);
+  const [selectedOption, setSelectedOption] = useState("title");
   const [noticeList, setNoticeList] = useState([
     {
       author: "Author",
@@ -33,80 +33,86 @@ const Notification = () => {
     },
   ]);
 
-  const SEARCH_BY_LIST: any[] = [
-    { value: "title", label: t("common.title") },
-    { value: "author", label: t("common.author") },
-  ];
-  const [selectedOption, setSelectedOption] = useState<OptionType>(
-    SEARCH_BY_LIST[0]
-  );
-
   const [filter, setFilter] = useState({
-    searchBy: selectedOption.value,
-    searchValue: "",
     page: 0,
     pageSize: PAGE_SIZE,
   });
-  const [currentData, setCurrentData] = useState<any[]>([]);
 
+  const handleSearch = async () => {
+    const data = await getApiData(
+      `${notice}?search_by=${selectedOption}&search_value=${search}&page=0&page_size=10`
+    );
+    setCurrentData(data.data.list);
+  };
+  const handleClickDetail = (id: any) => {
+    navigate(`/notification/${id}`)
+  }
   useEffect(() => {
     const fetchData = async () => {
+      dispatch(loginStart(true));
       try {
         const data = await getApiData(
           `${notice}?search_value=${searchValue}&page_size=${pageSize}`
         );
         setNoticeList(data.data.list);
+        dispatch(loginStart(false));
         const startIndex = filter.page * PAGE_SIZE;
         const endIndex = startIndex + PAGE_SIZE;
         const value = data.data.list.slice(startIndex, endIndex);
         setCurrentData(value);
       } catch (error) {
-        // Xử lý lỗi nếu cần thiết
+        console.log(error);
       }
     };
     fetchData();
   }, []);
 
   useEffect(() => {
-    console.log("noticeList", noticeList);
     const startIndex = filter.page * PAGE_SIZE;
     const endIndex = startIndex + PAGE_SIZE;
     const value = noticeList.slice(startIndex, endIndex);
     setCurrentData(value);
-    // noticeList.slice(startIndex, endIndex);
-  }, [filter]);
+  }, [filter, noticeList]);
 
-  console.log("apiData", noticeList);
   return (
     <div>
       {isLoading && (
-        <div className="w-10 h-10 mx-auto border-4 border-t-4 rounded-full mt-[200px] border-primary border-t-transparent animate-spin"></div>
+        <div className="absolute top-[40%] inset-0 justify-center w-10 h-10 mx-auto border-4 border-t-4 rounded-full mt- fex flex-center border-primary border-t-transparent animate-spin"></div>
       )}
       {!isLoading && (
         <div className="w-full h-full mx-auto">
           <img
-            src={notication}
+            src={notification}
             className="md:mt-[100px] mt-[76px] w-full h-[200px] md:h-auto object-cover overflow-hidden"
             alt=""
           />
 
           <div className="md:w-[1240px] min-w-[360px] mx-auto p-[24px] md:p-0">
             <div className="mb-[42px] mt-16 md:flex gap-x-2 flex-center justify-between">
-              <h1 className="text-2xl mb-2 md:md-0 font-bold text-[#0069C3]  ">
+              <h1 className="mb-2 text-2xl font-bold text-transparent md:md-0 bg-gradient-to-r from-[#0066C1] to-[#009FE5] bg-clip-text ">
                 공지사항
               </h1>
               <div className="md:flex  mb-2 md:mb-0  gap-[10px]">
-                <select className="border p-2 border-[#C0C0C0] w-[100px]">
-                  <option value="">제목</option>
+                <select
+                  onChange={(e: any) => setSelectedOption(e.target.value)}
+                  className="border p-2 border-[#C0C0C0] w-[100px]"
+                >
+                  <option value="title">제목</option>
+                  <option value="author">작성자</option>
                 </select>
                 <div className="flex mt-2 md:mt-0">
                   <input
-                    className="border w-[200px] md:w-[360px] border-[#C0C0C0]"
+                    className="border w-[200px] p-2 md:w-[360px] border-[#C0C0C0]"
+                    onChange={(e: any) => setSearch(e.target.value)}
                     type="text"
                     name=""
                     id=""
                   />
-                  <button className="flex text-white bg-[#009FE5] border w-[88px]  items-center justify-center border-[#C0C0C0]">
+                  <button
+                    onClick={handleSearch}
+                    type="submit"
+                    className="flex text-white bg-gradient-to-r from-[#0066C1] to-[#009FE5] border w-[88px]  items-center justify-center border-[#C0C0C0]"
+                  >
                     {" "}
                     <FontAwesomeIcon icon={faMagnifyingGlass} className="p-2" />
                     <span>검색</span>
@@ -133,7 +139,7 @@ const Notification = () => {
                         작성자
                       </div>
                     </th>
-                    <th className="w-[180px] text-[14px] font-bold  ">
+                    <th className="w-[180px] text-[14px] font-bold">
                       <div className="my-[10px] h-[30px] leading-[30px]">
                         작성일
                       </div>
@@ -142,18 +148,21 @@ const Notification = () => {
                 </thead>
                 <tbody>
                   {currentData?.length
-                    ? currentData.map((item) => {
+                    ? currentData.map((item, index) => {
                         return (
                           <tr
                             key={item.id}
+                            onClick={() => handleClickDetail(item.id)}
                             className="h-[50px] cursor-pointer border-b"
-                            // onClick={onDetail(item.id)}
                           >
                             <td
                               className="flex items-center justify-center py-[15px] text-center text-[14px]"
                               key="numerical_order"
                             >
-                              <div>1</div>
+                              <div>
+                                {noticeList.length -
+                                  (PAGE_SIZE * filter.page + index)}
+                              </div>
                             </td>
 
                             <td className="text-[14px] max-md:w-[380px] md:pl-[3.8%] md:text-left">
@@ -171,15 +180,6 @@ const Notification = () => {
                     : null}
                 </tbody>
               </table>
-              {/* <ReactPaginate
-                breakLabel="..."
-                nextLabel="next >"
-                onPageChange={handlePageClick}
-                pageRangeDisplayed={5}
-                pageCount={pageCount}
-                previousLabel="< previous"
-                renderOnZeroPageCount={null}
-              /> */}
             </div>
             <Pagination
               className="flex"

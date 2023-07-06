@@ -8,15 +8,15 @@ const Navbar = () => {
   const showNavbar = () => {
     buttonRef.current?.classList.toggle("responsive-nav");
   };
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
-  console.log("location", location);
+  // console.log("location", location);
   const pathName = location.pathname;
   const checkActive = (to: string) => {
     return pathName === to;
   };
-  console.log(checkActive("/"));
+  // console.log(checkActive("/"));
   const handleLogOut = () => {
     localStorage.clear();
     navigate("/login");
@@ -65,73 +65,72 @@ const Navbar = () => {
     },
   ];
   return (
-    
-    <div>
-      <nav
-        className={` ${
-          checkActive("/") ? "text-white" : "bg-white  shadow"
-        } flex  justify-between p-5 pl-5 md:p-8 flex-center gap-x-10  px-[10px] md:pl-[15%] font-semibold fixed top-0  w-full`}
+    <nav
+      className={` ${
+        checkActive("/") ? "text-white" : "bg-white  shadow"
+      } flex  justify-between p-5 pl-5 md:p-8 flex-center gap-x-10  px-[10px] md:pl-[12%] font-semibold fixed top-0  w-full`}
+    >
+      <a href="/">
+        <img src={logoLogo} className="w-[218px] h-[36px]" alt="" />
+      </a>
+      <div
+        ref={buttonRef}
+        className="flex items-center justify-around navigation flex-center"
       >
-        <a href="/">
-          <img src={logoLogo} className="w-[218px] h-[36px]" alt="" />
-        </a>
-        <div
-          ref={buttonRef}
-          className="flex items-center justify-around navigation flex-center"
-        >
-          <ul className="flex text-xl font-light md:-mr-[40%] navbar gap-x-5">
-            {LinkList.map((item) => (
-              <NavLink
-                key={item.id}
-                to={item.to}
-                onClick={() => {if(item.to === "/freeBoard") handleLogOut()}}
-                className={({ isActive }) => {
-                  return isActive
-                    ? checkActive("/")
-                      ? "text-white font-bold"
-                      : "text-[#0066C1] font-bold"
-                    : "";
-                }}
-              >
-                {item.title}
-              </NavLink>
-            ))}
-          </ul>
-          <button className="nav-btn " onClick={showNavbar}>
-             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={3}
-              stroke="currentColor"
-              className="w-7 h-7 button sd:w-[50px] sd:h-[50px]  md:right-20"
+        <ul className="flex text-xl font-light md:-mr-[40%] navbar gap-x-10">
+          {LinkList.map((item) => (
+            <NavLink
+              key={item.id}
+              to={item.to}
+              onClick={() => {
+                if (item.to === "/freeBoard") handleLogOut();
+              }}
+              className={({ isActive }) => {
+                return isActive
+                  ? checkActive("/")
+                    ? "text-white font-bold"
+                    : "text-[#0066C1] font-bold"
+                  : "";
+              }}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-        </div>
-        <button className="nav-btn nav-close-btn" onClick={showNavbar}>
+              {item.title}
+            </NavLink>
+          ))}
+        </ul>
+        <button className="nav-btn " onClick={showNavbar}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            strokeWidth={2}
+            strokeWidth={3}
             stroke="currentColor"
-            className="w-8 h-8 button nav-close-btn sm:w-[50px] sm:h-[50px]  md:right-20"
+            className="w-7 h-7 button sd:w-[50px] sd:h-[50px]  md:right-20"
           >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              d="M6 18L18 6M6 6l12 12"
             />
           </svg>
         </button>
-      </nav>
-    </div>
+      </div>
+      <button className="nav-btn nav-close-btn" onClick={showNavbar}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={2}
+          stroke="currentColor"
+          className="w-8 h-8 button nav-close-btn sm:w-[50px] sm:h-[50px]  md:right-20"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+          />
+        </svg>
+      </button>
+    </nav>
   );
 };
 

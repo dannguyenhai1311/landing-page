@@ -12,6 +12,7 @@ export default {
         "campaign-banner": "url('assets/images/campagin-banner.png')",
       },
       colors: {
+        gradientText: "bg-gradient-to-r from-[#0066C1] to-[#009FE5] text-transparent bg-clip-text",
         transparent: "transparent",
         current: "currentColor",
         white: "#FFFFFF",
