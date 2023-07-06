@@ -5,8 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux";
 import { loginStart } from "@/features/auth/authSlice";
 import { Pagination } from "@/components/Pagination";
+import { useNavigate } from "react-router-dom";
 
 const Campaign = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   const searchValue = "title";
@@ -36,6 +38,9 @@ const Campaign = () => {
     page: 0,
     pageSize: PAGE_SIZE,
   });
+  const handleClickDetail = (id: any) => {
+    navigate(`/campaign/${id}`)
+  }
   useEffect(() => {
     const fetchData = async () => {
       dispatch(loginStart(true));
@@ -99,7 +104,7 @@ const Campaign = () => {
       <div className="grid- grid w-full grid-cols-[repeat(auto-fit,minmax(270px,1fr))]  gap-[20px]">
         {currentData.map((i) => {
           return (
-            <div className="cursor-pointer  border-[1px] border-[#CCCCC]">
+            <div onClick={() => handleClickDetail(i.id)} className="cursor-pointer  border-[1px] border-[#CCCCC]">
               <div className="h-[210px] w-full">
                 <img
                   className="w-full h-full object-cover"

@@ -13,6 +13,8 @@ import RegisterPage from "./register/Register";
 import NotFound from "./page/NotFoundPage/NotFound";
 import { RequiredAuth } from "./RequiredAuth";
 import NotificationDetail from "./page/NotificationPage/NotificationDetail";
+import CampaignDetail from "./page/CampaignPage/CampaignDetail";
+import LivingLabDetail from "./page/LivingLabPage/LivingLabDetail";
 function App() {
   return (
     <div className=" max-w-[1920px] scroll-smooth">
@@ -29,13 +31,19 @@ function App() {
             <Route path="/introduction" element={<Introduction />}></Route>
             <Route path="/notification" element={<Notification />}></Route>
             <Route
-              path="/notification/:id"
+              path="/notification:id"
               element={<NotificationDetail />}
             ></Route>
             <Route index path="/facility" element={<Facility />}></Route>
             <Route index path="/contents" element={<Contents />}></Route>
-            <Route index path="/LivingLab" element={<LivingLab />}></Route>
+            <Route index path="/Living-lab" element={<LivingLab/>}></Route>
+            <Route
+              index
+              path="/Living-lab/:id"
+              element={<LivingLabDetail />}
+            ></Route>
             <Route index path="/campaign" element={<Campaign />}></Route>
+            <Route path="/campaign/:id" element={<CampaignDetail />}></Route>
           </Route>
         </Route>
       </Routes>

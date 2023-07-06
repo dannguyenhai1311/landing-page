@@ -49,7 +49,7 @@ const Navbar = () => {
       id: 5,
     },
     {
-      to: "/LivingLab",
+      to: "/Living-lab",
       title: t("nav.livingLab"),
       id: 6,
     },
