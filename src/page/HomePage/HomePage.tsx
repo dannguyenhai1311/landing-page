@@ -11,6 +11,7 @@ import CampaignData from "@/content/CampaignData";
 import FreeBoard from "@/content/FreeBoard";
 
 const HomePage = () => {
+ 
   const notice = "/notice";
   const apiUrl = "http://qa.forum-bulletin-board.dev.politetech.com/api/v1";
   const searchValue = "title";
@@ -41,8 +42,8 @@ const HomePage = () => {
     <>
       <div className="w-full h-full">
         <header className=" container-layout max-h-[900px] md:max-h-[1900px] bg-no-repeat -z-10 w-full">
-          <div className="relative flex items-center justify-center left-auto right-auto flex-wrap top-[50%] flex-cols content-header">
-            <div className="absolute w-full md:w-[654px] h-[auto] flex flex-center justify-center items-start m-2">
+          <div className="flex items-center justify-center left-auto right-auto flex-wrap flex-cols content-header">
+            <div className="w-full md:w-[654px] h-[auto] flex flex-center md:mt-[20%] mt-[80%] justify-center items-start m-2">
               <div className="m-5 text-3xl font-extrabold text-center text-white md:text-4xl">
                 <h1 className="flex flex-col leading-7">
                   <span>함께 하자,</span>

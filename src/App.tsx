@@ -15,6 +15,8 @@ import { RequiredAuth } from "./RequiredAuth";
 import NotificationDetail from "./page/NotificationPage/NotificationDetail";
 import CampaignDetail from "./page/CampaignPage/CampaignDetail";
 import LivingLabDetail from "./page/LivingLabPage/LivingLabDetail";
+
+
 function App() {
   return (
     <div className=" max-w-[1920px] scroll-smooth">
@@ -23,7 +25,6 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<RegisterPage />}></Route>
         </Route>
-
         <Route path="/" element={<BaseLayout />}>
           <Route index path="/" element={<HomePage />}></Route>
           <Route path="/" element={<RequiredAuth />}>
@@ -36,7 +37,7 @@ function App() {
             ></Route>
             <Route index path="/facility" element={<Facility />}></Route>
             <Route index path="/contents" element={<Contents />}></Route>
-            <Route index path="/Living-lab" element={<LivingLab/>}></Route>
+            <Route index path="/Living-lab" element={<LivingLab />}></Route>
             <Route
               index
               path="/Living-lab/:id"

@@ -31,7 +31,6 @@ const authSlice = createSlice({
   reducers: {
     loginStart: (state,action) => {
       state.isLoading = action.payload;
-      console.log("action", action);
       state.error = null;
     },
     loginSuccess: (state, action: PayloadAction<AuthState>) => {

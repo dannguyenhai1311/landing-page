@@ -6,6 +6,8 @@ import { Navigate, Outlet } from 'react-router-dom'
 
 export const RequiredAuth = () => {
   const getToken = localStorage.getItem('token')
+  const role = localStorage.getItem('userRole')
+  console.log("role: " + role);
   return getToken?  (
     <Outlet />
   ) : getToken? (

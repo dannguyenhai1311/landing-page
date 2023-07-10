@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { login } from "@/services/UserService";
 
+
 const Login: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -34,8 +35,14 @@ const Login: React.FC = () => {
     if (result.data.data.user.token) {
       dispatch(loginSuccess(result.data.data.user.token));
       localStorage.setItem("token", result.data.data.user.token);
-      console.log("token data", result.data.data.user.token);
-      navigate("/");
+      localStorage.setItem("userRole", result.data.data.user.role);
+      console.log("user data:", result.data.data.user.role);
+     if(role !== "Admin") {
+      navigate("/Living-lab")
+     }else if(role === "Admin") {
+      navigate("/")
+     }
+      location.reload();
     } else {
       alert("login false");
     }
@@ -104,3 +111,5 @@ const Login: React.FC = () => {
 };
 
 export default Login;
+export const role = localStorage.getItem("userRole");
+console.log("role: " + role);

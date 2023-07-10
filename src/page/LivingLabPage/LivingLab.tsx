@@ -2,6 +2,7 @@ import { RootState } from "@/app/store";
 import livingLab from "@/assets/images/LivingLab.png";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { loginStart } from "@/features/auth/authSlice";
+import { role } from "@/login/Login";
 import { getApiData } from "@/services/apiService";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,7 +19,6 @@ const LivingLab = () => {
   const isLoading = useSelector((state: RootState) => state.auth.isLoading);
   const [search, setSearch] = useState("");
   const searchValue = "title";
-  const notice = "/notice";
   const [currentData, setCurrentData] = useState<any[]>([]);
   const [selectedOption, setSelectedOption] = useState("title");
   const [noticeList, setNoticeList] = useState([
@@ -152,26 +152,41 @@ const LivingLab = () => {
                         return (
                           <tr
                             key={item.id}
-                            onClick={() => handleClickDetail(item.id)}
+                           
                             className="h-[50px] cursor-pointer border-b"
                           >
                             <td
                               className="flex items-center justify-center py-[15px] text-center text-[14px]"
                               key="numerical_order"
                             >
-                              <div>
-                                {noticeList.length -
-                                  (PAGE_SIZE * filter.page + index)}
+                              <div className="flex flex-center items-center gap-x-5 justify-between">
+                                <div>
+                                  {" "}
+                                  {role === "Admin" ? (
+                                    <input
+                                      className="flex items-center h-[15px] w-[15px]"
+                                      type="checkbox"
+                                      name=""
+                                      id=""
+                                    />
+                                  ) : (
+                                    ""
+                                  )}
+                                </div>
+                                <div>
+                                  {noticeList.length -
+                                    (PAGE_SIZE * filter.page + index)}
+                                </div>
                               </div>
                             </td>
 
-                            <td className="text-[14px] max-md:w-[380px] md:pl-[3.8%] md:text-left">
+                            <td  onClick={() => handleClickDetail(item.id)} className="text-[14px] max-md:w-[380px] md:pl-[3.8%] md:text-left">
                               {item.title}
                             </td>
-                            <td className="max-w-[200px] text-center text-[14px] max-md:w-[380px] ">
+                            <td  onClick={() => handleClickDetail(item.id)} className="max-w-[200px] text-center text-[14px] max-md:w-[380px] ">
                               {item.author}
                             </td>
-                            <td className="w-[180px] text-center text-[14px]">
+                            <td  onClick={() => handleClickDetail(item.id)} className="w-[180px] text-center text-[14px]">
                               {dayjs(item.created_at).format("YYYY-MM-DD")}
                             </td>
                           </tr>

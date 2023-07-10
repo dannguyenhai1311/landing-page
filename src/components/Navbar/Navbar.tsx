@@ -2,6 +2,7 @@ import logoLogo from "../img/logo.png";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
+import { role } from "@/login/Login";
 
 const Navbar = () => {
   const buttonRef = useRef<HTMLDivElement>(null);
@@ -11,12 +12,10 @@ const Navbar = () => {
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
-  // console.log("location", location);
   const pathName = location.pathname;
   const checkActive = (to: string) => {
     return pathName === to;
   };
-  // console.log(checkActive("/"));
   const handleLogOut = () => {
     localStorage.clear();
     navigate("/login");
@@ -58,16 +57,11 @@ const Navbar = () => {
       title: t("nav.campaign"),
       id: 7,
     },
-    {
-      to: "/freeBoard",
-      title: t("nav.freeBoard"),
-      id: 8,
-    },
   ];
   return (
     <nav
       className={` ${
-        checkActive("/") ? "text-white" : "bg-white  shadow"
+       checkActive("/") ? "text-white" : "bg-white  shadow"
       } flex  justify-between p-5 pl-5 md:p-8 flex-center gap-x-10  px-[10px] md:pl-[12%] font-semibold fixed top-0  w-full`}
     >
       <a href="/">
@@ -77,14 +71,11 @@ const Navbar = () => {
         ref={buttonRef}
         className="flex items-center justify-around navigation flex-center"
       >
-        <ul className="flex text-xl font-light md:-mr-[40%] navbar gap-x-10">
-          {LinkList.map((item) => (
+        <ul className="flex justify-between items text-xl font-light md:-mr-[40%] navbar gap-x-10">
+          {role !=="Normal" && LinkList.map((item) => (
             <NavLink
               key={item.id}
               to={item.to}
-              onClick={() => {
-                if (item.to === "/freeBoard") handleLogOut();
-              }}
               className={({ isActive }) => {
                 return isActive
                   ? checkActive("/")
@@ -96,6 +87,13 @@ const Navbar = () => {
               {item.title}
             </NavLink>
           ))}
+          <NavLink className={`flex flex-center justify-center ${role !== "Admin" ? "absolute top-[50%] bottom-[50%] xl:top-[36px] xl:right-[180px]" : ""}`} to="/freeBoard"
+            onClick={() => {
+              handleLogOut();
+            }}
+          >
+            로그아웃
+          </NavLink>
         </ul>
         <button className="nav-btn " onClick={showNavbar}>
           <svg

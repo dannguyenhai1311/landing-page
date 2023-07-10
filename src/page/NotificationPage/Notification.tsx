@@ -45,8 +45,8 @@ const Notification = () => {
     setCurrentData(data.data.list);
   };
   const handleClickDetail = (id: any) => {
-    navigate(`/notification/${id}`)
-  }
+    navigate(`/notification/${id}`);
+  };
   useEffect(() => {
     const fetchData = async () => {
       dispatch(loginStart(true));
