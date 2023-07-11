@@ -60,7 +60,7 @@ const Navbar = () => {
   ];
   return (
     <nav
-      className={`${
+      className={` ${
         checkActive("/") ? "text-white" : "bg-white  shadow"
       } flex  justify-between p-5 pl-5 md:p-8 flex-center gap-x-10  px-[10px] md:pl-[12%] font-semibold fixed top-0  w-full`}
     >
@@ -71,30 +71,23 @@ const Navbar = () => {
         ref={buttonRef}
         className="flex items-center justify-around navigation flex-center"
       >
-        <ul className="flex justify-between items text-xl font-light md:-mr-[40%] navbar gap-x-10">
-          {role !== "Normal" &&
-            LinkList.map((item) => (
-              <NavLink
-                key={item.id}
-                to={item.to}
-                className={({ isActive }) => {
-                  return isActive
-                    ? checkActive("/")
-                      ? "text-white font-bold"
-                      : "text-[#0066C1] font-bold"
-                    : "";
-                }}
-              >
-                {item.title}
-              </NavLink>
-            ))}
-          <NavLink
-            className={`flex flex-center justify-center ${
-              role !== "Admin"
-                ? "absolute top-[50%] bottom-[50%] xl:top-[36px] xl:right-[180px]"
-                : ""
-            }`}
-            to="/freeBoard"
+        <ul className="flex justify-between items-center text-xl font-light md:-mr-[40%] navbar gap-x-10">
+          {role ==="Admin" && LinkList.map((item) => (
+            <NavLink
+              key={item.id}
+              to={item.to}
+              className={({ isActive }) => {
+                return isActive
+                  ? checkActive("/")
+                    ? "text-white font-bold"
+                    : "text-[#0066C1] font-bold"
+                  : "";
+              }}
+            >
+              {item.title}
+            </NavLink>
+          ))}
+          <NavLink className="flex flex-center justify-center md:top-[36px] md:right-[180px]" to="/freeBoard"
             onClick={() => {
               handleLogOut();
             }}

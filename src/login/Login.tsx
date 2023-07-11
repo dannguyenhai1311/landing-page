@@ -15,8 +15,6 @@ const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { t } = useTranslation();
-  // const Token = localStorage.getItem("token");
-  // console.log("token is:", Token);
   const dispatch = useDispatch();
   const isLoading = useSelector((state: RootState) => state.auth.isLoading);
 

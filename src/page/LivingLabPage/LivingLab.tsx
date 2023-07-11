@@ -45,8 +45,8 @@ const LivingLab = () => {
     setCurrentData(data.data.list);
   };
   const handleClickDetail = (id: any) => {
-    navigate(`/living-lab/${id}`)
-  }
+    navigate(`/living-lab/${id}`);
+  };
   useEffect(() => {
     const fetchData = async () => {
       dispatch(loginStart(true));
@@ -152,7 +152,6 @@ const LivingLab = () => {
                         return (
                           <tr
                             key={item.id}
-                           
                             className="h-[50px] cursor-pointer border-b"
                           >
                             <td
@@ -163,12 +162,7 @@ const LivingLab = () => {
                                 <div>
                                   {" "}
                                   {role === "Admin" ? (
-                                    <input
-                                      className="flex items-center h-[15px] w-[15px]"
-                                      type="checkbox"
-                                      name=""
-                                      id=""
-                                    />
+                                    <CheckBox></CheckBox>
                                   ) : (
                                     ""
                                   )}
@@ -180,13 +174,22 @@ const LivingLab = () => {
                               </div>
                             </td>
 
-                            <td  onClick={() => handleClickDetail(item.id)} className="text-[14px] max-md:w-[380px] md:pl-[3.8%] md:text-left">
+                            <td
+                              onClick={() => handleClickDetail(item.id)}
+                              className="text-[14px] max-md:w-[380px] md:pl-[3.8%] md:text-left"
+                            >
                               {item.title}
                             </td>
-                            <td  onClick={() => handleClickDetail(item.id)} className="max-w-[200px] text-center text-[14px] max-md:w-[380px] ">
+                            <td
+                              onClick={() => handleClickDetail(item.id)}
+                              className="max-w-[200px] text-center text-[14px] max-md:w-[380px] "
+                            >
                               {item.author}
                             </td>
-                            <td  onClick={() => handleClickDetail(item.id)} className="w-[180px] text-center text-[14px]">
+                            <td
+                              onClick={() => handleClickDetail(item.id)}
+                              className="w-[180px] text-center text-[14px]"
+                            >
                               {dayjs(item.created_at).format("YYYY-MM-DD")}
                             </td>
                           </tr>
@@ -211,3 +214,17 @@ const LivingLab = () => {
 };
 
 export default LivingLab;
+const CheckBox = () => {
+  const  [check, setCheck] = useState(false);
+  console.log(check);
+  return (
+    <input
+    onChange={(e) => setCheck(e.target.checked)}
+      className="flex items-center h-[15px] w-[15px]"
+      type="checkbox"
+      checked= {check}
+      name=""
+      id=""
+    />
+  );
+};

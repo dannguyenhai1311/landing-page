@@ -68,7 +68,7 @@ const Campaign = () => {
     setCurrentData(value);
   }, [filter, noticeList]);
   return (
-    <div className="md:w-[1240px] min-w-[360px] mx-auto p-[24px] md:p-0 mt-[97px]">
+    <div className="md:w-[1240px] min-w-[360px] mx-auto p-[24px] md:p-0 mt-[76px] md:mt-[100px]">
       <div className="mb-[42px] mt-16 md:flex gap-x-2 flex-center justify-between">
         <h1 className="mb-2 text-2xl font-bold text-transparent md:md-0 bg-gradient-to-r from-[#0066C1] to-[#009FE5] bg-clip-text ">
           캠페인
