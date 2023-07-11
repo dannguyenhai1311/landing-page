@@ -1,11 +1,13 @@
-import NavbarLogin from "@/header/HeaderLogin";
+import NavbarLogin from "@/components/Navbar/NavbarLogin";
 import { Outlet } from "react-router-dom";
 import Footer from "@/components/Footer/Footer";
 const FormLayout = () => {
   return (
-    <div className="max-h-screen max-w-[1920px]">
+    <div className="grid max-h-screen grid-rows-1 ">
       <NavbarLogin />
-      <Outlet />
+      <div className="flex flex-col flex-1">
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );

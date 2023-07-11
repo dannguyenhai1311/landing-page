@@ -1,7 +1,6 @@
 import { RootState } from "@/app/store";
 import { loginStart } from "@/features/auth/authSlice";
 import { getApiData } from "@/services/apiService";
-import dayjs from "dayjs";
 import { t } from "i18next";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";

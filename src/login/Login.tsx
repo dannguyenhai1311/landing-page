@@ -52,7 +52,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center  md:w-[480px] w-[360px] md:h-[551px] h-[660px] border border-[#999999] mt-[167px] mb-[67px] mx-auto">
+    <div className="flex flex-col items-center  md:w-[480px] w-[360px] md:h-[551px] h-[660px] border border-[#999999] mt-[167px] mx-auto">
       <h2 className="mx-auto mt-10 text-2xl font-bold">{t("login.title")}</h2>
       <form onSubmit={handleFormSubmit}>
         <div className="flex flex-col">
