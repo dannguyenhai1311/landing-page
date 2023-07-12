@@ -2,7 +2,6 @@ import { RootState } from "@/app/store";
 import livingLab from "@/assets/images/LivingLab.png";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { loginStart } from "@/features/auth/authSlice";
-import { role } from "@/login/Login";
 import { getApiData } from "@/services/apiService";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,11 +15,14 @@ const LivingLab = () => {
   const navigate = useNavigate();
   const PAGE_SIZE = 10;
   const pageSize = 20;
+  const role = useSelector((state: any) => state.auth.role);
   const isLoading = useSelector((state: RootState) => state.auth.isLoading);
   const [search, setSearch] = useState("");
   const searchValue = "title";
   const [currentData, setCurrentData] = useState<any[]>([]);
   const [selectedOption, setSelectedOption] = useState("title");
+  const [checkList, setCheckList] = useState<any[]>([]);
+  console.log("checkList: ", checkList);
   const [noticeList, setNoticeList] = useState([
     {
       author: "Author",
@@ -46,6 +48,17 @@ const LivingLab = () => {
   };
   const handleClickDetail = (id: any) => {
     navigate(`/living-lab/${id}`);
+  };
+  const handleChecked = (id: any, checked: any) => {
+    let newList = [...checkList];
+    const isExist = checkList.indexOf(id) !== -1;
+    if (isExist) {
+      newList = checkList.filter((item) => item !== id);
+    } else {
+      newList.push(id);
+    }
+    console.log("newList", newList);
+    setCheckList(newList);
   };
   useEffect(() => {
     const fetchData = async () => {
@@ -162,7 +175,17 @@ const LivingLab = () => {
                                 <div>
                                   {" "}
                                   {role === "Admin" ? (
-                                    <CheckBox></CheckBox>
+                                    <input
+                                      onChange={(e) =>
+                                        handleChecked(item.id, e.target.checked)
+                                      }
+                                      className="flex items-center h-[15px] w-[15px]"
+                                      type="checkbox"
+                                      // checked={true}
+                                      checked={
+                                        checkList.indexOf(item.id) !== -1
+                                      } // tìm vị trí của phần tử trong mảng
+                                    />
                                   ) : (
                                     ""
                                   )}
@@ -214,17 +237,4 @@ const LivingLab = () => {
 };
 
 export default LivingLab;
-const CheckBox = () => {
-  const  [check, setCheck] = useState(false);
-  console.log(check);
-  return (
-    <input
-    onChange={(e) => setCheck(e.target.checked)}
-      className="flex items-center h-[15px] w-[15px]"
-      type="checkbox"
-      checked= {check}
-      name=""
-      id=""
-    />
-  );
-};
+

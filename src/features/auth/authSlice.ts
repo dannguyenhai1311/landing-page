@@ -4,11 +4,11 @@ import axios from "axios";
 import { baseURl } from "./api";
 
 interface AuthState {
-  user: User | null;
+  user: User | null | string;
   error: string | null;
   isLoading: boolean;
+  role: string | null;
 }
-
 interface User {
   id: string;
   username: string;
@@ -23,13 +23,14 @@ const initialState: AuthState = {
   user: null,
   error: null,
   isLoading: false,
+  role: localStorage.getItem("role"),
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    loginStart: (state,action) => {
+    loginStart: (state, action) => {
       state.isLoading = action.payload;
       state.error = null;
     },
@@ -37,6 +38,7 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.user = action.payload.user;
       state.error = null;
+      // state.role = action.payload.user?.role;
     },
     loginFailure: (state, action: PayloadAction<string>) => {
       state.isLoading = false;

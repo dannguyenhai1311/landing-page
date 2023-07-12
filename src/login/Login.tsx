@@ -8,8 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { login } from "@/services/UserService";
 
-
 const Login: React.FC = () => {
+  const role = useSelector((state: any) => state.auth.role);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -30,21 +30,24 @@ const Login: React.FC = () => {
     event.preventDefault();
 
     const result = await login({ username, password });
-    if (result.data.data.user.token) {
-      dispatch(loginSuccess(result.data.data.user.token));
+    console.log("1");
+    if (result.data.data.user) {
+      dispatch(loginSuccess(result.data.data.user));
       localStorage.setItem("token", result.data.data.user.token);
-      localStorage.setItem("userRole", result.data.data.user.role);
+      localStorage.setItem("role", result.data.data.user.role);
+      localStorage.setItem("user", JSON.stringify(result.data.data.user));
       console.log("user data:", result.data.data.user.role);
-     if(role !== "Admin") {
-      navigate("/Living-lab")
-     }else if(role === "Admin") {
-      navigate("/")
-     }
+      if (role !== "Admin") {
+        navigate("/Living-lab");
+      } else if (role === "Admin") {
+        navigate("/");
+      }
       location.reload();
     } else {
       alert("login false");
     }
   };
+  console.log("2");
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -109,5 +112,3 @@ const Login: React.FC = () => {
 };
 
 export default Login;
-export const role = localStorage.getItem("userRole");
-console.log("role: " + role);
