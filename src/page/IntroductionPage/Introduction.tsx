@@ -2,10 +2,16 @@ import introduceHeart from '@/assets/images/introduceHeart.png'
 import introduceArrow from '@/assets/images/introduceArrow.png'
 import introduceContent from '@/assets/images/introduceContent.png'
 import introduceLogo from '@/assets/images/introduceLogo.png'
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/store';
 const Introduction = () => {
+  const isLoading = useSelector((state: RootState) => state.auth.isLoading);
   return (
     <>
-      <div className="flex flex-col items-center text-[#4D4D4D] overflow-hidden text-center">
+       {isLoading && (
+        <div className="absolute top-[40%] inset-0 justify-center w-10 h-10 mx-auto border-4 border-t-4 rounded-full mt- fex flex-center border-primary border-t-transparent animate-spin"></div>
+      )}
+      {!isLoading &&( <div className="flex flex-col items-center text-[#4D4D4D] overflow-hidden text-center">
         <div className="mt-[100px] h-full md:max-h-[1885px] max-w-[414px]  md:max-w-[1240px]">
           <div className="flex flex-col items-center mt-[100px]">
             <img src={introduceHeart} className='mb-[30px] ' alt='' />
@@ -111,7 +117,7 @@ const Introduction = () => {
             </p>
           </div>
         </div>
-      </div>
+      </div>)}
     </>
   );
 };

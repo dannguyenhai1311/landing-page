@@ -9,7 +9,6 @@ import { useTranslation } from "react-i18next";
 import { login } from "@/services/UserService";
 
 const Login: React.FC = () => {
-  const role = useSelector((state: any) => state.auth.role);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -30,16 +29,15 @@ const Login: React.FC = () => {
     event.preventDefault();
 
     const result = await login({ username, password });
-    console.log("1");
     if (result.data.data.user) {
       dispatch(loginSuccess(result.data.data.user));
       localStorage.setItem("token", result.data.data.user.token);
       localStorage.setItem("role", result.data.data.user.role);
       localStorage.setItem("user", JSON.stringify(result.data.data.user));
       console.log("user data:", result.data.data.user.role);
-      if (role !== "Admin") {
+      if (result.data.data.user.role !== "Admin") {
         navigate("/Living-lab");
-      } else if (role === "Admin") {
+      } else if (result.data.data.user.role === "Admin") {
         navigate("/");
       }
       location.reload();
@@ -47,7 +45,6 @@ const Login: React.FC = () => {
       alert("login false");
     }
   };
-  console.log("2");
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };

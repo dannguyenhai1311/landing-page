@@ -107,7 +107,7 @@ const Navbar = () => {
               </NavLink>
             ))}
             <NavLink
-        className="flex flex-center items-center text-white text-base justify-center md:top-[36px] md:right-[180px]"
+        className="flex flex-center items-center text-white text-xl justify-center md:top-[36px] md:right-[180px]"
         to="/freeBoard"
         onClick={() => {
           handleLogOut();

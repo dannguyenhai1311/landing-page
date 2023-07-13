@@ -9,9 +9,10 @@ import ContentsData from "@/content/ContentsData";
 import LivingLabData from "@/content/LivingLabData";
 import CampaignData from "@/content/CampaignData";
 import FreeBoard from "@/content/FreeBoard";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const HomePage = () => {
- 
   const notice = "/notice";
   const apiUrl = "http://qa.forum-bulletin-board.dev.politetech.com/api/v1";
   const searchValue = "title";
@@ -27,6 +28,18 @@ const HomePage = () => {
       user_id: "User Id",
     },
   ]);
+  const notify = () => {
+    toast.success("🦄 Login success!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
   useEffect(() => {
     axios
       .get(
@@ -34,12 +47,14 @@ const HomePage = () => {
       )
       .then((response) => {
         setDataContent(response.data.data.list);
+        notify();
       });
   }, []);
   const user = useSelector((state: RootState) => state);
   console.log(user);
   return (
     <>
+    
       <div className="w-full h-full">
         <header className=" container-layout max-h-[900px] md:max-h-[1900px] bg-no-repeat -z-10 w-full">
           <div className="flex items-center justify-center left-auto right-auto flex-wrap flex-cols content-header">
@@ -164,6 +179,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+      <ToastContainer />
     </>
   );
 };

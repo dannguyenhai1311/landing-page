@@ -15,6 +15,7 @@ import { RequiredAuth } from "./RequiredAuth";
 import NotificationDetail from "./page/NotificationPage/NotificationDetail";
 import CampaignDetail from "./page/CampaignPage/CampaignDetail";
 import LivingLabDetail from "./page/LivingLabPage/LivingLabDetail";
+import ContentCreate from "./page/Content-create/ContentCreate";
 
 
 function App() {
@@ -30,11 +31,17 @@ function App() {
           <Route path="/" element={<RequiredAuth />}>
             <Route path="/*" element={<NotFound />}></Route>
             <Route path="/introduction" element={<Introduction />}></Route>
-            <Route path="/notification" element={<Notification />}></Route>
+            <Route path="/notification" element={<Notification />}>
+            </Route>
             <Route
-              path="/notification:id"
+              path="/notification/:id"
               element={<NotificationDetail />}
-            ></Route>
+            />
+            <Route
+              path="/notification/create"
+              element={<ContentCreate />}
+            />
+           
             <Route index path="/facility" element={<Facility />}></Route>
             <Route index path="/contents" element={<Contents />}></Route>
             <Route index path="/Living-lab" element={<LivingLab />}></Route>

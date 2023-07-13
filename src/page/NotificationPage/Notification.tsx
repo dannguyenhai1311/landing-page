@@ -1,9 +1,11 @@
 import { RootState } from "@/app/store";
 import notification from "@/assets/images/notication.png";
+import { ConfirmModal } from "@/components/ConfirmModal";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { loginStart } from "@/features/auth/authSlice";
+import { deleteData } from "@/services/UserService";
 import { getApiData } from "@/services/apiService";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass,faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
@@ -11,11 +13,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const Notification = () => {
+  const role = useSelector((state: any) => state.auth.role);
+  const [checkList, setCheckList] = useState<any[]>([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const PAGE_SIZE = 10;
   const pageSize = 20;
   const isLoading = useSelector((state: RootState) => state.auth.isLoading);
+  const [showModalConfirm, setShowModalConfirm] = useState(false)
   const [search, setSearch] = useState("");
   const searchValue = "title";
   const notice = "/notice";
@@ -32,11 +37,30 @@ const Notification = () => {
       user_id: "User Id",
     },
   ]);
+  
+  const onCloseModal = () => {
+    setShowModalConfirm(false)
+  }
+const handleCreate = () => {
+  navigate("/notification/create")
+}
 
   const [filter, setFilter] = useState({
     page: 0,
     pageSize: PAGE_SIZE,
   });
+  // SELECT
+  const handleChecked = (id: any, checked: any) => {
+    let newList = [...checkList];
+    const isExist = checkList.indexOf(id) !== -1;
+    if (isExist) {
+      newList = checkList.filter((item) => item !== id);
+    } else {
+      newList.push(id);
+    }
+    console.log("newList", newList);
+    setCheckList(newList);
+  };
 
   const handleSearch = async () => {
     const data = await getApiData(
@@ -46,6 +70,25 @@ const Notification = () => {
   };
   const handleClickDetail = (id: any) => {
     navigate(`/notification/${id}`);
+  };
+// DELETE
+const onHandleDelete = () => {
+  setShowModalConfirm(true)
+}
+  const handleDelete = async () => {
+    try {
+      const res = await deleteData(`/notice`,{ ids: checkList })
+      console.log("res", res);
+      if (res.data.success) {
+        setCheckList([]);
+        location.reload();
+      } else {
+        throw Error('error')
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    
   };
   useEffect(() => {
     const fetchData = async () => {
@@ -124,22 +167,22 @@ const Notification = () => {
               <table className="w-full h-full">
                 <thead>
                   <tr className="bg-[#d4e9fc]">
-                    <th className="w-[6%] text-[14px] font-bold">
+                  <th className="w-[8%] text-[14px] font-bold">
                       <div className="my-[10px] h-[30px] border-r border-[#7DA7CC] leading-[30px]">
                         번호
                       </div>
                     </th>
-                    <th className="text-[14px] font-bold max-md:w-[380px] ">
+                    <th className="text-[14px] w-[64%] font-bold max-md:w-[380px] ">
                       <div className="my-[10px] h-[30px] border-r border-[#7DA7CC] leading-[30px]">
                         제목
                       </div>
                     </th>
-                    <th className="text-[14px] font-bold w-[6%] max-md:w-[380px]">
+                    <th className="text-[14px] w-[14%] font-bold max-md:w-[380px]">
                       <div className="my-[10px] h-[30px] border-r border-[#7DA7CC] leading-[30px]">
                         작성자
                       </div>
                     </th>
-                    <th className="w-[180px] text-[14px] font-bold">
+                    <th className="w-[14%] text-[14px] font-bold">
                       <div className="my-[10px] h-[30px] leading-[30px]">
                         작성일
                       </div>
@@ -152,26 +195,54 @@ const Notification = () => {
                         return (
                           <tr
                             key={item.id}
-                            onClick={() => handleClickDetail(item.id)}
                             className="h-[50px] cursor-pointer border-b"
                           >
                             <td
-                              className="flex items-center justify-center py-[15px] text-center text-[14px]"
+                              className="flex w-[100px] items-center justify-center py-[15px] text-center text-[14px]"
                               key="numerical_order"
                             >
-                              <div>
-                                {noticeList.length -
-                                  (PAGE_SIZE * filter.page + index)}
+                              <div className="flex w-full p-2 flex-center items-center gap-x-5 justify-between">
+                                <div>
+                                  {" "}
+                                  {role === "Admin" ? (
+                                    <input
+                                      onChange={(e) =>
+                                        handleChecked(item.id, e.target.checked)
+                                      }
+                                      className="flex items-center h-[20px] w-[20px]"
+                                      type="checkbox"
+                                      // checked={true}
+                                      checked={
+                                        checkList.indexOf(item.id) !== -1
+                                      } // tìm vị trí của phần tử trong mảng
+                                    />
+                                  ) : (
+                                    ""
+                                  )}
+                                </div>
+                                <div>
+                                  {noticeList.length -
+                                    (PAGE_SIZE * filter.page + index)}
+                                </div>
                               </div>
                             </td>
 
-                            <td className="text-[14px] max-md:w-[380px] md:pl-[3.8%] md:text-left">
+                            <td
+                              onClick={() => handleClickDetail(item.id)}
+                              className="text-[14px] max-md:w-[380px] md:pl-[3.8%] md:text-left"
+                            >
                               {item.title}
                             </td>
-                            <td className="max-w-[200px] text-center text-[14px] max-md:w-[380px] ">
+                            <td
+                              onClick={() => handleClickDetail(item.id)}
+                              className="max-w-[200px] text-center text-[14px] max-md:w-[380px] "
+                            >
                               {item.author}
                             </td>
-                            <td className="w-[180px] text-center text-[14px]">
+                            <td
+                              onClick={() => handleClickDetail(item.id)}
+                              className="w-[180px] text-center text-[14px]"
+                            >
                               {dayjs(item.created_at).format("YYYY-MM-DD")}
                             </td>
                           </tr>
@@ -181,16 +252,51 @@ const Notification = () => {
                 </tbody>
               </table>
             </div>
-            <Pagination
-              className="flex"
-              currentPage={filter.page + 1}
-              totalCount={noticeList.length}
-              pageSize={PAGE_SIZE}
-              onPageChange={(page) => setFilter({ ...filter, page: page - 1 })}
-            />
+            <div className="xl:relative">
+              <Pagination
+                className="flex"
+                currentPage={filter.page + 1}
+                totalCount={noticeList.length}
+                pageSize={PAGE_SIZE}
+                onPageChange={(page) =>
+                  setFilter({ ...filter, page: page - 1 })
+                }
+              />
+              <div className="mt-6 flex items-center justify-center xl:justify-end gap-2.5 self-end xl:absolute bottom-0 right-0">
+                {role === "Admin" && (
+                  <div className="flex gap-2.5">
+                    <button
+                      onClick={handleCreate}
+                      className="w-[60px] h-[40px] border border-gray-400"
+                    >
+                      수정
+                    </button>
+                    <button
+                      onClick={onHandleDelete}
+                      className="w-[60px] h-[40px] bg-[#D9D9D9] border border-gray-400"
+                    >
+                      삭제
+                    </button>
+                  </div>
+                )}
+                <button
+                  // onClick={handleNextId}
+                  className="w-[105px] h-[40px] border bg-gradient-to-r from-[#0066C1] to-[#009FE5] text-white flex flex-center items-center"
+                >
+                  <FontAwesomeIcon icon={faPen} className="p-2" />
+                  <span> 다음 글</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
+      <ConfirmModal
+        isVisible={showModalConfirm}
+        onClose={onCloseModal}
+        content={`${checkList.length}건의 게시글을 삭제 하시겠습니까?`}
+        onConfirm={handleDelete}
+      />
     </div>
   );
 };

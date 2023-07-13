@@ -10,7 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { REGEXP } from "@/utils/regexp";
 import { registerUser } from "@/services/UserService";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 type FormData = {
   id: string;
   fullName: string;
@@ -84,7 +85,10 @@ const RegisterPage = () => {
         phone_number: values.phoneNumber,
       });
       if (response.data.success) {
-        navigate("/login");
+        notify()
+        setTimeout(() => {
+          navigate("/login");
+        },2000)
       } else {
         return false;
       }
@@ -92,6 +96,18 @@ const RegisterPage = () => {
       return error;
     }
   };
+  const notify = () => {
+    toast.success('🦄 Resister success!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+  }
 
   return (
     <div className="w-[860px] h-[551px] flex flex-col mt-[167px] shadow items-center mx-auto">
@@ -208,6 +224,7 @@ const RegisterPage = () => {
         >
           {t("register.signUp")}
         </button>
+        <ToastContainer/>
       </form>
     </div>
   );

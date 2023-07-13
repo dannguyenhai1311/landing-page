@@ -14,6 +14,7 @@ const NotificationDetail = () => {
   const [ChangeId,setChangeId] = useState(id);
   const dispatch = useDispatch();
   const [contentDetail, setContentsDetail] = useState<any>([]);
+  console.log("contentDetail", contentDetail);
   console.log(contentDetail.next);
   console.log(id);
   useEffect(() => {
@@ -23,6 +24,7 @@ const NotificationDetail = () => {
         const data = await getApiData(`/notice/${ChangeId}`);
         dispatch(loginStart(false));
         setContentsDetail(data.data);
+        console.log("data:",data.data);
       } catch (error) {
         console.log(error);
       }
