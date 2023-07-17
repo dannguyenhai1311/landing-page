@@ -47,10 +47,10 @@ const Contents = () => {
     <div className="w-full h-full mx-auto">
       <img
         src={contentImage}
-        className="md:mt-[100px] mt-[76px] w-full h-[300px] md:h-auto object-cover overflow-hidden"
+        className="xl:mt-[100px] mt-[76px] w-full h-[300px] xl:h-auto object-cover overflow-hidden"
         alt=""
       />
-      <div className="mx-[18%]">
+      <div className="xl:mx-[18%] md:mx-[12%] pl-8 xl:pl-0">
         <h1 className="text-2xl font-bold mt-[61px] mb-[45px] text-transparent bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text">
           콘텐츠
         </h1>
@@ -89,7 +89,7 @@ const Item = ({ item }: any) => {
   }, []);
   return (
     <div key={item.id} className="flex flex-col mb-[50px]">
-      <div className="flex justify-between flex-center gap-x-5">
+      <div className="xl:flex xl:justify-between xl:flex-center xl:gap-x-5">
         <div className="w-[320px] h-[180px] border border-gray-300">
           <iframe
             height="180px"
@@ -102,9 +102,9 @@ const Item = ({ item }: any) => {
           />
         </div>
         <div className="flex items-end flex-1">
-          <div className="flex flex-col self-stretch justify-between w-full">
-            <div className="flex items-start justify-between gap-x-5">
-              <p className="text-[15px] font-bold">{item.title}</p>
+          <div className="flex flex-col self-stretch justify-between w-full gap-y-5 xl:gap-y-0">
+            <div className="xl:flex xl:items-start xl:justify-between xl:gap-x-5">
+              <p className="text-[15px] py-5 xl:py-0 font-bold">{item.title}</p>
               <p className="text-[14px] shrink-0">
                 {dayjs(item.updatedAt).format("YYYY-MM-DD")}
               </p>
