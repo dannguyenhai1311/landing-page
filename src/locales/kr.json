@@ -29,7 +29,7 @@
     "campaign": "캠페인",
     "freeBoard": "자유게시판",
     "logout": "로그아웃",
-    "introduction":"소개"
+    "introduction": "소개"
   },
   "landing": {
     "letBeTogetther": "함께 하자,\n깨끗한 바다 부산으로!",
@@ -62,6 +62,10 @@
     },
     "writeLivingLab": "리빙랩 작성",
     "deleteSuccess": "성공적으로 삭제되었습니다."
+  },
+  "facility": {
+    "header": "시설현황",
+    "ViewAllOfBusan": "부산 전체보기"
   },
   "register": {
     "title": "리빙랩 회원가입",
@@ -97,13 +101,13 @@
   },
   "user": {
     "alreadyExist": "사용자가 이미 존재합니다",
-    "livingLabManager":"[ 리빙랩 관리자 ]",
-    "manager":"[ 관리자 ]",
+    "livingLabManager": "[ 리빙랩 관리자 ]",
+    "manager": "[ 관리자 ]",
     "notFound": "사용자를 찾을 수 없음",
     "passwordIncorrect": "비밀번호 오류"
   },
   "content": {
-    "title":"콘텐츠",
+    "title": "콘텐츠",
     "contentWriting": "콘텐츠 작성",
     "pleaseEnterALink": "링크를 입력해주세요.",
     "link": "링크"

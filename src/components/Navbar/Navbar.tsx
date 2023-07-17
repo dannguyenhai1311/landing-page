@@ -1,8 +1,9 @@
 import logoLogo from "../img/logo.png";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+// import { role } from "@/login/Login";
 
 const Navbar = () => {
   const role = useSelector((state: any) => state.auth.role);
@@ -59,7 +60,6 @@ const Navbar = () => {
       id: 7,
     },
   ];
-
   const getBackground = () => {
     if( checkActive("/")) {
       return "text-white"
@@ -79,11 +79,9 @@ const Navbar = () => {
     } 
     return "";
   };
-
   return (
     <nav
-      className={`
-      ${getBackground()} flex  justify-between p-5 pl-5 md:p-8 flex-center gap-x-10  px-[10px] md:px-[12%] font-semibold fixed top-0  w-full`}
+      className={`  ${getBackground()} flex  justify-between p-5 pl-5 md:p-8 flex-center gap-x-10  px-[10px] md:pl-[8%] font-semibold fixed top-0  w-full`}
     >
       <a href="/">
         <img src={logoLogo} className="w-[218px] h-[36px]" alt="" />
@@ -93,28 +91,25 @@ const Navbar = () => {
         className="flex items-center justify-around navigation flex-center"
       >
         <ul className="flex justify-between items-center text-xl font-light md:-mr-[40%] navbar gap-x-10">
-          {role !== "Normal" &&
-            LinkList.map((item) => (
-              <NavLink
-                key={item.id}
-                to={item.to}
-                className={({ isActive }) => {
-                  return isActive ?
-                  getColorActive() : "text-white";
-                } }
-              >
-                {item.title}
-              </NavLink>
-            ))}
+          {role !=="Normal" && LinkList.map((item) => (
             <NavLink
-        className="flex flex-center items-center text-white text-xl justify-center md:top-[36px] md:right-[180px]"
-        to="/freeBoard"
-        onClick={() => {
-          handleLogOut();
-        }}
-      >
-        로그아웃
-      </NavLink>
+              key={item.id}
+              to={item.to}
+              className={({ isActive }) => {
+                return isActive ?
+                  getColorActive() : "text-white";
+              }}
+            >
+              {item.title}
+            </NavLink>
+          ))}
+          <NavLink className="flex flex-center justify-center md:top-[36px] md:right-[180px] text-white" to="/freeBoard"
+            onClick={() => {
+              handleLogOut();
+            }}
+          >
+            로그아웃
+          </NavLink>
         </ul>
         <button className="nav-btn " onClick={showNavbar}>
           <svg
@@ -132,25 +127,23 @@ const Navbar = () => {
             />
           </svg>
         </button>
-        <button className="nav-btn nav-close-btn" onClick={showNavbar}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-            className="w-8 h-8 button nav-close-btn sm:w-[50px] sm:h-[50px]  md:right-20"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-            />
-          </svg>
-        </button>
       </div>
-
-      
+      <button className="nav-btn nav-close-btn" onClick={showNavbar}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={2}
+          stroke="currentColor"
+          className="w-8 h-8 button nav-close-btn sm:w-[50px] sm:h-[50px]  md:right-20"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+          />
+        </svg>
+      </button>
     </nav>
   );
 };

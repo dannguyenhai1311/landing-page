@@ -1,6 +1,7 @@
 import { RootState } from "@/app/store";
 import notification from "@/assets/images/notication.png";
 import { ConfirmModal } from "@/components/ConfirmModal";
+import { notifySuccess } from "@/components/Notify/Notify";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { loginStart } from "@/features/auth/authSlice";
 import { deleteData } from "@/services/UserService";
@@ -92,6 +93,7 @@ const LivingLab = () => {
         const data = await getApiData(
           `living-lab?search_value=${searchValue}&page_size=${pageSize}`
         );
+        notifySuccess();
         setNoticeList(data.data.list);
         dispatch(loginStart(false));
         const startIndex = filter.page * PAGE_SIZE;

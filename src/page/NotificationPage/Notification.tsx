@@ -5,25 +5,25 @@ import { Pagination } from "@/components/Pagination/Pagination";
 import { loginStart } from "@/features/auth/authSlice";
 import { deleteData } from "@/services/UserService";
 import { getApiData } from "@/services/apiService";
-import { faMagnifyingGlass,faPen } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from 'react-router-dom'
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-
+import { notifySuccess } from "@/components/Notify/Notify";
+const PAGE_SIZE = 10;
+const pageSize = 20;
+const searchValue = "title";
+const notice = "/notice";
 const Notification = () => {
   const role = useSelector((state: any) => state.auth.role);
-  const [checkList, setCheckList] = useState<any[]>([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const PAGE_SIZE = 10;
-  const pageSize = 20;
+  const [checkList, setCheckList] = useState<any[]>([]);
   const isLoading = useSelector((state: RootState) => state.auth.isLoading);
-  const [showModalConfirm, setShowModalConfirm] = useState(false)
+  const [showModalConfirm, setShowModalConfirm] = useState(false);
   const [search, setSearch] = useState("");
-  const searchValue = "title";
-  const notice = "/notice";
   const [currentData, setCurrentData] = useState<any[]>([]);
   const [selectedOption, setSelectedOption] = useState("title");
   const [noticeList, setNoticeList] = useState([
@@ -37,13 +37,14 @@ const Notification = () => {
       user_id: "User Id",
     },
   ]);
-  
+
   const onCloseModal = () => {
-    setShowModalConfirm(false)
-  }
-const handleCreate = () => {
-  navigate("/notification/create")
-}
+    setShowModalConfirm(false);
+  };
+  const handleCreate = () => {
+    navigate("/notification/create");
+  };
+
 
   const [filter, setFilter] = useState({
     page: 0,
@@ -71,24 +72,23 @@ const handleCreate = () => {
   const handleClickDetail = (id: any) => {
     navigate(`/notification/${id}`);
   };
-// DELETE
-const onHandleDelete = () => {
-  setShowModalConfirm(true)
-}
+  // DELETE
+  const onHandleDelete = () => {
+    setShowModalConfirm(true);
+  };
   const handleDelete = async () => {
     try {
-      const res = await deleteData(`/notice`,{ ids: checkList })
+      const res = await deleteData(`/notice`, { ids: checkList });
       console.log("res", res);
       if (res.data.success) {
         setCheckList([]);
         location.reload();
       } else {
-        throw Error('error')
+        throw Error("error");
       }
     } catch (error) {
       console.log(error);
     }
-    
   };
   useEffect(() => {
     const fetchData = async () => {
@@ -167,7 +167,7 @@ const onHandleDelete = () => {
               <table className="w-full h-full">
                 <thead>
                   <tr className="bg-[#d4e9fc]">
-                  <th className="w-[8%] text-[14px] font-bold">
+                    <th className="w-[8%] text-[14px] font-bold">
                       <div className="my-[10px] h-[30px] border-r border-[#7DA7CC] leading-[30px]">
                         번호
                       </div>
@@ -280,7 +280,7 @@ const onHandleDelete = () => {
                   </div>
                 )}
                 <button
-                  // onClick={handleNextId}
+                  // onClick={onEdit}
                   className="w-[105px] h-[40px] border bg-gradient-to-r from-[#0066C1] to-[#009FE5] text-white flex flex-center items-center"
                 >
                   <FontAwesomeIcon icon={faPen} className="p-2" />

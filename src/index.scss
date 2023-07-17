@@ -8,6 +8,13 @@
     font-size: 14px;
   }
 }
+@layer images {
+  #금정구:hover {
+    fill: yellow;
+    padding: 20px;
+  }
+}
+
 @layer components {
   .container-layout {
     max-width: 1920px;
@@ -23,6 +30,7 @@
   //   position: fixed;
   //   top: 0;
   // }
+
   .button {
     position: fixed;
     cursor: pointer;

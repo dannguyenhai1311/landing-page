@@ -5,6 +5,7 @@ import {
   faAngleRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { notifyFail } from '@/components/Notify/Notify';
 
 const ContentsData = () => {
   const contents = "/content";
@@ -29,18 +30,17 @@ const ContentsData = () => {
         );
         setApiData(data.data.list);
       } catch (error) {
-        // Xử lý lỗi nếu cần thiết
+        notifyFail();
       }
     };
     fetchData();
   }, []);
-  // console.log("apiData", apiData);
   return (
     <>
        <ul className="border-t-2 border-b-2 border-[#0066C1]">
-                  {apiData.map((items) => {
+                  {apiData.map((items,index) => {
                     return (
-                      <li className="flex items-center justify-between flex-center max-w-[360px] h-[60px] hover:bg-[#F6F6F6] p-2">
+                      <li key={index} className="flex items-center justify-between flex-center max-w-[360px] h-[60px] hover:bg-[#F6F6F6] p-2">
                         <div className="flex items-center justify-between flex-center gap-x-2">
                           <FontAwesomeIcon
                             icon={faSquare}

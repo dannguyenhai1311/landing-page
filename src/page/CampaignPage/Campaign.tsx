@@ -18,7 +18,6 @@ const Campaign = () => {
   const PAGE_SIZE = 12;
   const pageSize = 20;
   const [currentData, setCurrentData] = useState<any[]>([]);
-  console.log(currentData);
   const handleSearch = async () => {
     const data = await getApiData(
       `campaign?search_by=${selectedOption}&search_value=${search}&page=0&page_size=10`

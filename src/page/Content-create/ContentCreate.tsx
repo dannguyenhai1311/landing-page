@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { postData } from "@/services/UserService";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { notifyFail} from "@/components/Notify/Notify";
 type FormData = {
   title: string;
   link: string;
@@ -24,18 +25,7 @@ const ContentCreate = () => {
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
-  const notify = () => {
-    toast.success('🦄 Create success!', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        });
-  }
+
   const onSubmit = async (values: FormData) => {
     try {
       const response = await postData("/notice", {
@@ -43,12 +33,11 @@ const ContentCreate = () => {
         content: values.content,
       });
       if (response.data.success) {
-        notify();
         setTimeout(() => {
             location.reload();
         },5000)
       } else {
-        return false;
+        return notifyFail();
       }
     } catch (error) {
       return error;
