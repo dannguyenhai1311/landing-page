@@ -110,7 +110,7 @@ const Campaign = () => {
          <div className="grid- grid w-full grid-cols-[repeat(auto-fit,minmax(270px,1fr))]  gap-[20px]">
            {currentData.map((i) => {
              return (
-               <div onClick={() => handleClickDetail(i.id)} className="cursor-pointer  border-[1px] border-[#CCCCC]">
+               <div onClick={() => handleClickDetail(i.id)} className="cursor-pointer border-[1px] border-[#CCCCC]">
                  <div className="h-[210px] w-full">
                    <img
                      className="w-full h-full object-cover"
@@ -118,8 +118,8 @@ const Campaign = () => {
                      alt=""
                    />
                  </div>
-                 <div className="h-[60px] hover:bg-[#0066C1] w-full border-[1px] border-[#CCCC] bg-[#D4E9FC]">
-                   <h3 className="lin h-full text-center text-[15px] leading-[60px]">
+                 <div className="h-[60px] hover:bg-gradient-to-r from-[#0066C1] to-[#009FE5] hover:text-white  w-full border-[1px] border-[#CCCC] bg-[#D4E9FC]">
+                   <h3 className="h-full text-center text-[15px] leading-[60px]">
                      {i.title}
                    </h3>
                  </div>

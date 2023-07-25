@@ -1,9 +1,7 @@
-import { RootState } from "@/app/store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import ContentsData from "@/content/ContentsData";
 import LivingLabData from "@/content/LivingLabData";
@@ -46,7 +44,11 @@ const HomePage = () => {
         <header className=" container-layout max-h-[900px] md:max-h-[1900px] bg-no-repeat -z-10 w-full">
           <div className="flex items-center justify-center left-auto right-auto flex-wrap flex-cols content-header">
             <div className="w-full md:w-[654px] h-[auto] flex flex-center md:mt-[20%] justify-center items-start m-2">
-              <div className="m-5 text-3xl font-extrabold text-center mt-[90%] md:mt-0 text-white md:text-4xl">
+              <div
+                data-aos="fade-up"
+                data-aos-delay="1000"
+                className="m-5 text-3xl font-extrabold text-center mt-[90%] md:mt-0 text-white md:text-4xl"
+              >
                 <h1 className="flex flex-col leading-7">
                   <span>함께 하자,</span>
                   <br />
@@ -65,7 +67,10 @@ const HomePage = () => {
       <section className="mx-[8%] h-full sm:max-h-[1280px] md:max-h-[2000px] lg:max-h-[922px] mt-[136px]">
         <div className="content-1">
           <div className="flex items-center justify-between mb-6">
-            <div className=" mb-2 text-2xl  text-transparent md:md-0 bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text   text-[#000000] font-extrabold">
+            <div
+              data-aos="fade-up"
+              className=" mb-2 text-2xl  text-transparent md:md-0 bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text   text-[#000000] font-extrabold"
+            >
               공지사항
             </div>
             <span className="w-[40px] h-[40px] flex items-center justify-center text-center bg-[#0066C1]">
@@ -79,6 +84,8 @@ const HomePage = () => {
             {dataContent.map((items, index) => {
               return (
                 <div
+                  data-aos="fade-up"
+                  data-aos-delay="500"
                   key={index}
                   className="border flex flex-col gap-y-2 border-[#CCCCCC] rounded-lg max-w-[360px] h-[150px] text-box bg-[##FFFFFF] hover:bg-gradient-to-l from-cyan-500 to-blue-500 hover:text-white p-5"
                 >
@@ -111,7 +118,11 @@ const HomePage = () => {
                 />
               </span>
             </div>
-            <div className="border-t-2  border-b-2 border-[#0066C1]">
+            <div
+              data-aos="fade-up"
+              data-aos-delay="100"
+              className="border-t-2  border-b-2 border-[#0066C1]"
+            >
               <ContentsData />
             </div>
           </div>
@@ -127,7 +138,11 @@ const HomePage = () => {
                 />
               </span>
             </div>
-            <div className="border-t-2  border-b-2 border-[#0066C1]">
+            <div
+              data-aos="fade-up"
+              data-aos-delay="200"
+              className="border-t-2  border-b-2 border-[#0066C1]"
+            >
               <LivingLabData />
             </div>
           </div>
@@ -144,7 +159,11 @@ const HomePage = () => {
               </span>
             </div>
 
-            <div className="border-t-2  border-b-2 border-[#0066C1]">
+            <div
+              data-aos="fade-up"
+              data-aos-delay="300"
+              className="border-t-2  border-b-2 border-[#0066C1]"
+            >
               <CampaignData />
             </div>
           </div>
@@ -160,7 +179,11 @@ const HomePage = () => {
                 />
               </span>
             </div>
-            <div className="border-t-2  border-b-2 border-[#0066C1]">
+            <div
+              data-aos="fade-up"
+              data-aos-delay="400"
+              className="border-t-2  border-b-2 border-[#0066C1]"
+            >
               <FreeBoard />
             </div>
           </div>

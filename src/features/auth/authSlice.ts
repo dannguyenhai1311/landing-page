@@ -1,8 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AppThunk } from "../../app/store";
-import axios from "axios";
-import { baseURl } from "./api";
-
 interface AuthState {
   user: User | null | string;
   error: string | null;
@@ -38,7 +34,6 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.user = action.payload.user;
       state.error = null;
-      // state.role = action.payload.user?.role;
     },
     loginFailure: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
@@ -49,28 +44,4 @@ const authSlice = createSlice({
 });
 
 export const { loginStart, loginSuccess, loginFailure } = authSlice.actions;
-
-export const loginUser =
-  (username: string, password: string): AppThunk<Promise<boolean>> =>
-  async (dispatch) => {
-    dispatch(loginStart(true));
-    try {
-      const response = await axios.post(baseURl("login"), {
-        username,
-        password,
-      });
-      const userToken = response.data.data.user.token;
-      localStorage.setItem("token", userToken);
-      if (userToken) {
-        dispatch(loginSuccess(userToken));
-        return true;
-      } else {
-        dispatch(loginFailure("Invalid response from API"));
-        return false;
-      }
-    } catch (error) {
-      return false;
-    }
-  };
-
 export default authSlice.reducer;

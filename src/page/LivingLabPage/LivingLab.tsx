@@ -1,7 +1,6 @@
 import { RootState } from "@/app/store";
 import notification from "@/assets/images/notication.png";
 import { ConfirmModal } from "@/components/ConfirmModal";
-import { notifySuccess } from "@/components/Notify/Notify";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { loginStart } from "@/features/auth/authSlice";
 import { deleteData } from "@/services/UserService";
@@ -40,6 +39,9 @@ const LivingLab = () => {
 
   const onCloseModal = () => {
     setShowModalConfirm(false);
+  };
+  const handleCreate = () => {
+    navigate("/living-lab/create");
   };
 
   const [filter, setFilter] = useState({
@@ -93,7 +95,6 @@ const LivingLab = () => {
         const data = await getApiData(
           `living-lab?search_value=${searchValue}&page_size=${pageSize}`
         );
-        notifySuccess();
         setNoticeList(data.data.list);
         dispatch(loginStart(false));
         const startIndex = filter.page * PAGE_SIZE;
@@ -263,7 +264,7 @@ const LivingLab = () => {
                 {role === "Admin" && (
                   <div className="flex gap-2.5">
                     <button
-                      // onClick={handlePreId}
+                      onClick={handleCreate}
                       className="w-[60px] h-[40px] border border-gray-400"
                     >
                       수정
@@ -277,7 +278,7 @@ const LivingLab = () => {
                   </div>
                 )}
                 <button
-                  // onClick={handleNextId}
+                  // onClick={onEdit}
                   className="w-[105px] h-[40px] border bg-gradient-to-r from-[#0066C1] to-[#009FE5] text-white flex flex-center items-center"
                 >
                   <FontAwesomeIcon icon={faPen} className="p-2" />

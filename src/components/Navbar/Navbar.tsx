@@ -1,6 +1,6 @@
 import logoLogo from "../img/logo.png";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 // import { role } from "@/login/Login";
@@ -50,7 +50,7 @@ const Navbar = () => {
       id: 5,
     },
     {
-      to: "/Living-lab",
+      to: "/living-lab",
       title: t("nav.livingLab"),
       id: 6,
     },
@@ -60,9 +60,10 @@ const Navbar = () => {
       id: 7,
     },
   ];
+  const [color, setColor] = useState<string>();
   const getBackground = () => {
-    if( checkActive("/")) {
-      return "text-white"
+    if (checkActive("/")) {
+      return "text-white";
     }
     if (role === "Admin" && !checkActive("/")) {
       return "bg-[#0066C1]";
@@ -76,12 +77,35 @@ const Navbar = () => {
       return "text-white font-bold";
     } else if (role === "Normal") {
       return "text-white font-bold";
-    } 
+    }
     return "";
   };
+  const [, setScrolling] = useState(false);
+  const [scrollTop, setScrollTop] = useState(0);
+  useEffect(() => {
+    function onScroll() {
+      const currentPosition = window.pageYOffset;
+      if (currentPosition > scrollTop) {
+        if(currentPosition > 96)
+        if(role === "Admin")
+        setColor("bg-[#0066C1]");
+        if(role === "Normal")
+        setColor("bg-gradient-to-b from-[#008DCC] to-[#008E86]");
+        else
+        setScrolling(false);
+      } else {
+        if(currentPosition < 96)
+        setColor("text-white");
+        setScrolling(true);
+      }
+      setScrollTop(currentPosition <= 0 ? 0 : currentPosition);
+    }
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [scrollTop]);
   return (
     <nav
-      className={`  ${getBackground()} flex  justify-between p-5 pl-5 md:p-8 flex-center gap-x-10  px-[10px] md:pl-[8%] font-semibold fixed top-0  w-full`}
+      className={`  ${getBackground()} ${color} flex justify-between p-5 pl-5 md:p-8 flex-center gap-x-10  px-[10px] md:pl-[8%] font-semibold fixed top-0  w-full`}
     >
       <a href="/">
         <img src={logoLogo} className="w-[218px] h-[36px]" alt="" />
@@ -91,19 +115,23 @@ const Navbar = () => {
         className="flex items-center justify-around navigation flex-center"
       >
         <ul className="flex justify-between items-center text-xl font-light md:-mr-[40%] navbar gap-x-10">
-          {role !=="Normal" && LinkList.map((item) => (
-            <NavLink
-              key={item.id}
-              to={item.to}
-              className={({ isActive }) => {
-                return isActive ?
-                  getColorActive() : "text-white";
-              }}
-            >
-              {item.title}
-            </NavLink>
-          ))}
-          <NavLink className="flex flex-center justify-center md:top-[36px] md:right-[180px] text-white" to="/freeBoard"
+          {role !== "Normal" &&
+            LinkList.map((item) => (
+              <NavLink
+                key={item.id}
+                to={item.to}
+                className={({ isActive }) => {
+                  return isActive ? getColorActive() : "text-white";
+                }}
+              >
+                {item.title}
+              </NavLink>
+            ))}
+          <NavLink
+            className={`${
+              role === "Normal" ? "absolute right-5" : ""
+            } flex flex-center justify-center md:top-[36px] md:right-[180px] text-white`}
+            to="/freeBoard"
             onClick={() => {
               handleLogOut();
             }}
