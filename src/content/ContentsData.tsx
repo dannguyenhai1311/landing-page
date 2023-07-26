@@ -51,7 +51,7 @@ const ContentsData = () => {
                             icon={faSquare}
                             className="w-[8px] h-[8px]"
                           />
-                          <a className="line-clamp-1" href="">
+                          <a className="line-clamp-1 font-medium text-lg" href="">
                             {items.title}
                           </a>
                         </div>
