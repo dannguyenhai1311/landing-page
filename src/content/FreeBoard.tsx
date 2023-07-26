@@ -6,6 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { notifyFail } from '@/components/Notify/Notify';
+import { useNavigate } from 'react-router-dom';
 
 const FreeBoard = () => {
   const freeBoard = "/free-board?page=0";
@@ -34,13 +35,16 @@ const FreeBoard = () => {
     };
     fetchData();
   }, []);
-
+  const navigate = useNavigate();
+  const handleClick =  () => {
+    navigate("/contents")
+  }
   return (
     <>  
        <ul className="border-t-2 border-b-2 border-[#0066C1]">
                   {apiData.map((items,index) => {
                     return (
-                      <li key={index} className="flex items-center justify-between flex-center max-w-[360px] h-[60px] hover:bg-[#F6F6F6] p-2">
+                      <li onClick={handleClick} key={index} className="flex items-center justify-between flex-center max-w-[360px] h-[60px] hover:bg-[#F6F6F6] p-2">
                         <div className="flex items-center justify-between flex-center gap-x-2">
                           <FontAwesomeIcon
                             icon={faSquare}
