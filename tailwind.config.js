@@ -55,5 +55,9 @@ export default {
       ...defaultTheme.screens,
     },
   },
-  plugins: [],
+  plugins: [
+    // ...
+    // eslint-disable-next-line no-undef
+    require('tailwind-scrollbar'),
+],
 };

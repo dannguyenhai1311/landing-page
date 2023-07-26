@@ -105,7 +105,7 @@ const Navbar = () => {
   }, [scrollTop]);
   return (
     <nav
-      className={`  ${getBackground()} ${color} flex justify-between p-5 pl-5 md:p-8 flex-center gap-x-10  px-[10px] md:pl-[8%] font-semibold fixed top-0  w-full`}
+      className={`  ${getBackground()} ${color} flex justify-between p-5 pl-5 md:p-8 flex-center gap-x-10  px-[10px] md:pl-[8%] font-semibold fixed z-50 top-0  w-full`}
     >
       <a href="/">
         <img src={logoLogo} className="w-[218px] h-[36px]" alt="" />

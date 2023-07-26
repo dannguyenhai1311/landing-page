@@ -5,16 +5,25 @@ type ModalProps = {
   onClose?: () => void
 }
 
-export const Modal: FC<ModalProps & PropsWithChildren> = ({ isShow, children }) => {
+export const Modal: FC<ModalProps & PropsWithChildren> = ({ isShow, children, onClose }) => {
   if (isShow)
     return (
       <div
-        className='fixed inset-0 left-0 top-0 z-[1055] flex h-full w-full items-center justify-center  overflow-hidden bg-black bg-opacity-25 '
+        className='fixed inset-0 left-0 top-0 z-[1000] flex h-full w-full items-center justify-center scale-1  overflow-hidden bg-black bg-opacity-25 '
         tabIndex={-1}
         role='dialog'
         aria-hidden='true'
+        onClick={() => {
+          onClose?.()
+        }}
       >
-        {children}
+        <div
+          onClick={(e) => {
+            e.stopPropagation() 
+          }}
+        >
+          {children}
+        </div>
       </div>
     )
   return null

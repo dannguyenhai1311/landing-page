@@ -1,5 +1,6 @@
 import { RootState } from "@/app/store";
-import notification from "@/assets/images/notication.png";
+import LivingLabImage from "@/assets/images/LivingLab.png";
+import LivingLabIcon from "@/assets/images/icon-living-lab.png";
 import { ConfirmModal } from "@/components/ConfirmModal";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { loginStart } from "@/features/auth/authSlice";
@@ -122,11 +123,27 @@ const LivingLab = () => {
       )}
       {!isLoading && (
         <div className="w-full h-full mx-auto">
+             <>
+        <div className="relative">
           <img
-            src={notification}
-            className="md:mt-[100px] mt-[76px] w-full h-[200px] md:h-auto object-cover overflow-hidden"
+            src={LivingLabImage}
+            className="xl:mt-[100px] mt-[76px] w-full h-[300px] xl:h-auto object-cover overflow-hidden"
             alt=""
           />
+          <div className="overlay absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0.3)] text-white">
+            <div
+              data-aos="fade-up"
+              data-aos-delay="500"
+              className="flex flex-col items-center justify-center text-center right-0 left-0 mt-16 p-2 md:p-0"
+            >
+              <img src={LivingLabIcon} alt="" className="" />
+              <p className="text-xl font-bold">
+                깨끗한 바다 산을 위해 각 지역별 쓰레기 수거현황을 전합니다.
+              </p>
+            </div>
+          </div>
+        </div>
+      </>
 
           <div className="md:w-[1240px] min-w-[360px] mx-auto p-[24px] md:p-0">
             <div className="mb-[42px] mt-16 md:flex gap-x-2 flex-center justify-between">

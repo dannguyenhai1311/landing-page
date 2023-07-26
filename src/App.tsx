@@ -16,6 +16,7 @@ import CampaignDetail from "./page/CampaignPage/CampaignDetail";
 import LivingLabDetail from "./page/LivingLabPage/LivingLabDetail";
 import ContentCreate from "./page/Content-create/ContentCreate";
 import Facility from "./page/FacilityPage/Facility";
+
 function App() {
   return (
     <div className=" max-w-[1920px] scroll-smooth">

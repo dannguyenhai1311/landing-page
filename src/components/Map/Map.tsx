@@ -1,6 +1,6 @@
-import { DISTRICT } from '@/utils'
 import React, { useCallback, useEffect } from 'react'
 import './style.css'
+import { DISTRICT } from '@/utils/constants'
 
 type MapProps = {
   onSelect?: (name: string) => void

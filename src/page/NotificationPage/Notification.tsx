@@ -1,5 +1,7 @@
 import { RootState } from "@/app/store";
 import notification from "@/assets/images/notication.png";
+import notificationIcon from "@/assets/images/icon-notification.png";
+
 import { ConfirmModal } from "@/components/ConfirmModal";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { loginStart } from "@/features/auth/authSlice";
@@ -7,11 +9,10 @@ import { deleteData } from "@/services/UserService";
 import { getApiData } from "@/services/apiService";
 import { faMagnifyingGlass, faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { notifySuccess } from "@/components/Notify/Notify";
 const PAGE_SIZE = 10;
 const pageSize = 20;
 const searchValue = "title";
@@ -44,7 +45,6 @@ const Notification = () => {
   const handleCreate = () => {
     navigate("/notification/create");
   };
-
 
   const [filter, setFilter] = useState({
     page: 0,
@@ -124,12 +124,27 @@ const Notification = () => {
       )}
       {!isLoading && (
         <div className="w-full h-full mx-auto">
-          <img
-            src={notification}
-            className="md:mt-[100px] mt-[76px] w-full h-[200px] md:h-auto object-cover overflow-hidden"
-            alt=""
-          />
-
+          <>
+            <div className="relative">
+              <img
+                src={notification}
+                className="xl:mt-[100px] mt-[76px] w-full h-[300px] xl:h-auto object-cover overflow-hidden"
+                alt=""
+              />
+              <div className="overlay absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0.3)] text-white">
+                <div
+                  data-aos="fade-up"
+                  data-aos-delay="500"
+                  className="flex flex-col items-center justify-center text-center right-0 left-0 mt-16 p-2 md:p-0"
+                >
+                  <img src={notificationIcon} alt="" className="" />
+                  <p className="text-xl font-bold">
+                    깨끗한 바다 산을 위해 각 지역별 쓰레기 수거현황을 전합니다.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </>
           <div className="md:w-[1240px] min-w-[360px] mx-auto p-[24px] md:p-0">
             <div className="mb-[42px] mt-16 md:flex gap-x-2 flex-center justify-between">
               <h1 className="mb-2 text-2xl font-bold text-transparent md:md-0 bg-gradient-to-r from-[#0066C1] to-[#009FE5] bg-clip-text ">

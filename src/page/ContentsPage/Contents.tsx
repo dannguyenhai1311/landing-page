@@ -1,5 +1,6 @@
 import { RootState } from "@/app/store";
 import contentImage from "@/assets/images/contentsImage.png";
+import contentImageIcon from "@/assets/images/icon-content.png";
 import { Pagination } from "@/components/Pagination";
 import { loginStart } from "@/features/auth/authSlice";
 import { getApiData } from "@/services/apiService";
@@ -45,11 +46,27 @@ const Contents = () => {
   }, [filter, contentList]);
   return (
     <div className="w-full h-full mx-auto">
-      <img
-        src={contentImage}
-        className="xl:mt-[100px] mt-[76px] w-full h-[300px] xl:h-auto object-cover overflow-hidden"
-        alt=""
-      />
+        <>
+        <div className="relative">
+          <img
+            src={contentImage}
+            className="xl:mt-[100px] mt-[76px] w-full h-[300px] xl:h-auto object-cover overflow-hidden"
+            alt=""
+          />
+          <div className="overlay absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0.3)] text-white">
+            <div
+              data-aos="fade-up"
+              data-aos-delay="500"
+              className="flex flex-col items-center justify-center text-center right-0 left-0 mt-16 p-2 md:p-0"
+            >
+              <img src={contentImageIcon} alt="" className="" />
+              <p className="text-xl font-bold">
+                깨끗한 바다 산을 위해 각 지역별 쓰레기 수거현황을 전합니다.
+              </p>
+            </div>
+          </div>
+        </div>
+      </>
       <div className="xl:mx-[18%] md:mx-[12%] pl-8 xl:pl-0">
         <h1 className="text-2xl font-bold mt-[61px] mb-[45px] text-transparent bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text">
           콘텐츠
