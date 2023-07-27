@@ -136,7 +136,7 @@ const Navbar = () => {
           <NavLink
             className={`${
               role === "Normal" ? "absolute right-5" : ""
-            } flex flex-center justify-center md:top-[36px] md:right-[180px] text-white`}
+            } flex flex-center justify-center md:top-[36px] md:right-[180px] ${role !== "Admin" && role !== "Normal"? "text-black": "text-white"}`}
             to="/freeBoard"
             onClick={() => {
               handleLogOut();
