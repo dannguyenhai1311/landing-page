@@ -1,4 +1,4 @@
-import footerLogo from "../img/footer.png";
+import footerLogo from "@/assets/images/footer.png";
 const Footer = () => {
     return (
         <footer className="w-[100%]  h-[158px] md:max-h-[156px] mt-[67px] flex  bg-[#F1F1F1] text-[#727272]">

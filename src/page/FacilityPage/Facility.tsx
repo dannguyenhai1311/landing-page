@@ -87,11 +87,16 @@ const Facility = () => {
     const element = document.getElementById(selectedId);
     setSelected(element);
     if (element) {
-      const array = document.querySelectorAll("path");
-      array.forEach((element) => {
-        element.classList.remove("mapItemActive");
-      });
-      element.classList.add("mapItemActive");
+      // const array = document.querySelectorAll("path");
+      // array.forEach((element) => {
+      //   element.classList.remove("mapItemActive");
+      // });
+      element.classList.toggle("mapItemActive");
+      setBackgroundColor((prevColor) =>
+      prevColor === "bg-[#80baef] text-[#0069C3]"
+        ? " bg-gradient-to-r from-[#0066C1] to-[#009FE5] text-white"
+        : "bg-[#80baef] text-[#0069C3]"
+    );
     }
   };
   const handleMouseMove = (e: any) => {

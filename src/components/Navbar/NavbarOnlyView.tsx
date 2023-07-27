@@ -70,16 +70,11 @@ const Navbar = () => {
       return "bg-[#0066C1]";
     } else if (role === "Normal" && !checkActive("/")) {
       return "bg-gradient-to-b from-[#008DCC] to-[#008E86]";
-    }
-    return "bg-white text-black";
+    } else
+    return "bg-white text-black shadow";
   };
   const getColorActive = () => {
-    if (role === "Admin") {
-      return "text-white font-bold";
-    } else if (role === "Normal") {
-      return "text-white font-bold";
-    }
-    return "text-primary";
+    return "text-primary font-bold";
   };
   const [, setScrolling] = useState(false);
   const [scrollTop, setScrollTop] = useState(0);
@@ -92,13 +87,11 @@ const Navbar = () => {
         setColor("bg-[#0066C1]");
         if(role === "Normal")
         setColor("bg-gradient-to-b from-[#008DCC] to-[#008E86]");
-        if(role !== "Admin" && role !== "Normal")
-        setColor("bg-white text-black");
         else
         setScrolling(false);
       } else {
         if(currentPosition < 96)
-        setColor("text-white");
+        // setColor("text-white");
         setScrolling(true);
       }
       setScrollTop(currentPosition <= 0 ? 0 : currentPosition);
@@ -108,7 +101,7 @@ const Navbar = () => {
   }, [scrollTop]);
   return (
     <nav
-      className={`${getBackground()} ${color} flex justify-between p-5 pl-5 md:p-8 flex-center gap-x-10  px-[10px] md:pl-[8%] font-semibold fixed z-50 top-0  w-full`}
+      className={`  ${getBackground()} ${color} flex justify-between p-5 pl-5 md:p-8 flex-center gap-x-10  px-[10px] md:pl-[8%] font-semibold fixed z-50 top-0  w-full`}
     >
       <a href="/">
         <img src={logoLogo} className="w-[218px] h-[36px]" alt="" />
@@ -117,17 +110,14 @@ const Navbar = () => {
         ref={buttonRef}
         className="flex items-center justify-around navigation flex-center"
       >
-        <ul className="flex justify-between items-center text-xl font-light md:-mr-[40%] navbar gap-x-10 text-black">
+        <ul className="flex justify-between items-center text-xl font-light md:-mr-[40%] navbar gap-x-10">
           {role !== "Normal" &&
             LinkList.map((item) => (
               <NavLink
                 key={item.id}
                 to={item.to}
                 className={({ isActive }) => {
-                  if(role !== "Normal" && role !== "Admin") {
-                    return isActive ? getColorActive() : "";
-                  } else
-                  return isActive ? getColorActive() : "text-white";
+                  return isActive ? getColorActive() : "";
                 }}
               >
                 {item.title}
@@ -136,7 +126,7 @@ const Navbar = () => {
           <NavLink
             className={`${
               role === "Normal" ? "absolute right-5" : ""
-            } flex flex-center justify-center md:top-[36px] md:right-[180px] text-white`}
+            } flex flex-center justify-center md:top-[36px] md:right-[180px] text-black`}
             to="/freeBoard"
             onClick={() => {
               handleLogOut();
