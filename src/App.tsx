@@ -27,24 +27,23 @@ function App() {
         </Route>
         <Route path="/" element={<BaseLayout />}>
           <Route index path="/" element={<HomePage />} />
-            <Route path="/*" element={<NotFound />} />
-          <Route path="/" element={<RequiredAuth />}>
-            <Route path="/introduction" element={<Introduction />} />
-            <Route path="/notification" element={<Notification />} />
-            <Route path="/notification/:id" element={<NotificationDetail />} />
-            <Route path="/notification/create" element={<ContentCreate />} />
-            <Route index path="/facility" element={<Facility />} />
-            <Route index path="/contents" element={<Contents />} />
-            <Route index path="/living-lab" element={<LivingLab />} />
-            <Route
-              index
-              path="/Living-lab/:id"
-              element={<LivingLabDetail />}
-            ></Route>
-            <Route path="/living-lab/create" element={<ContentCreate />} />
-            <Route index path="/campaign" element={<Campaign />} />
-            <Route path="/campaign/:id" element={<CampaignDetail />} />
-          </Route>
+          <Route path="/*" element={<NotFound />} />
+
+          <Route path="/introduction" element={<Introduction />} />
+          <Route path="/notification" element={<Notification />} />
+          <Route path="/notification/:id" element={<NotificationDetail />} />
+          <Route path="/notification/create" element={<ContentCreate />} />
+          <Route index path="/facility" element={<Facility />} />
+          <Route index path="/contents" element={<Contents />} />
+          <Route index path="/living-lab" element={<LivingLab />} />
+          <Route
+            index
+            path="/Living-lab/:id"
+            element={<LivingLabDetail />}
+          ></Route>
+          <Route path="/living-lab/create" element={<ContentCreate />} />
+          <Route index path="/campaign" element={<Campaign />} />
+          <Route path="/campaign/:id" element={<CampaignDetail />} />
         </Route>
       </Routes>
     </div>
