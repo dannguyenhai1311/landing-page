@@ -66,6 +66,9 @@ const Navbar = () => {
     if (checkActive("/")) {
       return "text-white";
     }
+    if(checkActive("/introduction")) {
+      return "shadow"
+    }
     if (role === "Admin" && !checkActive("/")) {
       return "bg-[#0066C1]";
     } else if (role === "Normal" && !checkActive("/")) {
