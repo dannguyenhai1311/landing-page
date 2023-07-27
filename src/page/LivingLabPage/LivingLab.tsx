@@ -278,7 +278,7 @@ const LivingLab = () => {
                 }
               />
               <div className="mt-6 flex items-center justify-center xl:justify-end gap-2.5 self-end xl:absolute bottom-0 right-0">
-                {role === "Admin" && (
+                {role === "Admin" &&(
                   <div className="flex gap-2.5">
                     <button
                       onClick={handleCreate}

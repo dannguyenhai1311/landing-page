@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Banner1 from '@/assets/images/landing-1.png'
-import Banner2 from '@/assets/images/landing-2.png'
-import Banner3 from '@/assets/images/landing-3.png'
+import Banner1 from "@/assets/images/landing-1.png";
+import Banner2 from "@/assets/images/landing-2.png";
+import Banner3 from "@/assets/images/landing-3.png";
 import axios from "axios";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
@@ -14,12 +14,12 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { notifySuccess } from "@/components/Notify/Notify";
 import { useTranslation } from "react-i18next";
-import './style.css'
+import "./style.css";
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const notice = "/notice";
   const apiUrl = "http://qa.forum-bulletin-board.dev.politetech.com/api/v1";
   const searchValue = "title";
@@ -46,54 +46,69 @@ const HomePage = () => {
       });
   }, []);
   useEffect(() => {
-    const noticeEl = document.querySelectorAll('.notice-card')
+    const noticeEl = document.querySelectorAll(".notice-card");
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('slide-in')
+          entry.target.classList.add("slide-in");
         } else {
-          entry.target.classList.remove('slide-in')
+          entry.target.classList.remove("slide-in");
         }
-      })
-    })
+      });
+    });
     for (let i = 0; i < noticeEl.length; i++) {
-      const elements = noticeEl[i]
-      observer.observe(elements)
+      const elements = noticeEl[i];
+      observer.observe(elements);
     }
     let active = 2;
-    const bannerEl = document.querySelectorAll('.landing-banner')
-    const classN =  bannerEl[1].className;
+    const bannerEl = document.querySelectorAll(".landing-banner");
+    const classN = bannerEl[1].className;
 
     setInterval(() => {
-          const nextActive = active - 1 >= 0 ? active - 1 : 2 
-          bannerEl[nextActive].className = `${classN} only-scale`
-          bannerEl[active].className = `${classN} banner-out`
-          active =  nextActive
-      
-    }, 6000)
+      const nextActive = active - 1 >= 0 ? active - 1 : 2;
+      bannerEl[nextActive].className = `${classN} only-scale`;
+      bannerEl[active].className = `${classN} banner-out`;
+      active = nextActive;
+    }, 6000);
 
-    return () => observer.disconnect()
-  }, [])
+    return () => observer.disconnect();
+  }, []);
   const handleClickDetail = (id: any) => {
     navigate(`/notification/${id}`);
   };
   return (
     <>
       <div className="w-full h-full">
-         <div className='landing-bg z-[-10] flex flex-col items-center justify-center w-full max-w-[1920px]'>
-        <div className='intro-text slide-in absolute z-20'>
-          <h1 className=' whitespace-pre text-center text-[36px] font-bold text-white'>
-            {t('landing.letBeTogetther')}
-          </h1>
-          <p className='mt-10 px-padding text-center text-[20px] text-primary-lightest'>
-            {t('landing.provideInformation')}
-          </p>
+        <div className="landing-bg z-[-10] flex flex-col items-center justify-center w-full max-w-[1920px]">
+          <div
+             data-aos="fade-up"
+             data-aos-delay="500"
+            className="intro-text absolute z-20"
+          >
+            <h1 className=" whitespace-pre text-center text-[36px] font-bold text-white">
+              {t("landing.letBeTogetther")}
+            </h1>
+            <p className="mt-10 px-padding text-center text-[20px] text-primary-lightest">
+              {t("landing.provideInformation")}
+            </p>
+          </div>
+          <img
+            src={Banner3}
+            alt=""
+            className=" landing-banner opacity-1 absolute "
+          />
+          <img
+            src={Banner2}
+            alt=""
+            className=" landing-banner opacity-1 absolute "
+          />
+          <img
+            src={Banner1}
+            alt=""
+            className=" landing-banner opacity-1 absolute "
+          />
         </div>
-        <img src={Banner3} alt='' className=' landing-banner opacity-1 absolute ' />
-        <img src={Banner2} alt='' className=' landing-banner opacity-1 absolute ' />
-        <img src={Banner1} alt='' className=' landing-banner opacity-1 absolute ' />
-      </div>
-      {/* <div className='h-screen' /> */}
+        {/* <div className='h-screen' /> */}
       </div>
       <section className="mx-[8%] h-full sm:max-h-[1280px] md:max-h-[2000px] lg:max-h-[922px] mt-[136px]">
         <div className="content-1">

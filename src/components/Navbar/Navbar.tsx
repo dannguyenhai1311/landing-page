@@ -82,24 +82,21 @@ const Navbar = () => {
     return "text-primary font-bold";
   };
   const [scrolling, setScrolling] = useState(false);
-   console.log("scrolling", scrolling);
+  console.log("scrolling", scrolling);
   const [scrollTop, setScrollTop] = useState(0);
   useEffect(() => {
     function onScroll() {
       const currentPosition = window.pageYOffset;
       if (currentPosition > scrollTop) {
-        if(currentPosition > 96)
-        if(role !== "Admin" && role !== "Normal")
-        setColor("bg-white text-black");
-        if(role === "Admin")
-        setColor("bg-[#0066C1]");
-        if(role === "Normal")
-        setColor("bg-gradient-to-b from-[#008DCC] to-[#008E86]");
-        else
-        setScrolling(false);
+        if (currentPosition > 96)
+          if (role !== "Admin" && role !== "Normal")
+            setColor("bg-white text-black");
+        if (role === "Admin") setColor("bg-[#0066C1]");
+        if (role === "Normal")
+          setColor("bg-gradient-to-b from-[#008DCC] to-[#008E86]");
+        else setScrolling(false);
       } else {
-        if(currentPosition < 96)
-        setColor("text-white");
+        if (currentPosition < 96) setColor("text-white");
         setScrolling(true);
       }
       setScrollTop(currentPosition <= 0 ? 0 : currentPosition);
@@ -109,26 +106,34 @@ const Navbar = () => {
   }, [scrollTop]);
   return (
     <nav
-      className={`${getBackground()} ${color} ${checkActive("/introduction") ? "shadow" : ""} flex justify-between p-5 pl-5 md:p-8 flex-center gap-x-10  px-[10px] md:pl-[8%] font-semibold fixed z-50 top-0  w-full`}
+      className={`${getBackground()} ${color} ${
+        checkActive("/introduction") ? "shadow" : ""
+      } flex justify-between p-5 pl-5 md:p-8 flex-center gap-x-10  px-[10px] md:pl-[8%] font-semibold fixed z-50 top-0  w-full`}
     >
-      <a href="/">
+      <a
+        href="/"
+        className="flex flex-center justify-between items-end gap-x-5 text-white"
+      >
         <img src={logoLogo} className="w-[218px] h-[36px]" alt="" />
+        {role === "Admin" && <p>[관리자]</p>}
+        {role === "Normal" && <p>[ 리빙랩 관리자 ]</p>}
       </a>
       <div
         ref={buttonRef}
         className="flex items-center justify-around navigation flex-center"
       >
-        <ul className={`flex justify-between items-center text-xl font-light md:-mr-[40%] navbar gap-x-10 text-black`}>
+        <ul
+          className={`flex justify-between items-center text-xl font-light md:-mr-[40%] navbar gap-x-10 text-black`}
+        >
           {role !== "Normal" &&
             LinkList.map((item) => (
               <NavLink
                 key={item.id}
                 to={item.to}
                 className={({ isActive }) => {
-                  if(role !== "Normal" && role !== "Admin") {
+                  if (role !== "Normal" && role !== "Admin") {
                     return isActive ? getColorActive() : "";
-                  } else
-                  return isActive ? getColorActive() : "text-white";
+                  } else return isActive ? getColorActive() : "text-white";
                 }}
               >
                 {item.title}
@@ -137,7 +142,11 @@ const Navbar = () => {
           <NavLink
             className={`${
               role === "Normal" ? "absolute right-5" : ""
-            } flex flex-center justify-center md:top-[36px] md:right-[180px] ${role !== "Admin" && role !== "Normal"? "text-black": "text-white"}`}
+            } flex flex-center justify-center md:top-[36px] md:right-[180px] ${
+              role !== "Admin" && role !== "Normal"
+                ? "text-black"
+                : "text-white"
+            }`}
             to="/freeBoard"
             onClick={() => {
               handleLogOut();
