@@ -66,15 +66,12 @@ const Navbar = () => {
     if (checkActive("/")) {
       return "text-white";
     }
-    if(checkActive("/introduction")) {
-      return "shadow"
-    }
     if (role === "Admin" && !checkActive("/")) {
       return "bg-[#0066C1]";
     } else if (role === "Normal" && !checkActive("/")) {
       return "bg-gradient-to-b from-[#008DCC] to-[#008E86]";
     }
-    return "bg-white text-black";
+    // return "bg-white text-black";
   };
   const getColorActive = () => {
     if (role === "Admin") {
@@ -82,21 +79,22 @@ const Navbar = () => {
     } else if (role === "Normal") {
       return "text-white font-bold";
     }
-    return "text-primary";
+    return "text-primary font-bold";
   };
-  const [, setScrolling] = useState(false);
+  const [scrolling, setScrolling] = useState(false);
+   console.log("scrolling", scrolling);
   const [scrollTop, setScrollTop] = useState(0);
   useEffect(() => {
     function onScroll() {
       const currentPosition = window.pageYOffset;
       if (currentPosition > scrollTop) {
         if(currentPosition > 96)
+        if(role !== "Admin" && role !== "Normal")
+        setColor("bg-white text-black");
         if(role === "Admin")
         setColor("bg-[#0066C1]");
         if(role === "Normal")
         setColor("bg-gradient-to-b from-[#008DCC] to-[#008E86]");
-        if(role !== "Admin" && role !== "Normal")
-        setColor("bg-white text-black");
         else
         setScrolling(false);
       } else {
@@ -111,7 +109,7 @@ const Navbar = () => {
   }, [scrollTop]);
   return (
     <nav
-      className={`${getBackground()} ${color} flex justify-between p-5 pl-5 md:p-8 flex-center gap-x-10  px-[10px] md:pl-[8%] font-semibold fixed z-50 top-0  w-full`}
+      className={`${getBackground()} ${color} ${checkActive("/introduction") ? "shadow" : ""} flex justify-between p-5 pl-5 md:p-8 flex-center gap-x-10  px-[10px] md:pl-[8%] font-semibold fixed z-50 top-0  w-full`}
     >
       <a href="/">
         <img src={logoLogo} className="w-[218px] h-[36px]" alt="" />
@@ -120,7 +118,7 @@ const Navbar = () => {
         ref={buttonRef}
         className="flex items-center justify-around navigation flex-center"
       >
-        <ul className="flex justify-between items-center text-xl font-light md:-mr-[40%] navbar gap-x-10 text-black">
+        <ul className={`flex justify-between items-center text-xl font-light md:-mr-[40%] navbar gap-x-10 text-black`}>
           {role !== "Normal" &&
             LinkList.map((item) => (
               <NavLink
