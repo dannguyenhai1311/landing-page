@@ -11,7 +11,7 @@ type FormData = {
   link: string;
   content: string;
 };
-const ContentCreate = () => {
+const NotificationCreate = () => {
   const { t } = useTranslation();
   const validationSchema = yup.object().shape({
     title: yup.string().required(t("register.required")),
@@ -103,4 +103,4 @@ const ContentCreate = () => {
   );
 };
 
-export default ContentCreate;
+export default NotificationCreate;
