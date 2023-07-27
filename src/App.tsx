@@ -27,8 +27,8 @@ function App() {
         </Route>
         <Route path="/" element={<BaseLayout />}>
           <Route index path="/" element={<HomePage />} />
-          <Route path="/" element={<RequiredAuth />}>
             <Route path="/*" element={<NotFound />} />
+          <Route path="/" element={<RequiredAuth />}>
             <Route path="/introduction" element={<Introduction />} />
             <Route path="/notification" element={<Notification />} />
             <Route path="/notification/:id" element={<NotificationDetail />} />

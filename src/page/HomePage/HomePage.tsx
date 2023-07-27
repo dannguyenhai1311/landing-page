@@ -15,8 +15,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { notifySuccess } from "@/components/Notify/Notify";
 import { useTranslation } from "react-i18next";
 import './style.css'
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const { t } = useTranslation()
   const notice = "/notice";
   const apiUrl = "http://qa.forum-bulletin-board.dev.politetech.com/api/v1";
@@ -72,7 +74,9 @@ const HomePage = () => {
 
     return () => observer.disconnect()
   }, [])
-
+  const handleClickDetail = (id: any) => {
+    navigate(`/notification/${id}`);
+  };
   return (
     <>
       <div className="w-full h-full">
@@ -114,6 +118,7 @@ const HomePage = () => {
                   data-aos="fade-up"
                   data-aos-delay="500"
                   key={index}
+                  onClick={() => handleClickDetail(items.id)}
                   className="border flex flex-col gap-y-2 border-[#CCCCCC] rounded-lg max-w-[360px] h-[150px] text-box bg-[##FFFFFF] hover:bg-gradient-to-l from-cyan-500 to-blue-500 hover:text-white p-5"
                 >
                   <h3
