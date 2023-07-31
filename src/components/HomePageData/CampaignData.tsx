@@ -12,9 +12,7 @@ const CampaignData = () => {
   const navigate = useNavigate();
   const campaign = "campaign?page=0";
   const pageSize = 4;
-  const handleClick =  () => {
-    navigate("/contents")
-  }
+
   const [apiData, setApiData] = useState([
     {
       author: "Author",
@@ -40,13 +38,15 @@ const CampaignData = () => {
     fetchData();
   }, []);
   // console.log("apiData living lab: ", apiData);
-  
+  const handleClickDetail = (id: any) => {
+    navigate(`/campaign/${id}`);
+  };
   return (
     <>  
        <ul className="border-t-2 border-b-2 border-[#0066C1]">
                   {apiData.map((items,index) => {
                     return (
-                      <li onClick={handleClick} key={index} className="flex items-center justify-between flex-center max-w-[360px] h-[60px] hover:bg-[#F6F6F6] p-2">
+                      <li onClick={() => handleClickDetail(items.id)} key={index} className="flex items-center justify-between flex-center max-w-[360px] h-[60px] hover:bg-[#F6F6F6] p-2">
                         <div className="flex items-center justify-between flex-center gap-x-2">
                           <FontAwesomeIcon
                             icon={faSquare}

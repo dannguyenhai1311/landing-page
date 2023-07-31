@@ -9,7 +9,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import ContentsData from "@/components/HomePageData/ContentsData";
 import LivingLabData from "@/components/HomePageData/LivingLabData";
 import CampaignData from "@/components/HomePageData/CampaignData";
-import FreeBoard from "@/components/HomePageData/FreeBoard";
+import FreeBoardData from "@/components/HomePageData/FreeBoardData";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { notifySuccess } from "@/components/Notify/Notify";
@@ -81,8 +81,8 @@ const HomePage = () => {
       <div className="w-full h-full">
         <div className="landing-bg z-[-10] flex flex-col items-center justify-center w-full max-w-[1920px]">
           <div
-             data-aos="fade-up"
-             data-aos-delay="500"
+            data-aos="fade-up"
+            data-aos-delay="500"
             className="intro-text absolute z-20"
           >
             <h1 className=" whitespace-pre text-center text-[36px] font-bold text-white">
@@ -231,7 +231,7 @@ const HomePage = () => {
               data-aos-delay="400"
               className="border-t-2  border-b-2 border-[#0066C1]"
             >
-              <FreeBoard />
+              <FreeBoardData />
             </div>
           </div>
         </div>

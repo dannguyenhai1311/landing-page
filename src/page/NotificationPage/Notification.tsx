@@ -43,6 +43,7 @@ const Notification = () => {
     setShowModalConfirm(false);
   };
   const handleCreate = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     navigate("/notification/create");
   };
 
@@ -139,7 +140,7 @@ const Notification = () => {
                 >
                   <img src={notificationIcon} alt="" className="" />
                   <p className="text-xl font-bold">
-                    깨끗한 바다 산을 위해 각 지역별 쓰레기 수거현황을 전합니다.
+                  깨바부의 새로운 소식을 전합니다.
                   </p>
                 </div>
               </div>

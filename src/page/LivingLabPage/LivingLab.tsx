@@ -42,6 +42,7 @@ const LivingLab = () => {
     setShowModalConfirm(false);
   };
   const handleCreate = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     navigate("/living-lab/create");
   };
 
@@ -68,6 +69,7 @@ const LivingLab = () => {
     setCurrentData(data.data.list);
   };
   const handleClickDetail = (id: any) => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     navigate(`/living-lab/${id}`);
   };
 
@@ -138,7 +140,7 @@ const LivingLab = () => {
             >
               <img src={LivingLabIcon} alt="" className="" />
               <p className="text-xl font-bold">
-                깨끗한 바다 산을 위해 각 지역별 쓰레기 수거현황을 전합니다.
+              깨끗한 바다 부산을 위해 시민들이 직접 참여 중인 프로젝트를 소개합니다.
               </p>
             </div>
           </div>

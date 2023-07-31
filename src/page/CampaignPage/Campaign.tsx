@@ -146,7 +146,7 @@ const Campaign = () => {
                       />
                     </div>
                     <div className="h-[60px] hover:bg-gradient-to-r from-[#0066C1] to-[#009FE5] hover:text-white  w-full border-[1px] border-[#CCCC] bg-[#D4E9FC]">
-                      <h3 className="h-full text-center text-[15px] leading-[60px]">
+                      <h3 className="h-full text-center text-[15px] leading-[60px] line-clamp-1">
                         {i.title}
                       </h3>
                     </div>

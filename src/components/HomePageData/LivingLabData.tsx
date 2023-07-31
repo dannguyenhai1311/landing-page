@@ -31,8 +31,8 @@ const LivingLabData = () => {
     };
     fetchData();
   }, []);
-  const handleClick = () => {
-    navigate("/contents");
+  const handleClickDetail = (id: any) => {
+    navigate(`/living-lab/${id}`);
   };
   return (
     <>
@@ -40,7 +40,7 @@ const LivingLabData = () => {
         {apiData.map((items, index) => {
           return (
             <li
-              onClick={handleClick}
+            onClick={() => handleClickDetail(items.id)} 
               key={index}
               className="flex items-center justify-between flex-center max-w-[360px] h-[60px] hover:bg-[#F6F6F6] p-2"
             >

@@ -13,9 +13,13 @@ import NotFound from "./page/NotFoundPage/NotFound";
 import NotificationDetail from "./page/NotificationPage/NotificationDetail";
 import CampaignDetail from "./page/CampaignPage/CampaignDetail";
 import LivingLabDetail from "./page/LivingLabPage/LivingLabDetail";
-import LivingLabCreate from "./page/ContentCreate/LivingLabCreate/LivingLabCreate";
+import LivingLabCreate from "./page/LivingLabPage/LivingLabCreate/LivingLabCreate";
 import Facility from "./page/FacilityPage/Facility";
-import NotificationCreate from "./page/ContentCreate/NotificationCreate/NotificationCreate";
+import NotificationCreate from "./page/NotificationPage/NotificationCreate/NotificationCreate";
+import FreeBoard from "./page/FreeBoardPage/FreeBoard";
+import FreeBoarDetail from "./page/FreeBoardPage/FreeBoarDetail";
+import FreeBoardCreate from "./page/FreeBoardPage/FreeBoardCreate/FreeBoardCreate";
+
 
 function App() {
   return (
@@ -44,6 +48,9 @@ function App() {
           <Route path="/living-lab/create" element={<LivingLabCreate />} />
           <Route index path="/campaign" element={<Campaign />} />
           <Route path="/campaign/:id" element={<CampaignDetail />} />
+          <Route index path="/free-board" element={<FreeBoard />} />
+          <Route path="/free-board/:id" element={<FreeBoarDetail />} />
+          <Route path="/free-board/create" element={<FreeBoardCreate />} />
         </Route>
       </Routes>
     </div>

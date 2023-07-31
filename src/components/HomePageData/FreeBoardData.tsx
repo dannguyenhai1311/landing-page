@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { notifyFail } from "@/components/Notify/Notify";
 import { useNavigate } from "react-router-dom";
 
-const FreeBoard = () => {
+const FreeBoardData = () => {
   const freeBoard = "/free-board?page=0";
   const pageSize = 4;
   const [apiData, setApiData] = useState([
@@ -31,8 +31,8 @@ const FreeBoard = () => {
     fetchData();
   }, []);
   const navigate = useNavigate();
-  const handleClick = () => {
-    navigate("/contents");
+  const handleClickDetail = (id: any) => {
+    navigate(`/living-lab/${id}`);
   };
   return (
     <>
@@ -40,7 +40,7 @@ const FreeBoard = () => {
         {apiData.map((items, index) => {
           return (
             <li
-              onClick={handleClick}
+              onClick={() => handleClickDetail(items.id)}
               key={index}
               className="flex items-center justify-between flex-center max-w-[360px] h-[60px] hover:bg-[#F6F6F6] p-2"
             >
@@ -64,4 +64,4 @@ const FreeBoard = () => {
   );
 };
 
-export default FreeBoard;
+export default FreeBoardData;

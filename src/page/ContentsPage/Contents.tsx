@@ -61,7 +61,7 @@ const Contents = () => {
             >
               <img src={contentImageIcon} alt="" className="" />
               <p className="text-xl font-bold">
-                깨끗한 바다 산을 위해 각 지역별 쓰레기 수거현황을 전합니다.
+              깨바부의 다양한 콘텐츠를 확인해보세요.
               </p>
             </div>
           </div>

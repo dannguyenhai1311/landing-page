@@ -11,7 +11,7 @@ type FormData = {
   link: string;
   content: string;
 };
-const NotificationCreate = () => {
+const FreeBoardCreate = () => {
   const { t } = useTranslation();
   const validationSchema = yup.object().shape({
     title: yup.string().required(t("register.required")),
@@ -28,7 +28,7 @@ const NotificationCreate = () => {
 
   const onSubmit = async (values: FormData) => {
     try {
-      const response = await postData("/notice", {
+      const response = await postData("/free-board", {
         title: values.title,
         content: values.content,
       });
@@ -103,4 +103,4 @@ const NotificationCreate = () => {
   );
 };
 
-export default NotificationCreate;
+export default FreeBoardCreate;

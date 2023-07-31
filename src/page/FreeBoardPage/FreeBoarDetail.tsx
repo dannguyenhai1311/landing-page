@@ -7,24 +7,20 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
-const NotificationDetail = () => {
+const FreeBoarDetail = () => {
   const navigate = useNavigate();
   const isLoading = useSelector((state: RootState) => state.auth.isLoading);
   const { id } = useParams();
   const [ChangeId,setChangeId] = useState(id);
   const dispatch = useDispatch();
   const [contentDetail, setContentsDetail] = useState<any>([]);
-  console.log("contentDetail", contentDetail);
-  console.log(contentDetail.next);
-  console.log(id);
   useEffect(() => {
     const fetchData = async (ChangeId: string | undefined) => {
       dispatch(loginStart(true));
       try {
-        const data = await getApiData(`/notice/${ChangeId}`);
+        const data = await getApiData(`/free-board/${ChangeId}`);
         dispatch(loginStart(false));
         setContentsDetail(data.data);
-        console.log("data:",data.data);
       } catch (error) {
         console.log(error);
       }
@@ -32,7 +28,7 @@ const NotificationDetail = () => {
     fetchData(ChangeId);
   }, [ChangeId]);
   const handleBackToTable = () => {
-    navigate("/notification")
+    navigate("/free-board");
   }
   const handleNextId = () => {
     setChangeId(contentDetail.next);
@@ -54,7 +50,7 @@ const NotificationDetail = () => {
         <p className='flex-[2.5] px-5 text-[14px]'>{dayjs(contentDetail.created_at).format('YYYY-MM-DD')}</p>
       </div>
     </div>
-    <div className=' overflow-auto border-y'>
+    <div className='overflow-auto border-y'>
       <div className='my-[20px] ml-[18px]'>
         <p dangerouslySetInnerHTML={{ __html: contentDetail.content }}></p>
       </div>
@@ -76,4 +72,4 @@ const NotificationDetail = () => {
   ));
 };
 
-export default NotificationDetail;
+export default FreeBoarDetail;

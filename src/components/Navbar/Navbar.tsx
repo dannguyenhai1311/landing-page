@@ -60,6 +60,11 @@ const Navbar = () => {
       title: t("nav.campaign"),
       id: 7,
     },
+    {
+      to: "/free-board",
+      title: t("nav.campaign"),
+      id: 8,
+    },
   ];
   const [color, setColor] = useState<string>();
   const getBackground = () => {
@@ -80,6 +85,10 @@ const Navbar = () => {
       return "text-white font-bold";
     }
     return "text-primary font-bold";
+  };
+  // scroll to Top
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   const [scrolling, setScrolling] = useState(false);
   console.log("scrolling", scrolling);
@@ -129,7 +138,8 @@ const Navbar = () => {
             LinkList.map((item) => (
               <NavLink
                 key={item.id}
-                to={item.to}
+                to={item.to} 
+                onClick={handleScrollToTop}
                 className={({ isActive }) => {
                   if (role !== "Normal" && role !== "Admin") {
                     return isActive ? getColorActive() : "";
@@ -139,21 +149,23 @@ const Navbar = () => {
                 {item.title}
               </NavLink>
             ))}
-          <NavLink
-            className={`${
-              role === "Normal" ? "absolute right-5" : ""
-            } flex flex-center justify-center md:top-[36px] md:right-[180px] ${
-              role !== "Admin" && role !== "Normal"
-                ? "text-black"
-                : "text-white"
-            }`}
-            to="/freeBoard"
-            onClick={() => {
-              handleLogOut();
-            }}
-          >
-            로그아웃
-          </NavLink>
+     {role ==="Admin" &&(
+           <NavLink
+           className={`${
+             role === "Normal" ? "absolute right-5" : ""
+           } flex flex-center justify-center md:top-[36px] md:right-[180px] ${
+             role !== "Admin" && role !== "Normal"
+               ? "text-black"
+               : "text-white"
+           }`}
+           to="/freeBoard"
+           onClick={() => {
+             handleLogOut();
+           }}
+         >
+           로그아웃
+         </NavLink>
+     )}
         </ul>
         <button className="nav-btn " onClick={showNavbar}>
           <svg
