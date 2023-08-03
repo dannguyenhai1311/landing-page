@@ -11,7 +11,7 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const Contents = () => {
+const NormalContent = () => {
   const [contentData, setContentData] = useState([]);
   const [contentList, setContentsList] = useState([]);
   const PAGE_SIZE = 10;
@@ -46,7 +46,7 @@ const Contents = () => {
   }, [filter, contentList]);
   return (
     <div className="w-full h-full mx-auto">
-        <>
+      <>
         <div className="relative">
           <img
             src={contentImage}
@@ -61,7 +61,7 @@ const Contents = () => {
             >
               <img src={contentImageIcon} alt="" className="" />
               <p className="text-xl font-bold">
-              깨바부의 다양한 콘텐츠를 확인해보세요.
+                깨바부의 다양한 콘텐츠를 확인해보세요.
               </p>
             </div>
           </div>
@@ -88,7 +88,7 @@ const Contents = () => {
   );
 };
 
-export default Contents;
+export default NormalContent;
 
 const Item = ({ item }: any) => {
   const [expanded, setExpanded] = useState<boolean>();
@@ -130,11 +130,9 @@ const Item = ({ item }: any) => {
               <div className="flex-1  bg-[#F9F9F9]">
                 <div
                   className={`p-5 align-middle min-h-[130px] ${
-                    expanded
-                      ? ""
-                      : "overflow-hidden max-h-[130px]"
+                    expanded ? "" : "overflow-hidden max-h-[130px]"
                   } `}
-                 >
+                >
                   <p
                     id={item.id}
                     dangerouslySetInnerHTML={{

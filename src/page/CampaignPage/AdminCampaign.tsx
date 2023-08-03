@@ -1,6 +1,7 @@
 import { RootState } from "@/app/store";
-import freeBoard from "@/assets/images/freeboard.png";
-import freeBoardIcon from "@/assets/images/icon-freeBoard.png";
+import notification from "@/assets/images/notication.png";
+import notificationIcon from "@/assets/images/icon-notification.png";
+
 import { ConfirmModal } from "@/components/ConfirmModal";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { loginStart } from "@/features/auth/authSlice";
@@ -13,16 +14,15 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
-
 const PAGE_SIZE = 10;
-const pageSize = 40;
+const pageSize = 20;
 const searchValue = "title";
-const FreeBoard = () => {
+const AdminCampaign = () => {
   const role = useSelector((state: any) => state.auth.role);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [checkList, setCheckList] = useState<any[]>([]);
- const check: string = checkList.toString();
+  const check: string = checkList.toString();
   const isLoading = useSelector((state: RootState) => state.auth.isLoading);
   const [showModalConfirm, setShowModalConfirm] = useState(false);
   const [search, setSearch] = useState("");
@@ -43,7 +43,6 @@ const FreeBoard = () => {
   const onCloseModal = () => {
     setShowModalConfirm(false);
   };
-  
 
   const [filter, setFilter] = useState({
     page: 0,
@@ -51,7 +50,7 @@ const FreeBoard = () => {
   });
   // SELECT
   const handleChecked = (id: any, checked: any) => {
-    let newList= [...checkList];
+    let newList = [...checkList];
     const isExist = checkList.indexOf(id) !== -1;
     if (isExist) {
       newList = checkList.filter((item) => item !== id);
@@ -63,23 +62,22 @@ const FreeBoard = () => {
   };
   // Create
   const handleCreate = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    navigate("/free-board/create");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    navigate("/campaign/create");
   };
   // Edit
   const handleEdit = () => {
-    if(check)
-    navigate(`/free-board/edit/${check}`);
-  }
-// Search
+    if (check) navigate(`/campaign/edit/${check}`);
+  };
+  // Search
   const handleSearch = async () => {
     const data = await getApiData(
-      `free-board?search_by=${selectedOption}&search_value=${search}&page=0&page_size=10`
+      `campaign?search_by=${selectedOption}&search_value=${search}&page=0&page_size=10`
     );
     setCurrentData(data.data.list);
   };
   const handleClickDetail = (id: any) => {
-    navigate(`/free-board/${id}`);
+    navigate(`/campaign/${id}`);
   };
   // DELETE
   const onHandleDelete = () => {
@@ -87,7 +85,7 @@ const FreeBoard = () => {
   };
   const handleDelete = async () => {
     try {
-      const res = await deleteData(`/free-board`, { ids: checkList });
+      const res = await deleteData(`/campaign`, { ids: checkList });
       console.log("res", res);
       if (res.data.success) {
         setCheckList([]);
@@ -104,7 +102,7 @@ const FreeBoard = () => {
       dispatch(loginStart(true));
       try {
         const data = await getApiData(
-          `free-board?search_value=${searchValue}&page_size=${pageSize}`
+          `campaign?search_value=${searchValue}&page_size=${pageSize}`
         );
         setNoticeList(data.data.list);
         dispatch(loginStart(false));
@@ -136,7 +134,7 @@ const FreeBoard = () => {
           <>
             <div className="relative">
               <img
-                src={freeBoard}
+                src={notification}
                 className="xl:mt-[100px] mt-[76px] w-full h-[300px] xl:h-auto object-cover overflow-hidden"
                 alt=""
               />
@@ -146,9 +144,9 @@ const FreeBoard = () => {
                   data-aos-delay="500"
                   className="flex flex-col items-center justify-center text-center right-0 left-0 mt-16 p-2 md:p-0"
                 >
-                  <img src={freeBoardIcon} alt="" className="" />
+                  <img src={notificationIcon} alt="" className="" />
                   <p className="text-xl font-bold">
-                  깨바부의 새로운 소식을 전합니다.
+                    깨바부의 새로운 소식을 전합니다.
                   </p>
                 </div>
               </div>
@@ -251,22 +249,13 @@ const FreeBoard = () => {
                               </div>
                             </td>
 
-                            <td
-                              onClick={() => handleClickDetail(item.id)}
-                              className="text-[14px] max-md:w-[380px] md:pl-[3.8%] md:text-left"
-                            >
+                            <td onClick={() => handleClickDetail(item.id)} className="text-[14px] max-md:w-[380px] md:pl-[3.8%] md:text-left">
                               {item.title}
                             </td>
-                            <td
-                              onClick={() => handleClickDetail(item.id)}
-                              className="max-w-[200px] text-center text-[14px] max-md:w-[380px] "
-                            >
+                            <td onClick={() => handleClickDetail(item.id)}className="max-w-[200px] text-center text-[14px] max-md:w-[380px] ">
                               {item.author}
                             </td>
-                            <td
-                              onClick={() => handleClickDetail(item.id)}
-                              className="w-[180px] text-center text-[14px]"
-                            >
+                            <td onClick={() => handleClickDetail(item.id)}className="w-[180px] text-center text-[14px]">
                               {dayjs(item.created_at).format("YYYY-MM-DD")}
                             </td>
                           </tr>
@@ -301,6 +290,8 @@ const FreeBoard = () => {
                     >
                       삭제
                     </button>
+                  </div>
+                )}
                 <button
                   onClick={handleCreate}
                   className="w-[105px] h-[40px] border bg-gradient-to-r from-[#0066C1] to-[#009FE5] text-white flex flex-center items-center"
@@ -308,8 +299,6 @@ const FreeBoard = () => {
                   <FontAwesomeIcon icon={faPen} className="p-2" />
                   <span> 다음 글</span>
                 </button>
-                  </div>
-                )}
               </div>
             </div>
           </div>
@@ -321,9 +310,9 @@ const FreeBoard = () => {
         content={`${checkList.length}건의 게시글을 삭제 하시겠습니까?`}
         onConfirm={handleDelete}
       />
-         <ToastContainer/>
+      <ToastContainer />
     </div>
   );
 };
 
-export default FreeBoard;
+export default AdminCampaign;

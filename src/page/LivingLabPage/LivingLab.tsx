@@ -1,6 +1,6 @@
 import { RootState } from "@/app/store";
-import LivingLabImage from "@/assets/images/LivingLab.png";
-import LivingLabIcon from "@/assets/images/icon-living-lab.png";
+import livingLab from "@/assets/images/LivingLab.png";
+import LivinglabIcon from "@/assets/images/icon-living-lab.png";
 import { ConfirmModal } from "@/components/ConfirmModal";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { loginStart } from "@/features/auth/authSlice";
@@ -8,22 +8,25 @@ import { deleteData } from "@/services/UserService";
 import { getApiData } from "@/services/apiService";
 import { faMagnifyingGlass, faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-
+import { ToastContainer } from "react-toastify";
+// import { dataChecked } from "@/features/Data/dataSlice";
+const PAGE_SIZE = 10;
+const pageSize = 20;
+const searchValue = "title";
+const notice = "/notice";
 const LivingLab = () => {
   const role = useSelector((state: any) => state.auth.role);
-  const [checkList, setCheckList] = useState<any[]>([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const PAGE_SIZE = 10;
-  const pageSize = 20;
+  const [checkList, setCheckList] = useState<any[]>([]);
+  const check: string = checkList.toString();
   const isLoading = useSelector((state: RootState) => state.auth.isLoading);
   const [showModalConfirm, setShowModalConfirm] = useState(false);
   const [search, setSearch] = useState("");
-  const searchValue = "title";
   const [currentData, setCurrentData] = useState<any[]>([]);
   const [selectedOption, setSelectedOption] = useState("title");
   const [noticeList, setNoticeList] = useState([
@@ -40,10 +43,6 @@ const LivingLab = () => {
 
   const onCloseModal = () => {
     setShowModalConfirm(false);
-  };
-  const handleCreate = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    navigate("/living-lab/create");
   };
 
   const [filter, setFilter] = useState({
@@ -62,6 +61,16 @@ const LivingLab = () => {
     console.log("newList", newList);
     setCheckList(newList);
   };
+  // Create
+  const handleCreate = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    navigate("/living-lab/create");
+  };
+  // Edit
+  const handleEdit = () => {
+    if (check) navigate(`/living-lab/edit/${check}`);
+  };
+  // Search
   const handleSearch = async () => {
     const data = await getApiData(
       `living-lab?search_by=${selectedOption}&search_value=${search}&page=0&page_size=10`
@@ -69,17 +78,15 @@ const LivingLab = () => {
     setCurrentData(data.data.list);
   };
   const handleClickDetail = (id: any) => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
     navigate(`/living-lab/${id}`);
   };
-
   // DELETE
   const onHandleDelete = () => {
     setShowModalConfirm(true);
   };
   const handleDelete = async () => {
     try {
-      const res = await deleteData("/living-lab", { ids: checkList });
+      const res = await deleteData(`/living-lab`, { ids: checkList });
       console.log("res", res);
       if (res.data.success) {
         setCheckList([]);
@@ -125,28 +132,27 @@ const LivingLab = () => {
       )}
       {!isLoading && (
         <div className="w-full h-full mx-auto">
-             <>
-        <div className="relative">
-          <img
-            src={LivingLabImage}
-            className="xl:mt-[100px] mt-[76px] w-full h-[300px] xl:h-auto object-cover overflow-hidden"
-            alt=""
-          />
-          <div className="overlay absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0.3)] text-white">
-            <div
-              data-aos="fade-up"
-              data-aos-delay="500"
-              className="flex flex-col items-center justify-center text-center right-0 left-0 mt-16 p-2 md:p-0"
-            >
-              <img src={LivingLabIcon} alt="" className="" />
-              <p className="text-xl font-bold">
-              깨끗한 바다 부산을 위해 시민들이 직접 참여 중인 프로젝트를 소개합니다.
-              </p>
+          <>
+            <div className="relative">
+              <img
+                src={livingLab}
+                className="xl:mt-[100px] mt-[76px] w-full h-[300px] xl:h-auto object-cover overflow-hidden"
+                alt=""
+              />
+              <div className="overlay absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0.3)] text-white">
+                <div
+                  data-aos="fade-up"
+                  data-aos-delay="500"
+                  className="flex flex-col items-center justify-center text-center right-0 left-0 mt-16 p-2 md:p-0"
+                >
+                  <img src={LivinglabIcon} alt="" className="" />
+                  <p className="text-xl font-bold">
+                    깨바부의 새로운 소식을 전합니다.
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </>
-
+          </>
           <div className="md:w-[1240px] min-w-[360px] mx-auto p-[24px] md:p-0">
             <div className="mb-[42px] mt-16 md:flex gap-x-2 flex-center justify-between">
               <h1 className="mb-2 text-2xl font-bold text-transparent md:md-0 bg-gradient-to-r from-[#0066C1] to-[#009FE5] bg-clip-text ">
@@ -280,10 +286,10 @@ const LivingLab = () => {
                 }
               />
               <div className="mt-6 flex items-center justify-center xl:justify-end gap-2.5 self-end xl:absolute bottom-0 right-0">
-                {role === "Admin" &&(
+                {role === "Admin" && (
                   <div className="flex gap-2.5">
                     <button
-                      onClick={handleCreate}
+                      onClick={handleEdit}
                       className="w-[60px] h-[40px] border border-gray-400"
                     >
                       수정
@@ -294,15 +300,15 @@ const LivingLab = () => {
                     >
                       삭제
                     </button>
+                    <button
+                      onClick={handleCreate}
+                      className="w-[105px] h-[40px] border bg-gradient-to-r from-[#0066C1] to-[#009FE5] text-white flex flex-center items-center"
+                    >
+                      <FontAwesomeIcon icon={faPen} className="p-2" />
+                      <span> 다음 글</span>
+                    </button>
                   </div>
                 )}
-                <button
-                  // onClick={onEdit}
-                  className="w-[105px] h-[40px] border bg-gradient-to-r from-[#0066C1] to-[#009FE5] text-white flex flex-center items-center"
-                >
-                  <FontAwesomeIcon icon={faPen} className="p-2" />
-                  <span> 다음 글</span>
-                </button>
               </div>
             </div>
           </div>
@@ -314,6 +320,7 @@ const LivingLab = () => {
         content={`${checkList.length}건의 게시글을 삭제 하시겠습니까?`}
         onConfirm={handleDelete}
       />
+      <ToastContainer />
     </div>
   );
 };

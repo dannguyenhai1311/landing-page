@@ -38,7 +38,7 @@ const ContentsData = () => {
   }, []);
   const navigate = useNavigate();
   const handleClick =  () => {
-    navigate("/contents")
+    navigate("/content")
   }
   return (
     <>

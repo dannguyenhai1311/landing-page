@@ -1,6 +1,7 @@
 import { RootState } from "@/app/store";
 import { loginStart } from "@/features/auth/authSlice";
 import { getApiData } from "@/services/apiService";
+import { match } from "assert";
 import dayjs from "dayjs";
 import { t } from "i18next";
 import { useEffect, useState } from "react";
@@ -8,15 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 const NotificationDetail = () => {
+  // const { id } = match.params;
   const navigate = useNavigate();
   const isLoading = useSelector((state: RootState) => state.auth.isLoading);
   const { id } = useParams();
   const [ChangeId,setChangeId] = useState(id);
   const dispatch = useDispatch();
   const [contentDetail, setContentsDetail] = useState<any>([]);
-  console.log("contentDetail", contentDetail);
-  console.log(contentDetail.next);
-  console.log(id);
   useEffect(() => {
     const fetchData = async (ChangeId: string | undefined) => {
       dispatch(loginStart(true));

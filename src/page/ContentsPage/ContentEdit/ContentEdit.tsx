@@ -3,24 +3,27 @@ import * as Yup from "yup";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { notifyFail } from "@/components/Notify/Notify";
-import { postData} from "@/services/UserService";
+import { EditContentData } from "@/services/UserService";
 import { useNavigate, useParams } from "react-router-dom";
-import { CreateSuccess } from "@/components/Notify/EditSuccess";
+import { EditSuccess } from "@/components/Notify/EditSuccess";
 import { ToastContainer } from "react-toastify";
 
 interface FormData {
   title: string;
+  video: string;
   content: string;
 }
-const LivingLabCreate = () => {
-  const navigate = useNavigate();
+const ContentEdit = () => {
+  const navigate = useNavigate()
   const { id } = useParams();
   const schema = Yup.object().shape({
     title: Yup.string().required("Title is required"),
     content: Yup.string().required("Content is required"),
+    video: Yup.string().required("Content is required"),
   });
   const [formData, setFormData] = useState<FormData>({
     title: "",
+    video: "",
     content: "",
   });
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,15 +33,16 @@ const LivingLabCreate = () => {
       [name]: value,
     });
   };
-const backToPage = () => {
-  navigate("/living-lab")
-}
+
   const handleContentChange = (value: string) => {
     setFormData({
       ...formData,
       content: value,
     });
   };
+  const backToPage = () => {
+    navigate("/content")
+  }
   const handleTitleInput = () => {
     setErrors({});
   };
@@ -53,16 +57,18 @@ const backToPage = () => {
       await schema.validate(formData, { abortEarly: false });
       setErrors({});
       const content = quillRef.current?.getEditor().getText() || "";
-      const response = await postData("/living-lab", {
+      const response = await EditContentData("/content", {
+        id: id || "",
         title: formData.title,
-        content: content.trim(),
+        video: formData.video,
+        description: content.trim(),
       });
       console.log("Response data:", response.data);
       if (response.data.success) {
-        CreateSuccess();
+        EditSuccess();
         setTimeout(() => {
           location.reload();
-        }, 5000);
+        }, 2000);
       } else {
         return notifyFail();
       }
@@ -99,7 +105,26 @@ const backToPage = () => {
             value={formData.title}
             onChange={handleInputChange}
             onInput={handleTitleInput}
-            placeholder="제목을 입력해주세요."
+          />
+        </div>
+        {errors.title && (
+          <p className="text-red-500 text-sm block pt-2">This is required</p>
+        )}
+        <div className="flex flex-center mt-10">
+          <label
+            className="flex flex-center justify-center items-center h-[50px] w-[180px] bg-[#d4e9fc] border"
+            htmlFor="title"
+          >
+            제목
+          </label>
+          <input
+            className="flex-1 border p-2"
+            type="text"
+            id="video"
+            name="video"
+            value={formData.video}
+            onChange={handleInputChange}
+            onInput={handleTitleInput}
           />
         </div>
         {errors.title && (
@@ -112,7 +137,6 @@ const backToPage = () => {
             value={formData.content}
             onChange={handleContentChange}
             onBlur={handleContentBlur}
-            placeholder="내용을 입력하세요."
           />
         </div>
         {errors.content && (
@@ -136,4 +160,4 @@ const backToPage = () => {
     </div>
   );
 };
-export default LivingLabCreate;
+export default ContentEdit;

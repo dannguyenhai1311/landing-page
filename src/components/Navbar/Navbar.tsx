@@ -4,6 +4,7 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import { routes } from "@/utils/constants";
 // import { role } from "@/login/Login";
 
 const Navbar = () => {
@@ -26,54 +27,54 @@ const Navbar = () => {
   };
   const LinkList = [
     {
-      to: "/",
+      to: routes.DEFAULT,
       title: t("nav.home"),
       id: 1,
     },
     {
-      to: "/introduction",
+      to: routes.INTRODUCTION,
       title: t("nav.introduction"),
       id: 2,
     },
     {
-      to: "/notification",
+      to: routes.ANNOUNCEMENT,
       title: t("nav.announcement"),
       id: 3,
     },
     {
-      to: "/facility",
+      to: routes.FACILITY,
       title: t("nav.facilityStatus"),
       id: 4,
     },
     {
-      to: "/contents",
+      to: routes.CONTENT,
       title: t("nav.content"),
       id: 5,
     },
     {
-      to: "/living-lab",
+      to: routes.LIVING_LAB,
       title: t("nav.livingLab"),
       id: 6,
     },
     {
-      to: "/campaign",
+      to: routes.CAMPAIGN,
       title: t("nav.campaign"),
       id: 7,
     },
     {
-      to: "/free-board",
+      to: routes.FREE_BOARD,
       title: t("nav.campaign"),
       id: 8,
     },
   ];
   const [color, setColor] = useState<string>();
   const getBackground = () => {
-    if (checkActive("/")) {
+    if (checkActive(routes.DEFAULT)) {
       return "text-white";
     }
-    if (role === "Admin" && !checkActive("/")) {
-      return "bg-[#0066C1]";
-    } else if (role === "Normal" && !checkActive("/")) {
+    if (role === "Admin" && !checkActive(routes.DEFAULT)) {
+      return " bg-gradient-to-b from-[#0066C1] to-[#009FE5]";
+    } else if (role === "Normal" && !checkActive(routes.DEFAULT)) {
       return "bg-gradient-to-b from-[#008DCC] to-[#008E86]";
     }
     // return "bg-white text-black";
@@ -88,7 +89,7 @@ const Navbar = () => {
   };
   // scroll to Top
   const handleScrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
   const [scrolling, setScrolling] = useState(false);
   console.log("scrolling", scrolling);
@@ -97,15 +98,16 @@ const Navbar = () => {
     function onScroll() {
       const currentPosition = window.pageYOffset;
       if (currentPosition > scrollTop) {
-        if (currentPosition > 96)
+        if (currentPosition > 90)
           if (role !== "Admin" && role !== "Normal")
-            setColor("bg-white text-black");
-        if (role === "Admin") setColor("bg-[#0066C1]");
+            setColor("bg-white text-black shadow");
+        if (role === "Admin")
+          setColor(" bg-gradient-to-b from-[#0066C1] to-[#009FE5]");
         if (role === "Normal")
           setColor("bg-gradient-to-b from-[#008DCC] to-[#008E86]");
         else setScrolling(false);
       } else {
-        if (currentPosition < 96) setColor("text-white");
+        if (currentPosition < 80) setColor("text-white");
         setScrolling(true);
       }
       setScrollTop(currentPosition <= 0 ? 0 : currentPosition);
@@ -116,11 +118,11 @@ const Navbar = () => {
   return (
     <nav
       className={`${getBackground()} ${color} ${
-        checkActive("/introduction") ? "shadow" : ""
+        checkActive(routes.INTRODUCTION) ? "shadow" : ""
       } flex justify-between p-5 pl-5 md:p-8 flex-center gap-x-10  px-[10px] md:pl-[8%] font-semibold fixed z-50 top-0  w-full`}
     >
       <a
-        href="/"
+        href={routes.DEFAULT}
         className="flex flex-center justify-between items-end gap-x-5 text-white"
       >
         <img src={logoLogo} className="w-[218px] h-[36px]" alt="" />
@@ -138,7 +140,7 @@ const Navbar = () => {
             LinkList.map((item) => (
               <NavLink
                 key={item.id}
-                to={item.to} 
+                to={item.to}
                 onClick={handleScrollToTop}
                 className={({ isActive }) => {
                   if (role !== "Normal" && role !== "Admin") {
@@ -149,23 +151,22 @@ const Navbar = () => {
                 {item.title}
               </NavLink>
             ))}
-     {role ==="Admin" &&(
-           <NavLink
-           className={`${
-             role === "Normal" ? "absolute right-5" : ""
-           } flex flex-center justify-center md:top-[36px] md:right-[180px] ${
-             role !== "Admin" && role !== "Normal"
-               ? "text-black"
-               : "text-white"
-           }`}
-           to="/freeBoard"
-           onClick={() => {
-             handleLogOut();
-           }}
-         >
-           로그아웃
-         </NavLink>
-     )}
+
+          <NavLink
+            className={`${
+              role === "Normal" ? "absolute right-5" : ""
+            } flex flex-center justify-center md:top-[36px] md:right-[180px] ${
+              role !== "Admin" && role !== "Normal"
+                ? "text-black"
+                : "text-white"
+            }`}
+            to={routes.FREE_BOARD}
+            onClick={() => {
+              handleLogOut();
+            }}
+          >
+            로그아웃
+          </NavLink>
         </ul>
         <button className="nav-btn " onClick={showNavbar}>
           <svg

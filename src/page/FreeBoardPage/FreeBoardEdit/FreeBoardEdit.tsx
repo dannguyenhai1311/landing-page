@@ -3,16 +3,16 @@ import * as Yup from "yup";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { notifyFail } from "@/components/Notify/Notify";
-import { postData} from "@/services/UserService";
+import { putData, putFreeBoardData } from "@/services/UserService";
 import { useNavigate, useParams } from "react-router-dom";
-import { CreateSuccess } from "@/components/Notify/EditSuccess";
+import { EditSuccess } from "@/components/Notify/EditSuccess";
 import { ToastContainer } from "react-toastify";
 
 interface FormData {
   title: string;
   content: string;
 }
-const LivingLabCreate = () => {
+const FreeBoardEdit = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const schema = Yup.object().shape({
@@ -30,14 +30,15 @@ const LivingLabCreate = () => {
       [name]: value,
     });
   };
-const backToPage = () => {
-  navigate("/living-lab")
-}
+
   const handleContentChange = (value: string) => {
     setFormData({
       ...formData,
       content: value,
     });
+  };
+  const backToPage = () => {
+    navigate("/free-board");
   };
   const handleTitleInput = () => {
     setErrors({});
@@ -53,16 +54,17 @@ const backToPage = () => {
       await schema.validate(formData, { abortEarly: false });
       setErrors({});
       const content = quillRef.current?.getEditor().getText() || "";
-      const response = await postData("/living-lab", {
+      const response = await putData("/free-board/admin", {
+        id: id || "",
         title: formData.title,
         content: content.trim(),
       });
       console.log("Response data:", response.data);
       if (response.data.success) {
-        CreateSuccess();
+        EditSuccess();
         setTimeout(() => {
           location.reload();
-        }, 5000);
+        }, 2000);
       } else {
         return notifyFail();
       }
@@ -99,7 +101,6 @@ const backToPage = () => {
             value={formData.title}
             onChange={handleInputChange}
             onInput={handleTitleInput}
-            placeholder="제목을 입력해주세요."
           />
         </div>
         {errors.title && (
@@ -112,7 +113,6 @@ const backToPage = () => {
             value={formData.content}
             onChange={handleContentChange}
             onBlur={handleContentBlur}
-            placeholder="내용을 입력하세요."
           />
         </div>
         {errors.content && (
@@ -127,7 +127,10 @@ const backToPage = () => {
           >
             제목
           </button>
-          <button onClick={backToPage} className="w-[88px] h-[42px] border border-gray-400 bg-[#D9D9D9]">
+          <button
+            onClick={backToPage}
+            className="w-[88px] h-[42px] border border-gray-400 bg-[#D9D9D9]"
+          >
             취소
           </button>
         </div>
@@ -136,4 +139,4 @@ const backToPage = () => {
     </div>
   );
 };
-export default LivingLabCreate;
+export default FreeBoardEdit;

@@ -26,6 +26,30 @@ export const postData = (
 ) => {
   return api.post(path, data);
 };
+export const postDataContent = (
+  path: string,
+  data: { title: string, description: string, video: string }
+) => {
+  return api.post(path, data);
+};
+export const putData = (
+  path: string,
+  data: {id: string, title: string; content: string }
+) => {
+  return api.put(path, data);
+};
+export const putFreeBoardData = (
+  path: string,
+  data: {id: string, password:string, title: string; content: string }
+) => {
+  return api.put(path, data);
+};
+export const EditContentData = (
+  path: string,
+  data: {id: string, title: string;video: string, description: string }
+) => {
+  return api.put(path, data);
+};
 // export const deleteData = (data: any[]) => {
 //     return api.delete('living-lab', data)
 //   };

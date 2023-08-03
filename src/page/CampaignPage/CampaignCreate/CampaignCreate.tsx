@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { notifyFail } from "@/components/Notify/Notify";
-import { postData} from "@/services/UserService";
+import { postData, putData } from "@/services/UserService";
 import { useNavigate, useParams } from "react-router-dom";
 import { CreateSuccess } from "@/components/Notify/EditSuccess";
 import { ToastContainer } from "react-toastify";
@@ -12,8 +12,8 @@ interface FormData {
   title: string;
   content: string;
 }
-const LivingLabCreate = () => {
-  const navigate = useNavigate();
+const CampaignCreate = () => {
+  const navigate = useNavigate()
   const { id } = useParams();
   const schema = Yup.object().shape({
     title: Yup.string().required("Title is required"),
@@ -30,15 +30,15 @@ const LivingLabCreate = () => {
       [name]: value,
     });
   };
-const backToPage = () => {
-  navigate("/living-lab")
-}
   const handleContentChange = (value: string) => {
     setFormData({
       ...formData,
       content: value,
     });
   };
+  const backToPage = () => {
+    navigate("/notification")
+  }
   const handleTitleInput = () => {
     setErrors({});
   };
@@ -53,7 +53,7 @@ const backToPage = () => {
       await schema.validate(formData, { abortEarly: false });
       setErrors({});
       const content = quillRef.current?.getEditor().getText() || "";
-      const response = await postData("/living-lab", {
+      const response = await postData("/notice", {
         title: formData.title,
         content: content.trim(),
       });
@@ -99,7 +99,7 @@ const backToPage = () => {
             value={formData.title}
             onChange={handleInputChange}
             onInput={handleTitleInput}
-            placeholder="제목을 입력해주세요."
+            placeholder="제목을 입력하세요. (공백포함 50자이내)"
           />
         </div>
         {errors.title && (
@@ -136,4 +136,4 @@ const backToPage = () => {
     </div>
   );
 };
-export default LivingLabCreate;
+export default CampaignCreate;

@@ -1,12 +1,14 @@
 // Đường dẫn: src/app/store.ts
 
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import { ThunkAction, Action, AnyAction } from "@reduxjs/toolkit";
+import { ThunkAction, Action } from "@reduxjs/toolkit";
 import authReducer from "../features/auth/authSlice";
+import dataReducer from "../features/Data/dataSlice";
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
+    dataChecked: dataReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
+// import { dataChecked } from "@/features/Data/dataSlice";
 const PAGE_SIZE = 10;
 const pageSize = 20;
 const searchValue = "title";
@@ -22,6 +24,7 @@ const Notification = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [checkList, setCheckList] = useState<any[]>([]);
+ const check: string = checkList.toString();
   const isLoading = useSelector((state: RootState) => state.auth.isLoading);
   const [showModalConfirm, setShowModalConfirm] = useState(false);
   const [search, setSearch] = useState("");
@@ -42,10 +45,7 @@ const Notification = () => {
   const onCloseModal = () => {
     setShowModalConfirm(false);
   };
-  const handleCreate = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    navigate("/notification/create");
-  };
+  
 
   const [filter, setFilter] = useState({
     page: 0,
@@ -53,7 +53,7 @@ const Notification = () => {
   });
   // SELECT
   const handleChecked = (id: any, checked: any) => {
-    let newList = [...checkList];
+    let newList= [...checkList];
     const isExist = checkList.indexOf(id) !== -1;
     if (isExist) {
       newList = checkList.filter((item) => item !== id);
@@ -63,7 +63,17 @@ const Notification = () => {
     console.log("newList", newList);
     setCheckList(newList);
   };
-
+  // Create
+  const handleCreate = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    navigate("/notification/create");
+  };
+  // Edit
+  const handleEdit = () => {
+    if(check)
+    navigate(`/notification/edit/${check}`);
+  }
+// Search
   const handleSearch = async () => {
     const data = await getApiData(
       `${notice}?search_by=${selectedOption}&search_value=${search}&page=0&page_size=10`
@@ -282,7 +292,7 @@ const Notification = () => {
                 {role === "Admin" && (
                   <div className="flex gap-2.5">
                     <button
-                      onClick={handleCreate}
+                      onClick={handleEdit}
                       className="w-[60px] h-[40px] border border-gray-400"
                     >
                       수정
@@ -292,16 +302,16 @@ const Notification = () => {
                       className="w-[60px] h-[40px] bg-[#D9D9D9] border border-gray-400"
                     >
                       삭제
-                    </button>
-                  </div>
-                )}
+                </button>
                 <button
-                  // onClick={onEdit}
+                  onClick={handleCreate}
                   className="w-[105px] h-[40px] border bg-gradient-to-r from-[#0066C1] to-[#009FE5] text-white flex flex-center items-center"
                 >
                   <FontAwesomeIcon icon={faPen} className="p-2" />
                   <span> 다음 글</span>
                 </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -313,6 +323,7 @@ const Notification = () => {
         content={`${checkList.length}건의 게시글을 삭제 하시겠습니까?`}
         onConfirm={handleDelete}
       />
+         <ToastContainer/>
     </div>
   );
 };

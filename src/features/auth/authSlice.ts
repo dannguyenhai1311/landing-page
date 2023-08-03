@@ -4,6 +4,7 @@ interface AuthState {
   error: string | null;
   isLoading: boolean;
   role: string | null;
+  
 }
 interface User {
   id: string;
@@ -40,6 +41,7 @@ const authSlice = createSlice({
       state.user = null;
       state.error = action.payload;
     },
+ 
   },
 });
 

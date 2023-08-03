@@ -137,7 +137,7 @@ const HomePage = () => {
                   className="border flex flex-col gap-y-2 border-[#CCCCCC] rounded-lg max-w-[360px] h-[150px] text-box bg-[##FFFFFF] hover:bg-gradient-to-l from-cyan-500 to-blue-500 hover:text-white p-5"
                 >
                   <h3
-                    className="text-[##3B4650] font-extrabold text-[15px]"
+                    className="text-[##3B4650] font-extrabold text-[15px] line-clamp-1"
                     dangerouslySetInnerHTML={{ __html: items.title }}
                   ></h3>
                   <p

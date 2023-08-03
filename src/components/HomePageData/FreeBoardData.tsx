@@ -32,7 +32,7 @@ const FreeBoardData = () => {
   }, []);
   const navigate = useNavigate();
   const handleClickDetail = (id: any) => {
-    navigate(`/living-lab/${id}`);
+    navigate(`/free-board/${id}`);
   };
   return (
     <>
