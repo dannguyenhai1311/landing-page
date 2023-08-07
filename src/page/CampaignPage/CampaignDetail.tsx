@@ -39,7 +39,7 @@ const CampaignDetail = () => {
       </h3>
       <div className="flex items-start justify-between mt-[40px] gap-x-10">
         <div>
-          <img src={contentDetail.image} alt="" />
+          <img src={contentDetail.image} className="max-h-[800px]" alt="" />
         </div>
         <div className="flex flex-col w-[600px]">
           <p className="text-5  bg-primary-lighter p-5  font-bold">

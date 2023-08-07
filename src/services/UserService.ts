@@ -26,11 +26,23 @@ export const postData = (
 ) => {
   return api.post(path, data);
 };
-export const postCampaignData = (
+export const postImageData = (
   path: string,
-  data: { title: string; content: string, link: string, image: string}
+  data: { name: string}
 ) => {
   return api.post(path, data);
+};
+export const postCampaignData = (
+  path: string,
+  data: { title: string; content: string, link: string, image: string,image_name: string }
+) => {
+  return api.post(path, data);
+};
+export const putCampaignData = (
+  path: string,
+  data: {id: string, title: string; content: string, link: string, image: string,image_name: string }
+) => {
+  return api.put(path, data);
 };
 export const postDataContent = (
   path: string,

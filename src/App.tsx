@@ -26,6 +26,7 @@ import ContentEdit from "./page/ContentsPage/ContentEdit/ContentEdit";
 import ContentCreate from "./page/ContentsPage/ContentCreate/ContentCreate";
 import { Campaign } from "./page/CampaignPage/Campaign";
 import CampaignCreate from "./page/CampaignPage/CampaignCreate/CampaignCreate";
+import CampaignEdit from "./page/CampaignPage/CampaignEdit/CampaignEdit";
 
 function App() {
   return (
@@ -79,7 +80,7 @@ function App() {
             element={<CampaignCreate />}
           />
           <Route path={routes.CAMPAIGN_DETAIL} element={<CampaignDetail />} />
-          {/* <Route path={routes.CAMPAIGN_EDIT} element={<CampaignEdit />} /> */}
+          <Route path={routes.CAMPAIGN_EDIT} element={<CampaignEdit />} />
           <Route index path={routes.FREE_BOARD} element={<FreeBoard />} />
           <Route path={routes.FREE_BOARD_DETAIL} element={<FreeBoarDetail />} />
           <Route

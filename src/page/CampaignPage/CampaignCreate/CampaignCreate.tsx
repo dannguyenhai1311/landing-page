@@ -3,12 +3,14 @@ import * as Yup from "yup";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { notifyFail } from "@/components/Notify/Notify";
-import { postCampaignData, postData } from "@/services/UserService";
+import { postCampaignData } from "@/services/UserService";
 import { useNavigate, useParams } from "react-router-dom";
 import { CreateSuccess } from "@/components/Notify/EditSuccess";
 import { ToastContainer } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { uploadFile } from "@/services/campaign.service";
+import { routes } from "@/utils/constants";
 
 interface FormData {
   title: string;
@@ -19,6 +21,7 @@ interface FormData {
 const CampaignCreate = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [DataImage, setDataImage] = useState<any>();
   const schema = Yup.object().shape({
     title: Yup.string().required("Title is required"),
     content: Yup.string().required("Content is required"),
@@ -31,16 +34,12 @@ const CampaignCreate = () => {
     link: "",
     image: "",
   });
-  // handle file
+
   const [selectedFile, setSelectedFile] = useState<any>();
-  console.log(selectedFile);
   const changeHandler = (event: any) => {
     setSelectedFile(event.target.files[0]);
   };
 
-  const handleSubmission = () => {
-    //
-  };
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData({
@@ -67,32 +66,37 @@ const CampaignCreate = () => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    try {
-      await schema.validate(formData, { abortEarly: false });
-      setErrors({});
-      const content = quillRef.current?.getEditor().getText() || "";
-      const response = await postCampaignData("/campaign", {
-        title: formData.title,
-        content: content.trim(),
-        link : formData.link,
-        image: selectedFile.name,
-      });
-      if (response.data.success) {
-        CreateSuccess();
-        setTimeout(() => {
-          location.reload();
-        }, 5000);
-      } else {
-        return notifyFail();
-      }
-    } catch (err: any) {
-      const newErrors: { [key: string]: string } = {};
-      err.inner.forEach((e: Yup.ValidationError) => {
-        if (e.path) {
-          newErrors[e.path] = e.message;
+    const response = await uploadFile(selectedFile);
+    if (response.data) {
+      setDataImage(response.data);
+      try {
+        setErrors({});
+        const content = quillRef.current?.getEditor().getText() || "";
+        const res = await postCampaignData("/campaign", {
+          title: formData.title,
+          content: content.trim(),
+          link: formData.link,
+          image: DataImage.filename,
+          image_name: DataImage.original_name,
+        });
+        console.log(res);
+        if (res.data.success) {
+          navigate(routes.CAMPAIGN);
+          setTimeout(() => {
+            CreateSuccess();
+          }, 1000);
+        } else {
+          return notifyFail();
         }
-      });
-      setErrors(newErrors);
+      } catch (err: any) {
+        const newErrors: { [key: string]: string } = {};
+        err.inner.forEach((e: Yup.ValidationError) => {
+          if (e.path) {
+            newErrors[e.path] = e.message;
+          }
+        });
+        setErrors(newErrors);
+      }
     }
   };
   return (
@@ -142,7 +146,7 @@ const CampaignCreate = () => {
         <div className="flex flex-center pt-10">
           <label
             className="flex flex-center justify-center items-center h-[50px] w-[180px] bg-[#d4e9fc] border"
-            htmlFor="title"
+            htmlFor="link"
           >
             링크
           </label>
@@ -158,16 +162,17 @@ const CampaignCreate = () => {
           />
         </div>
         {errors.link && (
-          <p className="text-red-500 text-sm block pt-2">
-            This is required
-          </p>
+          <p className="text-red-500 text-sm block pt-2">This is required</p>
         )}
         <div className="flex flex-center justify-start items-center gap-x-5 mt-5">
           <button
             type="button"
             className=" text-white h-[50px] w-[200px] bg-gradient-to-r from-[#0066C1] to-[#009FE5] border"
           >
-            <label htmlFor="file-uploader" className="flex flex-center items-center justify-center gap-x-3">
+            <label
+              htmlFor="file-uploader"
+              className="flex flex-center items-center justify-center gap-x-3"
+            >
               <p> 대표이미지 첨부</p>
               <FontAwesomeIcon
                 icon={faArrowUpFromBracket}
@@ -177,7 +182,7 @@ const CampaignCreate = () => {
           </button>
           <p>{selectedFile?.name}</p>
           <input
-          name="file"
+            name="file"
             onChange={changeHandler}
             className="hidden"
             id="file-uploader"
@@ -186,9 +191,7 @@ const CampaignCreate = () => {
           />
         </div>
         {errors.file && (
-          <p className="text-red-500 text-sm block pt-2">
-            This is required
-          </p>
+          <p className="text-red-500 text-sm block pt-2">This is required</p>
         )}
         <div className="flex justify-end gap-x-2 items-end mt-10 pt-2">
           <button
