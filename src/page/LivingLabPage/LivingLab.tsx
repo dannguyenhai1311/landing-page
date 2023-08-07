@@ -1,6 +1,7 @@
 import { RootState } from "@/app/store";
 import livingLab from "@/assets/images/LivingLab.png";
 import LivinglabIcon from "@/assets/images/icon-living-lab.png";
+
 import { ConfirmModal } from "@/components/ConfirmModal";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { loginStart } from "@/features/auth/authSlice";
@@ -13,11 +14,9 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
-// import { dataChecked } from "@/features/Data/dataSlice";
 const PAGE_SIZE = 10;
 const pageSize = 20;
 const searchValue = "title";
-const notice = "/notice";
 const LivingLab = () => {
   const role = useSelector((state: any) => state.auth.role);
   const dispatch = useDispatch();
@@ -221,7 +220,7 @@ const LivingLab = () => {
                             className="h-[50px] cursor-pointer border-b"
                           >
                             <td
-                              className="flex w-[100px] items-center justify-center py-[15px] text-center text-[14px]"
+                              className="flex md:w-[100px] items-center justify-center py-[15px] text-center text-[14px]"
                               key="numerical_order"
                             >
                               <div className="flex w-full p-2 flex-center items-center gap-x-5 justify-between">
@@ -286,7 +285,7 @@ const LivingLab = () => {
                 }
               />
               <div className="mt-6 flex items-center justify-center xl:justify-end gap-2.5 self-end xl:absolute bottom-0 right-0">
-                {role === "Admin" && (
+                {(role === "Admin" || role === "Normal") && (
                   <div className="flex gap-2.5">
                     <button
                       onClick={handleEdit}

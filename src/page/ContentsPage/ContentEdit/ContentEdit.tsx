@@ -112,7 +112,7 @@ const ContentEdit = () => {
     }
   };
   return (
-    <div className="w-[1000px] h-full mx-auto mt-[97px] md:mt-[100px]">
+    <div className="md:w-[1000px] h-full md:mx-auto px-2 mt-[97px] md:mt-[100px]">
       <div className="mt-10">
         <h1 className="text-2xl bg-gradient-to-r from-[#0066C1] to-[#009FE5] text-transparent bg-clip-text font-black">
           공지사항 작성
@@ -121,7 +121,7 @@ const ContentEdit = () => {
       <form onSubmit={handleSubmit}>
         <div className="flex flex-center mt-10">
           <label
-            className="flex flex-center justify-center items-center h-[50px] w-[180px] bg-[#d4e9fc] border"
+            className="flex flex-center justify-center items-center h-[50px] w-[80px] md:w-[180px] bg-[#d4e9fc] border"
             htmlFor="title"
           >
             제목
@@ -141,7 +141,7 @@ const ContentEdit = () => {
         )}
         <div className="flex flex-center mt-10">
           <label
-            className="flex flex-center justify-center items-center h-[50px] w-[180px] bg-[#d4e9fc] border"
+            className="flex flex-center justify-center items-center h-[50px] w-[80px] md:w-[180px] bg-[#d4e9fc] border"
             htmlFor="title"
           >
             제목

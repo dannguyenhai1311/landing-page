@@ -134,7 +134,7 @@ const Notification = () => {
         <div className="absolute top-[40%] inset-0 justify-center w-10 h-10 mx-auto border-4 border-t-4 rounded-full mt- fex flex-center border-primary border-t-transparent animate-spin"></div>
       )}
       {!isLoading && (
-        <div className="w-full h-full mx-auto">
+        <div className="w-full h-full md:mx-auto">
           <>
             <div className="relative">
               <img
@@ -193,7 +193,7 @@ const Notification = () => {
               <table className="w-full h-full">
                 <thead>
                   <tr className="bg-[#d4e9fc]">
-                    <th className="w-[8%] text-[14px] font-bold">
+                    <th className="md:w-[8%] text-[14px] font-bold">
                       <div className="my-[10px] h-[30px] border-r border-[#7DA7CC] leading-[30px]">
                         번호
                       </div>
@@ -224,7 +224,7 @@ const Notification = () => {
                             className="h-[50px] cursor-pointer border-b"
                           >
                             <td
-                              className="flex w-[100px] items-center justify-center py-[15px] text-center text-[14px]"
+                              className="flex md:w-[100px] items-center justify-center py-[15px] text-center text-[14px]"
                               key="numerical_order"
                             >
                               <div className="flex w-full p-2 flex-center items-center gap-x-5 justify-between">

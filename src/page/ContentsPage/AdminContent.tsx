@@ -1,6 +1,6 @@
 import { RootState } from "@/app/store";
-import notification from "@/assets/images/notication.png";
-import notificationIcon from "@/assets/images/icon-notification.png";
+import content from "@/assets/images/contentsImage.png";
+import ContentIcon from "@/assets/images/icon-content.png";
 import { ConfirmModal } from "@/components/ConfirmModal";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { loginStart } from "@/features/auth/authSlice";
@@ -131,7 +131,7 @@ const AdminContent = () => {
           <>
             <div className="relative">
               <img
-                src={notification}
+                src={content}
                 className="xl:mt-[100px] mt-[76px] w-full h-[300px] xl:h-auto object-cover overflow-hidden"
                 alt=""
               />
@@ -141,7 +141,7 @@ const AdminContent = () => {
                   data-aos-delay="500"
                   className="flex flex-col items-center justify-center text-center right-0 left-0 mt-16 p-2 md:p-0"
                 >
-                  <img src={notificationIcon} alt="" className="" />
+                  <img src={ContentIcon} alt="" className="" />
                   <p className="text-xl font-bold">
                     깨바부의 새로운 소식을 전합니다.
                   </p>
@@ -217,7 +217,7 @@ const AdminContent = () => {
                             className="h-[50px] cursor-pointer border-b"
                           >
                             <td
-                              className="flex w-[100px] items-center justify-center py-[15px] text-center text-[14px]"
+                              className="flex md:w-[100px] items-center justify-center py-[15px] text-center text-[14px]"
                               key="numerical_order"
                             >
                               <div className="flex w-full p-2 flex-center items-center gap-x-5 justify-between">

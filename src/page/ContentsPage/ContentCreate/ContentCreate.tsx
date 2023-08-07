@@ -89,7 +89,7 @@ const ContentCreate = () => {
         <div className="absolute top-[40%] inset-0 justify-center w-10 h-10 mx-auto border-4 border-t-4 rounded-full mt- fex flex-center border-primary border-t-transparent animate-spin"></div>
       )}
       {loading && (
-        <div className="w-[1000px] h-full mx-auto mt-[97px] md:mt-[100px]">
+        <div className="md:w-[1000px] h-full md:mx-auto px-2 mt-[97px] md:mt-[100px]">
           <div className="mt-10">
             <h1 className="text-2xl bg-gradient-to-r from-[#0066C1] to-[#009FE5] text-transparent bg-clip-text font-black">
               공지사항 작성

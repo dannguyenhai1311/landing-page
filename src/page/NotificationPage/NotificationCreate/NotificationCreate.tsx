@@ -77,7 +77,7 @@ const NotificationCreate = () => {
     }
   };
   return (
-    <div className="w-[1000px] h-full mx-auto mt-[97px] md:mt-[100px]">
+    <div className="xl:w-[1000px] h-full mx-auto mt-[97px] md:mt-[100px]">
       <div className="mt-10">
         <h1 className="text-2xl bg-gradient-to-r from-[#0066C1] to-[#009FE5] text-transparent bg-clip-text font-black">
           공지사항 작성

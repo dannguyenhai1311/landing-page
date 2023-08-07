@@ -40,7 +40,7 @@ const NotificationDetail = () => {
     setChangeId(contentDetail.previous);
   }
   return  !isLoading ?  (
-    <div className='px-[17.7vw] pb-[124px] pt-[60px] mt-[76px]'>
+    <div className='xl:px-[17.7vw] pb-[124px] pt-[60px] mt-[76px] mx-5'>
     <h3 className='border-l-2 border-primary pl-[10px] text-[24px] font-bold'>{t('nav.announcement')}</h3>
     <p className='text-5 mt-10 bg-primary-lighter px-5 py-2.5 font-bold'>{contentDetail.title}</p>
     <div className='flex items-center gap-5 py-4 max-md:flex-col max-md:items-stretch'>
@@ -58,7 +58,7 @@ const NotificationDetail = () => {
         <p dangerouslySetInnerHTML={{ __html: contentDetail.content }}></p>
       </div>
     </div>
-    <div className='mt-5 flex justify-end gap-2.5 self-end'>
+    <div className='mt-5 flex justify-center md:justify-end gap-2.5 self-end'>
       <button onClick={handlePreId} className="w-[88px] h-[40px] border border-gray-400 bg-[#D9D9D9]">
       이전 글
       </button>
