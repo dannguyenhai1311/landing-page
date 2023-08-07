@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import * as Yup from "yup";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import { loginStart } from "@/features/auth/authSlice";
 import { useDispatch } from "react-redux";
 import { getApiData } from "@/services/apiService";
+import { routes } from "@/utils/constants";
 
 interface FormData {
   title: string;
@@ -18,6 +19,7 @@ interface FormData {
 const NotificationEdit = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [loading, setLoading] = useState(true);
   const schema = Yup.object().shape({
     title: Yup.string().required("Title is required"),
     content: Yup.string().required("Content is required"),
@@ -26,22 +28,28 @@ const NotificationEdit = () => {
     title: "",
     content: "",
   });
+  // console.log("formData", formData);
+  const dispatch = useDispatch();
   useEffect(() => {
     const fetchData = async () => {
       dispatch(loginStart(true));
       try {
+        setLoading(true);
         const data = await getApiData(`/notice/${id}`);
+        console.log("dataa", data.data);
         dispatch(loginStart(false));
         setFormData({
           title: data.data.title,
           content: data.data.content,
         });
+        setLoading(false);
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
   }, []);
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData({
@@ -51,11 +59,16 @@ const NotificationEdit = () => {
   };
 
   const handleContentChange = (value: string) => {
-    setFormData({
-      ...formData,
-      content: value,
-    });
+    if(!loading) {
+      setFormData({
+        ...formData,
+        content: value,
+      });
+      console.log(formData);
+    }
   };
+
+
   const backToPage = () => {
     navigate("/notification");
   };
@@ -65,9 +78,10 @@ const NotificationEdit = () => {
   const handleContentBlur = () => {
     setErrors({});
   };
-  const dispatch = useDispatch();
+
   const quillRef = useRef<ReactQuill>(null);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
@@ -81,10 +95,10 @@ const NotificationEdit = () => {
       });
       console.log("Response data:", response.data);
       if (response.data.success) {
-        EditSuccess();
+        navigate(routes.ANNOUNCEMENT)
         setTimeout(() => {
-          location.reload();
-        }, 2000);
+          EditSuccess();
+        },1000)
       } else {
         return notifyFail();
       }
@@ -131,7 +145,7 @@ const NotificationEdit = () => {
             ref={quillRef}
             className="h-[360px]"
             value={formData.content}
-            onChange={handleContentChange}
+            onChange={(e) => handleContentChange(e)}
             onBlur={handleContentBlur}
           />
         </div>

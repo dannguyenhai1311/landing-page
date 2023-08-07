@@ -1,7 +1,6 @@
 import { RootState } from "@/app/store";
 import notification from "@/assets/images/notication.png";
 import notificationIcon from "@/assets/images/icon-notification.png";
-
 import { ConfirmModal } from "@/components/ConfirmModal";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { loginStart } from "@/features/auth/authSlice";
@@ -9,7 +8,7 @@ import { deleteData } from "@/services/UserService";
 import { getApiData } from "@/services/apiService";
 import { faMagnifyingGlass, faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -288,15 +287,15 @@ const AdminContent = () => {
                     >
                       삭제
                     </button>
+                    <button
+                      onClick={handleCreate}
+                      className="w-[105px] h-[40px] border bg-gradient-to-r from-[#0066C1] to-[#009FE5] text-white flex flex-center items-center"
+                    >
+                      <FontAwesomeIcon icon={faPen} className="p-2" />
+                      <span> 다음 글</span>
+                    </button>
                   </div>
                 )}
-                <button
-                  onClick={handleCreate}
-                  className="w-[105px] h-[40px] border bg-gradient-to-r from-[#0066C1] to-[#009FE5] text-white flex flex-center items-center"
-                >
-                  <FontAwesomeIcon icon={faPen} className="p-2" />
-                  <span> 다음 글</span>
-                </button>
               </div>
             </div>
           </div>

@@ -26,6 +26,12 @@ export const postData = (
 ) => {
   return api.post(path, data);
 };
+export const postCampaignData = (
+  path: string,
+  data: { title: string; content: string, link: string, image: string}
+) => {
+  return api.post(path, data);
+};
 export const postDataContent = (
   path: string,
   data: { title: string, description: string, video: string }

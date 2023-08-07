@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as Yup from "yup";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -7,6 +7,10 @@ import { EditContentData } from "@/services/UserService";
 import { useNavigate, useParams } from "react-router-dom";
 import { EditSuccess } from "@/components/Notify/EditSuccess";
 import { ToastContainer } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { loginStart } from "@/features/auth/authSlice";
+import { getApiData } from "@/services/apiService";
+import { routes } from "@/utils/constants";
 
 interface FormData {
   title: string;
@@ -14,8 +18,9 @@ interface FormData {
   content: string;
 }
 const ContentEdit = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { id } = useParams();
+  const [loading, setLoading] = useState(true);
   const schema = Yup.object().shape({
     title: Yup.string().required("Title is required"),
     content: Yup.string().required("Content is required"),
@@ -26,6 +31,27 @@ const ContentEdit = () => {
     video: "",
     content: "",
   });
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const fetchData = async () => {
+      dispatch(loginStart(true));
+      try {
+        setLoading(true);
+        const data = await getApiData(`/content/${id}`);
+        dispatch(loginStart(false));
+        console.log(data.data);
+        setFormData({
+          title: data.data.title,
+          video: data.data.video,
+          content: data.data.description,
+        });
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData({
@@ -35,14 +61,17 @@ const ContentEdit = () => {
   };
 
   const handleContentChange = (value: string) => {
-    setFormData({
-      ...formData,
-      content: value,
-    });
+    if(!loading) {
+      setFormData({
+        ...formData,
+        content: value,
+      });
+      console.log(formData);
+    }
   };
   const backToPage = () => {
-    navigate("/content")
-  }
+    navigate("/content");
+  };
   const handleTitleInput = () => {
     setErrors({});
   };
@@ -65,10 +94,10 @@ const ContentEdit = () => {
       });
       console.log("Response data:", response.data);
       if (response.data.success) {
-        EditSuccess();
+        navigate(routes.CONTENT)
         setTimeout(() => {
-          location.reload();
-        }, 2000);
+          EditSuccess();
+        },1000)
       } else {
         return notifyFail();
       }
@@ -151,9 +180,13 @@ const ContentEdit = () => {
           >
             제목
           </button>
-          <button onClick={backToPage} className="w-[88px] h-[42px] border border-gray-400 bg-[#D9D9D9]">
-            취소
-          </button>
+        <button
+        type="button"
+          onClick={backToPage}
+          className="w-[88px] h-[42px] border border-gray-400 bg-[#D9D9D9]"
+        >
+          취소
+        </button>
         </div>
       </form>
       <ToastContainer />

@@ -18,6 +18,7 @@ interface FormData {
 const LivingLabEdit = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const schema = Yup.object().shape({
     title: Yup.string().required("Title is required"),
@@ -31,12 +32,14 @@ const LivingLabEdit = () => {
     const fetchData = async () => {
       dispatch(loginStart(true));
       try {
+        setLoading(true);
         const data = await getApiData(`/living-lab/${id}`);
         dispatch(loginStart(false));
         setFormData({
           title: data.data.title,
           content: data.data.content,
         });
+        setLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -52,10 +55,13 @@ const LivingLabEdit = () => {
   };
 
   const handleContentChange = (value: string) => {
-    setFormData({
-      ...formData,
-      content: value,
-    });
+    if(!loading) {
+      setFormData({
+        ...formData,
+        content: value,
+      });
+      console.log(formData);
+    }
   };
   const backToPage = () => {
     navigate("/living-lab")

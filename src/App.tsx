@@ -79,6 +79,7 @@ function App() {
             element={<CampaignCreate />}
           />
           <Route path={routes.CAMPAIGN_DETAIL} element={<CampaignDetail />} />
+          {/* <Route path={routes.CAMPAIGN_EDIT} element={<CampaignEdit />} /> */}
           <Route index path={routes.FREE_BOARD} element={<FreeBoard />} />
           <Route path={routes.FREE_BOARD_DETAIL} element={<FreeBoarDetail />} />
           <Route
