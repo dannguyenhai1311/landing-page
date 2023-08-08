@@ -11,7 +11,6 @@ import NotFound from "./page/NotFoundPage/NotFound";
 import NotificationDetail from "./page/NotificationPage/NotificationDetail";
 import CampaignDetail from "./page/CampaignPage/CampaignDetail";
 import LivingLabDetail from "./page/LivingLabPage/LivingLabDetail";
-import Facility from "./page/FacilityPage/Facility";
 import NotificationCreate from "./page/NotificationPage/NotificationCreate/NotificationCreate";
 import FreeBoard from "./page/FreeBoardPage/FreeBoard";
 import FreeBoarDetail from "./page/FreeBoardPage/FreeBoarDetail";
@@ -27,6 +26,7 @@ import ContentCreate from "./page/ContentsPage/ContentCreate/ContentCreate";
 import { Campaign } from "./page/CampaignPage/Campaign";
 import CampaignCreate from "./page/CampaignPage/CampaignCreate/CampaignCreate";
 import CampaignEdit from "./page/CampaignPage/CampaignEdit/CampaignEdit";
+import { Facility } from "./page/facility";
 
 function App() {
   return (

@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { routes } from "@/utils/constants";
-// import { role } from "@/login/Login";
 
 const Navbar = () => {
   const role = useSelector((state: any) => state.auth.role);
@@ -77,7 +76,6 @@ const Navbar = () => {
     } else if (role === "Normal" && !checkActive(routes.DEFAULT)) {
       return "bg-gradient-to-b from-[#008DCC] to-[#008E86]";
     }
-    // return "bg-white text-black";
   };
   const getColorActive = () => {
     if (role === "Admin") {
@@ -106,7 +104,7 @@ const Navbar = () => {
           setColor("bg-gradient-to-b from-[#008DCC] to-[#008E86]");
         else setScrolling(false);
       } else {
-        if (currentPosition < 80) setColor("text-white");
+        if (currentPosition < 80) setColor("");
         setScrolling(true);
       }
       setScrollTop(currentPosition <= 0 ? 0 : currentPosition);
@@ -167,14 +165,14 @@ const Navbar = () => {
             로그아웃
           </NavLink>
         </ul>
-        <button className="nav-btn " onClick={showNavbar}>
+        <button className="nav-btn" onClick={showNavbar}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={3}
             stroke="currentColor"
-            className="w-7 h-7 button sd:w-[50px] sd:h-[50px]  md:right-20"
+            className="w-7 h-7 button sd:w-[50px] sd:h-[50px]  md:right-20 text-black"
           >
             <path
               strokeLinecap="round"

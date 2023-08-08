@@ -132,8 +132,8 @@ const FreeBoard = () => {
         <div className="absolute top-[40%] inset-0 justify-center w-10 h-10 mx-auto border-4 border-t-4 rounded-full mt- fex flex-center border-primary border-t-transparent animate-spin"></div>
       )}
       {!isLoading && (
-        <div className="w-full h-full mx-auto">
-          <>
+        <div className="w-full h-full md:mx-auto">
+          <div className="w-full">
             <div className="relative">
               <img
                 src={freeBoard}
@@ -153,7 +153,7 @@ const FreeBoard = () => {
                 </div>
               </div>
             </div>
-          </>
+          </div>
           <div className="md:w-[1240px] min-w-[360px] mx-auto p-[24px] md:p-0">
             <div className="mb-[42px] mt-16 md:flex gap-x-2 flex-center justify-between">
               <h1 className="mb-2 text-2xl font-bold text-transparent md:md-0 bg-gradient-to-r from-[#0066C1] to-[#009FE5] bg-clip-text ">

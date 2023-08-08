@@ -14,12 +14,14 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
+import { useTranslation } from "react-i18next";
 // import { dataChecked } from "@/features/Data/dataSlice";
 const PAGE_SIZE = 10;
 const pageSize = 20;
 const searchValue = "title";
 const notice = "/notice";
 const Notification = () => {
+  const { t } = useTranslation()
   const role = useSelector((state: any) => state.auth.role);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -176,6 +178,7 @@ const Notification = () => {
                     type="text"
                     name=""
                     id=""
+                    placeholder={t('announce.searchPlaceholder')}
                   />
                   <button
                     onClick={handleSearch}

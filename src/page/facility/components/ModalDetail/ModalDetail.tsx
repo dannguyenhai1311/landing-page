@@ -24,11 +24,11 @@ type ModalDetailProps = {
 
 export function ModalDetail({ showDetail, onClose, selectedItem }: ModalDetailProps) {
   const [data, setData] = useState<DataType[]>([])
-  console.log("data123123", data);
+  console.log("data123", data);
   const [loading, setLoading] = useState(false)
+  const { VITE_SOCKET_FACILITY_ENDPOINT } = import.meta.env
   const { t } = useTranslation()
-  const url = import.meta.env.VITE_SOCKET_FACILITY_ENDPOINT;
-  const { readyState, sendJsonMessage } = useWebSocket(url, {
+  const { readyState, sendJsonMessage } = useWebSocket(VITE_SOCKET_FACILITY_ENDPOINT, {
     onOpen: () => {
       console.log('Connect successfully 1234!')
     },
@@ -41,6 +41,7 @@ export function ModalDetail({ showDetail, onClose, selectedItem }: ModalDetailPr
         setData([])
       } else {
         setData(res.data)
+        console.log("data123",res.data);
       }
       setLoading(false)
     },

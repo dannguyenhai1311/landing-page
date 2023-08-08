@@ -13,7 +13,6 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
-// import { dataChecked } from "@/features/Data/dataSlice";
 const PAGE_SIZE = 10;
 const pageSize = 20;
 const searchValue = "title";
