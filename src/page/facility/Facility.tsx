@@ -5,13 +5,11 @@ import { CommandType, FacilityData } from '@/models/Facility.model'
 import { useSelector } from 'react-redux'
 import { NormalFacility } from './NormalFacility'
 import { AdminFacility } from './AdminFacility'
-
 export type FacilityProps = {
   loading: boolean
   data: Array<FacilityData>
   totalCount?: number
 }
-
 export const Facility = () => {
   const role = useSelector((state: any) => state.auth.role)
   const [, updateState] = useState<any>()
@@ -52,7 +50,6 @@ export const Facility = () => {
     },
     filter: () => false
   })
-
   useEffect(() => {
     if (readyState === 1) {
       // 1 - open
